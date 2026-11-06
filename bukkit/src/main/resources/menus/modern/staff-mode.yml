@@ -1,0 +1,63 @@
+# ***
+# * IoriCore | Menu STAFF-MODE
+# ***
+# ~ Hotbar only (TYPE: HOTBAR). No inventory ACTIONS.
+# ~ ENABLED: false skips that tool. Textos → messages STAFF-MODE.HOTBAR.*
+
+ID: staff-mode
+TITLE: "&8Staff Mode"
+ROWS: 1
+TYPE: HOTBAR
+BORDER: false
+
+SOUND:
+  CLICK: UI-CLICK
+
+ITEMS:
+  RANDOM-TP:
+    ENABLED: true
+    SLOT: 0
+    MATERIAL: COMPASS
+    DATA: 0
+  FREEZE:
+    ENABLED: true
+    SLOT: 1
+    MATERIAL: PACKED_ICE
+    DATA: 0
+  INSPECT:
+    ENABLED: true
+    SLOT: 2
+    MATERIAL: CHEST
+    DATA: 0
+  PLAYERS:
+    ENABLED: true
+    SLOT: 3
+    MATERIAL: PAPER
+    DATA: 0
+  VANISH:
+    ENABLED: true
+    SLOT: 4
+    MATERIAL: GRAY_DYE
+    MATERIAL-FALLBACK: INK_SACK
+    DATA: 0
+  VANISH-ON:
+    ENABLED: true
+    SLOT: 4
+    MATERIAL: LIME_DYE
+    MATERIAL-FALLBACK: INK_SACK
+    DATA: 0
+  THRU:
+    ENABLED: true
+    SLOT: 5
+    MATERIAL: ENDER_PEARL
+    DATA: 0
+  STAFF-CHAT:
+    ENABLED: true
+    SLOT: 6
+    MATERIAL: BOOK
+    DATA: 0
+  EXIT:
+    ENABLED: true
+    SLOT: 8
+    MATERIAL: REDSTONE
+    DATA: 0

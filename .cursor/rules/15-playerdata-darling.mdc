@@ -1,0 +1,20 @@
+---
+description: PlayerData estilo Darling Profile — Lombok holder + Service + Sql
+alwaysApply: true
+globs: "**/player/**/*.java"
+---
+
+# PlayerData (Darling Profile)
+
+## Split obligatorio
+- `PlayerData` — holder `@Getter @Setter @Accessors(fluent = true)` (como `Profile` + Lombok).
+- `PlayerDataService` — handler/cache en memoria, join/quit/transfer.
+- `PlayerDataSql` — **solo** SQL (load/upsert/transfer). Sin mensajes ni comandos.
+
+## Prohibido
+- Mezclar SQL + lógica de feature en la misma clase gorda.
+- Getters/setters a mano en holders.
+- Comentarios narrativos en estos archivos.
+
+## Extensión
+Stats/configs de red nuevas → campos en `PlayerData` + métodos en Service + SQL en `PlayerDataSql`.

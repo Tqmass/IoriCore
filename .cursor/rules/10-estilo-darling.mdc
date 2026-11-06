@@ -1,0 +1,24 @@
+---
+description: Estilo de paquetes/nombres al estilo Darling (impl/, enums, arguments).
+alwaysApply: true
+---
+
+# Estilo Darling (evidencia local)
+
+Fuente: `D:\Minecraft\Plugins\SoupPvP\Darling\src\main\java\me\vals\darling`
+
+## Paquetes top-level (referencia)
+`claim/`, `combat/`, `commands/`, `hook/`, `layout/`, `listener/`, `map/`, `profile/`, `timer/`, `utils/`, `visual/`
+
+## Reglas obligatorias
+1. **Feature = paquete**. Dentro: servicio/manager, `command/` o args si hay subcomandos, `impl/` concretas, `enums/` un archivo por enum.
+2. **Lombok obligatorio** en holders (`IoriProxy`, configs, command parents): `@Getter` + `@Accessors(fluent = true)`. Sin getters manuales.
+3. **Formato**: blank line entre bloques lógicos; ifs cortos en 1 línea; nunca blank entre cada línea. Ver `60-formato-lombok-paquetes.mdc`.
+4. **Commands**: finos; lógica en servicio del feature. HelpOp/Request = comando + handler/servicio mínimo.
+5. **Paquetes IoriProxy**: `modules/`, `server/` (routing/lobby/send), `player/` (friends/playtime), `commands/`. Sync velocity↔bungee.
+6. Nombres: `*Manager`, `*Service`, `*Command`, `*Argument`, `*Listener`. Sin clases Dios.
+7. Utils: patrones Tasks/Logger/ColorUtil/Command framework — **no** copiar Darling NMS.
+
+## IoriProxy mapping
+- Solo Velocity + Bungee. `common/` = utils + command framework.
+- Features grandes con lifecycle → `modules/`. Server-facing → `server/`. Player-facing → `player/`.

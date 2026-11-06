@@ -1,0 +1,51 @@
+# ***
+# * IoriCore | Menu SETTINGS-LANG
+# ***
+
+ID: settings-lang
+TITLE-KEY: SETTINGS.LANG.TITLE
+ROWS: 3
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 7
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 3
+  NAME: " "
+  GLOW: false
+  SLOTS: [0, 8, 26]
+
+ITEMS:
+  EN:
+    SLOT: 11
+    MATERIAL: PAPER
+    NAME-KEY: SETTINGS.LANG.EN-NAME
+    LORE-KEY: SETTINGS.LANG.EN-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] settings.set-lang en"
+  ES:
+    SLOT: 15
+    MATERIAL: PAPER
+    NAME-KEY: SETTINGS.LANG.ES-NAME
+    LORE-KEY: SETTINGS.LANG.ES-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] settings.set-lang es"
+  BACK:
+    SLOT: 22
+    MATERIAL: ARROW
+    NAME-KEY: SETTINGS.MENU.BACK-NAME
+    LORE-KEY: SETTINGS.MENU.BACK-LORE
+    ACTIONS:
+      ANY:
+        - "[back]"

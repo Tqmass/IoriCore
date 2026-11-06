@@ -1,0 +1,575 @@
+# *************************************
+# *   IoriProxy | Messages Legacy ES  *
+# *   1.8.x – 1.12.2                  *
+# *************************************
+PREFIX: "&8(&bProxy&8) &8&l• &r"
+
+# ── GENERAL ──
+GENERAL:
+  NO-PERMISSION: "<prefix>&cNo tienes permiso."
+  PLAYER-ONLY: "<prefix>&cSolo jugadores pueden usar este comando."
+  PLAYER-NOT-FOUND: "<prefix>&cJugador no encontrado: &f<player>"
+  SERVER-NOT-FOUND: "<prefix>&cServidor no encontrado: &f<server>"
+  RELOAD-SUCCESS: "<prefix>&aConfiguración recargada."
+  FEATURE-DISABLED: "<prefix>&cEsta función está deshabilitada."
+  REDIS-TEST-START: "<prefix>&eProbando Redis..."
+  REDIS-NOT-CONNECTED: "<prefix>&cRedis no está conectado."
+  REDIS-TEST-OK: "<prefix>&aPING=&f<ping> &8| &7evento (&f<event_id>&7)"
+  UNKNOWN-COMMAND: "<prefix>&cComando desconocido."
+  COMMAND-BLOCKED: "&cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error."
+  HELP-BAR: "&7&m------------------------------------------&r"
+  HELP-TITLE: "&b&lProxy &8» &7Comandos"
+  PAGE-LABEL: "&7Página &f<page>&7/&f<pages>"
+  HELP-PREV-HOVER: "Página anterior"
+  HELP-NEXT-HOVER: "Siguiente página"
+  HELP-PAGE-LABEL: "&8[◀] &7Página &f<page>&7/&f<pages> &8[▶]"
+  HELP:
+    PAGES:
+      1:
+        - ""
+        - "&8• &f/ioriproxy reload &7- &eRecargar configs."
+        - "&8• &f/ioriproxy info &7- &eInfo del proxy."
+        - ""
+        - "&8• &f/send &7/ &f/goto &7/ &f/servers &7/ &f/find"
+        - "&8• &f/hub &7/ &f/maintenance &7/ &f/staff"
+      2:
+        - "&8• &f/staffchat &7/ &f/adminchat &7(/sc /ac)"
+        - "&8• &f/report &7/ &f/reports &7/ &f/request &7(/helpop)"
+        - "&8• &f/blacklist &7/ &f/friend &7/ &f/playtime"
+        - "&8• &f/ping &7/ &f/seen &7/ &f/alts &7/ &f/transfer"
+      3:
+        - "&8• &f/stream &7/ &f/video &7/ &f/donation &7/ &f/ggwave"
+        - "&8• &f/announce &7/ &f/alert &7/ &f/analytics &7/ &f/redistest"
+
+# ── ALERTS ──
+ALERTS:
+  JOIN: "&b[S] &d[Staff] &4<player> &bse ha conectado a &f<server>&b."
+  QUIT: "&b[S] &d[Staff] &4<player> &bse ha desconectado de &f<server>&b."
+  SWITCH: ""
+  SEND: ""
+  MAINTENANCE-ON: "&b[S] &cMantenimiento &bactivado &7(&e<scope>&7) &8por &e<by>&8."
+  MAINTENANCE-OFF: "&b[S] &aMantenimiento &bdesactivado &7(&e<scope>&7) &8por &e<by>&8."
+  COMMAND-BLOCKED: "&b[S] &e<player> &7intentó &c<command>&7."
+  SERVER-DOWN: "&c[ADMIN] &7Servidor caído&8: &f<server>"
+  SERVER-UP: "&a[ADMIN] &7Servidor online otra vez&8: &f<server>"
+
+# ── TRANSFER ──
+TRANSFER:
+  SEND-USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/send <servidor> &7- &eIr a un servidor."
+    - "&8• &f/send <jugador> <servidor> &7- &eEnviar a un jugador."
+    - "&7&m------------------------------------------&r"
+  GOTO-USAGE: "&8• &f/goto <jugador> &7- &eIr al servidor del jugador."
+  FIND-USAGE: "&8• &f/find <jugador> &7- &eBuscar en qué servidor está."
+  SENT-SELF: "<prefix>&aConectando a &f<server>&a..."
+  SENT-OTHER: "<prefix>&aHas enviado a &f<player> &aa &f<server>&a."
+  SENT-BY:
+    - "&7&m------------------------------------------&r"
+    - "&bHas sido enviado a &f<server> &bpor &e<by>&b."
+    - "&7&m------------------------------------------&r"
+  ALREADY-CONNECTED: "<prefix>&cYa estás conectado a ese servidor."
+  SEND-FAILED: "<prefix>&cNo se pudo conectar a &f<server>&c."
+  GOTO-SUCCESS: "<prefix>&aYendo a &f<player> &7(&f<server>&7)."
+  FIND-RESULT:
+    - "&7&m------------------------------------------&r"
+    - "&7 * &bJugador&7: &f<player>"
+    - "&7 * &bServidor&7: &f<server>"
+    - "&7 * &bProxy&7: &f<proxy>"
+    - "&7&m------------------------------------------&r"
+  TARGET-SERVER-UNAVAILABLE: "<prefix>&c<player> está en &f<server>&c, no disponible aquí."
+  SERVERS-HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&bServidores &f(<count>)"
+  SERVERS-ENTRY: "&7» &f<server> &8- <status> &f(<players>)"
+  SERVERS-STATUS-ONLINE: "&aEncendido"
+  SERVERS-STATUS-OFFLINE: "&cApagado"
+  SERVERS-FOOTER: "&7&m------------------------------------------&r"
+
+LOBBY:
+  SENDING: "<prefix>&7Enviándote al lobby..."
+  NO-LOBBY: "<prefix>&cNo hay lobbies disponibles."
+  FALLBACK-KICK: "<prefix>&eTe movimos a &f<server>&e."
+  FALLBACK-DOWN: "<prefix>&eServidor caído. Redirigiendo a &f<server>&e..."
+  FALLBACK: "<prefix>&eTe movimos a &f<server>&e."
+  TITLE-FALLBACK: "&b&lRoyalCTW"
+  SUBTITLE-FALLBACK: "&7Reconectando al lobby..."
+  TITLE-LOBBY: "&b&lRoyalCTW"
+  SUBTITLE-LOBBY: "&a¡Bienvenido!"
+
+MAINTENANCE:
+  NONE: "<prefix>&aNo hay mantenimientos activos."
+  STATUS-ENTRY: "&7 * &b<scope>&7: &f<reason>"
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/maintenance on [duracion] &7- &eActivar."
+    - "&8• &f/maintenance on countdown <tiempo> [duracion]"
+    - "&8• &f/maintenance off &7- &eDesactivar global."
+    - "&8• &f/maintenance list &7- &eVer activos. &8(/status)"
+    - "&8• &f/maintenance help &7- &eEsta ayuda."
+    - "&8• &f/maintenance <servidor> [duracion]"
+    - "&8• &f/maintenance <servidor> countdown <tiempo> [duracion]"
+    - "&8• &f/maintenance whitelist add <jugador>"
+    - "&8• &f/maintenance whitelist remove <jugador>"
+    - "&8• &f/maintenance whitelist list"
+    - "&8• &f/maintenance reload &7- &eRecargar."
+    - "&7&m------------------------------------------&r"
+  ENABLED: "<prefix>&aMantenimiento activado<where>&a."
+  COUNTDOWN-SCHEDULED: "<prefix>&eCountdown &f<time> &e→ luego mantenimiento<where>&e."
+  INVALID-DURATION: "<prefix>&cDuración inválida. Usa 15s, 5m, 2h, 1d."
+  WHITELIST-USAGE: "&8• &f/maintenance whitelist add|remove|list [jugador]"
+  WHITELIST-ADDED:
+    - "&7&m------------------------------------------&r"
+    - "&aWhitelist &7» &f+ <entry>"
+    - "&7&m------------------------------------------&r"
+  WHITELIST-REMOVED:
+    - "&7&m------------------------------------------&r"
+    - "&cWhitelist &7» &f- <entry>"
+    - "&7&m------------------------------------------&r"
+  WHITELIST-NOT-FOUND: "<prefix>&c&f<entry> &cno está en la whitelist."
+  WHITELIST-HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&bWhitelist mantenimiento"
+  WHITELIST-ENTRY: "&7 * &f<entry>"
+  WHITELIST-FOOTER: "&7&m------------------------------------------&r"
+  KICK:
+    - "&7&m------------------------------------------&r"
+    - "&c&lMantenimiento"
+    - "&7 * &bMotivo&7: &f<reason>"
+    - "&7&m------------------------------------------&r"
+  COUNTDOWN:
+    TITLE-MAIN: "&c&lMantenimiento"
+    TITLE-SUB: "&7Comienza en &f<time>"
+    CHAT: "<prefix>&eMantenimiento<where> &een &f<time>&e."
+    STARTED: "<prefix>&cEl mantenimiento está activo<where>&c."
+    ENDED: "<prefix>&aMantenimiento finalizado<where>&a."
+
+BLACKLIST:
+  USAGE: "&8• &f/blacklist <jugador> [-s] [motivo]"
+  UN-USAGE: "&8• &f/unblacklist <jugador> [-s] [motivo]"
+  ADDED: "<prefix>&cBlacklist &7» &f<player> &8(&7<reason>&8)"
+  REMOVED: "<prefix>&aUnblacklist &7» &f<player>"
+  DENY:
+    - "&7&m------------------------------------------&r"
+    - "&c&lBlacklist"
+    - "&7Estás en la blacklist de la network."
+    - "&7&m------------------------------------------&r"
+
+PUNISHMENTS:
+  BAN:
+    DENY:
+      - "&7&m------------------------------------------&r"
+      - "&c&lEstás baneado"
+      - "&7Razón: &f<reason>"
+      - "&7Expira: &f<expires>"
+      - "&7&m------------------------------------------&r"
+    NO-REASON: "Sin motivo"
+    PERMANENT: "Permanente"
+
+MOTD:
+  DEFAULT:
+    - |-
+      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
+      &fNUEVO &8▾ &bCAPTURE THE WOOL
+  MAINTENANCE:
+    - |-
+      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
+      &4✗ &c¡Estamos en mantenimiento!
+  LEGACY:
+    - |-
+      &b&lIORIPROXY &7NETWORK
+      &7Bienvenido
+
+STAFF-AUTH:
+  USAGE: "&8• &f/staffauth approve <token> &7- &eAprobar login staff tras cambio IP/geo."
+  PENDING:
+    - "&7&m------------------------------------------&r"
+    - "<prefix>&eAuth de staff requerida &7· cambió IP/geo."
+    - "&7IP: &f<ip> &8| &7País: &f<country>"
+    - "&7Solicitud de aprobación enviada al staff en Discord."
+    - "&7&m------------------------------------------&r"
+  APPROVED: "<prefix>&aSesión staff aprobada &7por &f<actor>&a."
+  DENIED: "<prefix>&cAuth de staff denegada &7por &f<actor>&c."
+  APPROVE-OK: "<prefix>&aAuth de staff aprobada para &f<uuid>&a."
+  UNKNOWN-TOKEN: "<prefix>&cToken de aprobación desconocido o caducado."
+  INVALID-TOKEN: "<prefix>&cFormato de token inválido."
+  SELF-APPROVE: "<prefix>&cNo puedes aprobar tu propia sesión de staff."
+
+STAFF:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/staff list &7- &eVer staff online."
+    - "&7&m------------------------------------------&r"
+  LIST-EMPTY: "<prefix>&7No hay staff en línea."
+  LIST-HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&bStaff &7(<count>)"
+  LIST-ENTRY: "&7 * &b<player> &7@ &f<server>"
+  LIST-ENTRY-RANK: "&7 * &f<rank>&r &b<player> &7@ &f<server>"
+  LIST-FOOTER: "&7&m------------------------------------------&r"
+
+STAFFCHAT:
+  FORMAT: "&8[&bSC&8] &f<player> &8» &7<message>"
+  FORMAT-DISCORD: "&8[&dSC&8] &5DISCORD &e<player> &8» &f<message>"
+  TOGGLE-ON: "<prefix>&aStaffChat activado. &7Tus mensajes van al staff."
+  TOGGLE-OFF: "<prefix>&cStaffChat desactivado. &7Tus mensajes son públicos."
+  USAGE: "&8• &f/staffchat <mensaje> &7- &eCanal staff. &8(/sc)"
+
+ADMINCHAT:
+  FORMAT: "&8[&cAC&8] &f<player> &8» &7<message>"
+  TOGGLE-ON: "<prefix>&aAdminChat activado."
+  TOGGLE-OFF: "<prefix>&cAdminChat desactivado."
+  USAGE: "&8• &f/adminchat <mensaje> &7- &eCanal admin. &8(/ac)"
+  REQUEST-SENT: "<prefix>&aTu solicitud fue enviada al staff."
+
+STREAM:
+  USAGE: "&8• &f/stream <url> &7- &eAnunciar un directo. &8(/video)"
+  INVALID-URL: "<prefix>&cURL no permitida. Solo &fYouTube&c, &fTwitch &co &fKick&c."
+  COOLDOWN: "<prefix>&cEspera &f<seconds>s &cantes de anunciar otro directo."
+  BROADCAST:
+    - "&7&m------------------------------------------&r"
+    - "&b&l<title>"
+    - "&7× &bStreamer&7: &f<player>"
+    - "&7× <stream_click>"
+    - "&7&m------------------------------------------&r"
+  BROADCAST-LEGACY:
+    - "&7&m------------------------------------------&r"
+    - "&b&l<title>"
+    - "&7× &bStreamer&7: &f<player>"
+    - "&7× &a[ Clic para ver ]"
+    - "&8  &7<url>"
+    - "&7&m------------------------------------------&r"
+  CLICK-VIDEO: "&a[ Clic para ver el vídeo ]"
+  CLICK-LIVE: "&a[ Clic para ver el directo ]"
+  BROADCAST-VIDEO:
+    - ""
+    - "&7&m------------------------------------------&r"
+    - "&6¡Nuevo video publicado!"
+    - "&8» &7Creador&8: &f<player>"
+    - "&8» <stream_click>"
+    - "&7&m------------------------------------------&r"
+    - ""
+  BROADCAST-LIVE:
+    - ""
+    - "&7&m------------------------------------------&r"
+    - "&d¡Transmitiendo en directo!"
+    - "&8» &7Streamer&8: &f<player>"
+    - "&8» <stream_click>"
+    - "&7&m------------------------------------------&r"
+    - ""
+  CLICK-HOVER: "&7Clic para abrir"
+
+ANNOUNCEMENTS:
+  DEFAULT:
+    - |
+      <center>&c&lAyuda &8• &f(Soporte)</center>
+      <center>&f¿Tienes alguna duda o necesitas ayuda?</center>
+      <center>&fUtiliza &c/request &fy recibirás ayuda de</center>
+      <center>&buno de nuestro personal conectado.</center>
+      <center>&8&o(Si no hay nadie, explícanos por Discord)</center>
+      <center>&9https://discord.gg/ioriproxy</center>
+    - |
+      <center>&b&lDiscord &8• &f(Comunidad)</center>
+      <center>&fEntra a nuestro &bdiscord &fy entérate</center>
+      <center>&fde noticias, actualizaciones y eventos.</center>
+      <center>&9https://discord.gg/ioriproxy</center>
+    - |
+      <center>&6&lTienda &8• &f(VIP)</center>
+      <center>&fApoya la network y desbloquea</center>
+      <center>&frangos, cosméticos y más.</center>
+      <center>&6https://tienda.ioriproxy.net</center>
+  LOBBY:
+    - |
+      <center>&b&lLobby &8• &f(Hub)</center>
+      <center>&fElige una modalidad en el menú</center>
+      <center>&fo usa &b/server &fpara teletransportarte.</center>
+      <center>&9https://discord.gg/ioriproxy</center>
+  CTW:
+    - |
+      <center>&6&lCapture The Wool</center>
+      <center>&fUsa &c/request &fsi necesitas ayuda del staff.</center>
+      <center>&fApoya la network en la tienda.</center>
+      <center>&6https://tienda.ioriproxy.net</center>
+
+REPORT:
+  USAGE: "&8• &f/report <jugador> <motivo...> &7- &eReportar a un jugador."
+  COOLDOWN: "<prefix>&cEspera &f<seconds>s &cantes de reportar de nuevo."
+  SENT: "<prefix>&aReporte enviado contra &f<target>&a."
+  SELF: "<prefix>&cNo puedes reportarte a ti mismo."
+  OFFLINE-OK: "<prefix>&7El jugador no tiene que estar online."
+  NOTIFY:
+    - "&7&m------------------------------------------&r"
+    - "&c&lReporte &7#<id>"
+    - "&7 * &bAutor&7: &f<reporter>"
+    - "&7 * &bReportado&7: &f<target>"
+    - "&7 * &bMotivo&7: &f<reason>"
+    - "&7 * &bServidor&7: &f<server>"
+    - "&7&m------------------------------------------&r"
+  RESOLVED: "<prefix>&aReporte &f#<id> &aresuelto por &b<staff> &8(&7<target>&8)"
+  LIST-HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&bReportes &7(<count>)"
+  LIST-ENTRY: "&7 * &f#<id> &c<target> &7por &b<reporter>"
+  LIST-FOOTER: "&7&m------------------------------------------&r"
+  REASONS-HEADER: "&bMotivos de reporte"
+  REPORTS-USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/reports list &7- &eVer pendientes."
+    - "&8• &f/reports resolve <id> &7- &eResolver."
+    - "&7&m------------------------------------------&r"
+  RESOLVE-USAGE: "&8• &f/reports resolve <id>"
+  TITLE-MAIN: "&6&l&nNEW REPORT"
+  TITLE-SUB: "&f<target> has been reported for &d<reason> &fon &d<server>"
+  TOGGLE-USAGE: "&8• &f/report toggle title &7- &eActivar/desactivar título de reportes."
+
+HELPOP:
+  USAGE: "&8• &f/request <mensaje> &7- &ePedir ayuda. &8(/helpop)"
+  SENT: "<prefix>&aSolicitud &f#<id> &aenviada al staff."
+  NOTIFY-TITLE: "&8(&cSoporte&8) &f#<id> &8• &b<player> &7@ &f<server>"
+  NOTIFY: "&8(&cSoporte&8) &f<player> &8• &c<message> &a[REPLY] &b[MOVE]"
+  REPLY-USAGE: "&8• &f/request reply <id> <mensaje>"
+  REPLIED: "&8(&cSoporte&8) &f<staff> &8• &7<message>"
+  REPLIED-STAFF: "<prefix>&aRespuesta enviada al ticket &f#<id>&a."
+  MOVE-USAGE: "&8• &f/request move <id>"
+  MOVED: "<prefix>&aConectando al jugador del ticket &f#<id>&a..."
+  COOLDOWN: "<prefix>&cEspera &f<seconds>s &cantes de otra solicitud."
+  NOT-FOUND: "<prefix>&cTicket no encontrado: &f<id>"
+  NOTIFY-LINE: "&c(Soporte) &f<player> &8• &c<message>"
+  REPLY-BUTTON: "&a[REPLY]"
+  REPLY-HOVER: "&7Responder"
+  MOVE-BUTTON: "&b[MOVE]"
+  MOVE-HOVER: "&7Ir al jugador"
+
+PLAYTIME:
+  USAGE: "&8• &f/playtime [jugador]"
+  RESULT:
+    - "&7&m------------------------------------------&r"
+    - "&b&lPlaytime"
+    - "&7 * &bJugador&7: &f<player>"
+    - "&7 * &bTotal&7: &f<total>"
+    - "&7 * &bServidor &f<server>&7: &f<server_time>"
+    - "&7&m------------------------------------------&r"
+  RESULT-FOOTER:
+    - "&7&m------------------------------------------&r"
+  RESULT-HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&b&lPlaytime"
+    - "&7× &bJugador&7: &f<player>"
+    - "&7× &bTotal&7: &f<total>"
+  SERVERS-EMPTY: "&8  × &7Sin datos por servidor."
+  SERVERS-LABEL: "&bServidores"
+
+ANALYTICS:
+  SUMMARY:
+    - "&7&m------------------------------------------&r"
+    - "&b&lAnalytics"
+    - "&7× &bProxy&7: &f<proxy>"
+    - "&7× &bJoins&7: &f<joins>"
+    - "&7× &bPeak&7: &f<peak>"
+    - "&7× &bOnline&7: &f<online>"
+    - "&7&m------------------------------------------&r"
+  FOOTER:
+    - "&7&m------------------------------------------&r"
+  SERVERS-LABEL: "&bServidores"
+  VERSIONS-BREAKDOWN: "&bResumen por brand"
+  VERSIONS-HINT: "&8· &7/analytics versions &8- &ebrands de clientes"
+
+PING:
+  USAGE: "&8• &f/ping [jugador]"
+  RESULT: "<prefix>&7 * &b<player>&7: &f<ping>ms &8(<proxy>)"
+  REMOTE: "<prefix>&7 * &b<player> &7en &f<proxy> &8@ &f<server>"
+
+FRIENDS:
+  USAGE: "&8• &f/friend help"
+  HELP:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/friend add <jugador> &7- &eEnviar solicitud."
+    - "&8• &f/friend accept <jugador> &7- &eAceptar solicitud."
+    - "&8• &f/friend deny <jugador> &7- &eDenegar solicitud."
+    - "&8• &f/friend remove <jugador> &7- &eEliminar amigo."
+    - "&8• &f/friend list &7- &eMostrar lista de amigos."
+    - "&8• &f/friend msg <jugador> <msg> &7- &eMensaje privado."
+    - "&8• &f/friend broadcast <msg> &7- &eMensaje a amigos."
+    - "&7&m------------------------------------------&r"
+  USAGE-ADD: "&8• &f/friend add <jugador>"
+  USAGE-ACCEPT: "&8• &f/friend accept <jugador>"
+  USAGE-DENY: "&8• &f/friend deny <jugador>"
+  USAGE-REMOVE: "&8• &f/friend remove <jugador> [confirm]"
+  MSG-USAGE: "&8• &f/friend msg <jugador> <mensaje>"
+  BROADCAST-USAGE: "&8• &f/friend broadcast <mensaje>"
+  REQUEST-SENT: "<prefix>&aSolicitud enviada a &f<player>&a."
+  REQUEST-RECEIVED: "<prefix>&e<player> &7te envió una solicitud de amistad."
+  REQUEST-BUTTONS: "&a[ACEPTAR] &c[RECHAZAR]"
+  ACCEPTED: "<prefix>&aAhora eres amigo de &f<player>&a."
+  ACCEPTED-SELF: "<prefix>&a&f<player> &aaceptó tu solicitud."
+  ACCEPTED-NOTIFY: "<prefix>&aAhora eres amigo de &f<player>&a."
+  DENIED: "<prefix>&7Rechazaste la solicitud de &f<player>&7."
+  DENIED-NOTIFY: "<prefix>&7&f<player> &7rechazó tu solicitud."
+  REMOVED: "<prefix>&aEliminaste a &f<player> &ade tus amigos."
+  REMOVED-NOTIFY: "<prefix>&e<player> &7te eliminó de su lista."
+  REMOVE-CONFIRM: "<prefix>&eEjecuta otra vez &f/friend remove <player> &epara confirmar."
+  LIST-HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&bAmigos &7(<count>)"
+  LIST-ENTRY-ONLINE: "&7 * &b<player> &7@ &f<server>"
+  LIST-ENTRY-OFFLINE: "&7 * &7<player> &8(desconectado)"
+  LIST-FOOTER: "&7&m------------------------------------------&r"
+  LIST-EMPTY:
+    - "&7&m------------------------------------------&r"
+    - "&7No tienes amigos todavía."
+    - "&7&m------------------------------------------&r"
+  SELF: "<prefix>&cNo puedes añadirte a ti mismo."
+  ALREADY-FRIENDS: "<prefix>&cYa sois amigos."
+  PENDING: "<prefix>&cYa hay una solicitud pendiente."
+  NO-REQUEST: "<prefix>&cNo hay solicitud pendiente de ese jugador."
+  NOT-FRIEND: "<prefix>&cEse jugador no está en tu lista."
+  MSG-NOT-FRIEND: "<prefix>&cSolo puedes escribir a amigos."
+  MAX-REACHED: "<prefix>&cTu lista de amigos está llena."
+  TARGET-MAX: "<prefix>&cLa lista de amigos de ese jugador está llena."
+  COOLDOWN: "<prefix>&cEspera &f<seconds>s &cantes de otra solicitud."
+  NOTIFY-JOIN: "&8[&dF&8] &5<player> &djoined &f<server>&d."
+  NOTIFY-QUIT: "&8[&dF&8] &5<player> &dleft the network."
+  NOTIFY-SWITCH: "&8[&dF&8] &5<player> &djoined &f<server> &dfrom &f<from>&d."
+  MSG-FORMAT-OUT: "&8[&dF&8] &ftú &8» &7<player>&8: &f<message>"
+  MSG-FORMAT-IN: "&8[&dF&8] &f<player> &8» &7tú&8: &f<message>"
+  BROADCAST-FORMAT-OUT: "&8[&dF&8] &fBroadcast &8» &7<message>"
+  BROADCAST-FORMAT-IN: "&8[&dF&8] &f<player> &8» &7<message>"
+  MSG-SPY: "&8[&cSPY&8] &7<from> &8→ &7<to>&8: &f<message>"
+  LIST-MSG-BUTTON: "&a✎"
+  LIST-MSG-HOVER: "Escribir mensaje"
+  LIST-REMOVE-BUTTON: "&c✖"
+  LIST-REMOVE-HOVER: "Eliminar amigo"
+  REQUEST-ACCEPT-BUTTON: "[ACEPTAR]"
+  REQUEST-ACCEPT-HOVER: "Aceptar solicitud"
+  REQUEST-CANCELLED: "<prefix>&7Cancelaste la solicitud a &f<player>&7."
+  REQUEST-DENY-BUTTON: "[RECHAZAR]"
+  REQUEST-DENY-HOVER: "Rechazar solicitud"
+  REQUESTS-EMPTY: "&7× &7No tienes solicitudes pendientes."
+  REQUESTS-ENTRY: "&7× &f<player>"
+  REQUESTS-FOOTER:
+    - "&7&m------------------------------------------&r"
+  USAGE-REQUEST: "&8• &f/friend request cancel <jugador>"
+  USAGE-REQUEST-CANCEL: "&8• &f/friend request cancel <jugador>"
+
+DONATIONS:
+  GG-TRIGGER: "&e<player> &7dice &aGG&7! &8(&f<count>&8)"
+  GGWAVE-STARTED: "<prefix>&aOla GG iniciada."
+  TEST-USAGE: "&8• &f/donation test <jugador> <paquete> <precio>"
+  TEST-OK: "<prefix>&aDonación de prueba para &f<player>&a."
+  BROADCAST:
+    - "&7&m------------------------------------------&r"
+    - "&b&lRoyalCTW &7• &aNueva Compra"
+    - "&7 * &aModalidad&7: &f<mode>"
+    - "&7 * &aComprador&7: &f<player>"
+    - "&7 * &aPaquete&7: &f<package>"
+    - "&7 * &aPrecio&7: &f<price>"
+    - "&7 * &aMeta&7: &f<collected>$ &8| &f<meta>$"
+    - "&7 * &bTienda&7: &f<store>"
+    - "&7Escribe &aGG &7en el chat para celebrar."
+    - "&7&m------------------------------------------&r"
+  BAR-FILLED: "&a■"
+  BAR-EMPTY: "&c■"
+
+# — ANNOUNCE ————————————————————
+ANNOUNCE:
+  USAGE: "&8• &f/announce [servidor|all] <título> | <subtítulo>"
+  SENT: "<prefix>&aAnuncio enviado a &f<target> &7(&f<count> &7jugadores)."
+  TITLE-LEGACY: "&6&l<text>"
+  SUBTITLE-LEGACY: "&f<text>"
+
+# — ALERT ———————————————————————
+ALERT:
+  USAGE: "&8• &f/alert <mensaje>"
+  SENT: "<prefix>&aAlerta enviada a &f<count> &ajugadores."
+  BROADCAST-LEGACY:
+    - "&7&m------------------------------------------&r"
+    - "&b&lALERTA"
+    - "&f<message>"
+    - "&7&m------------------------------------------&r"
+
+# — GLIST ———————————————————————
+GLIST:
+  HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&bJugadores online &7(<total>)"
+  ENTRY: "&8  · &f<server>&7: &f<count>"
+  FOOTER:
+    - "&7&m------------------------------------------&r"
+
+# — SEEN ————————————————————————
+SEEN:
+  USAGE: "&8• &f/seen <jugador> &7- &eInfo del jugador. &8(/inspect /info)"
+  HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&b&lSeen &8• &f<player>"
+  LINE-UUID: "&7· &bUUID&7: &f<uuid>"
+  LINE-IP-COUNTRY: "&7· &bDirección IP&7: &f<ip> &8| &bPaís&7: &f<country>"
+  LINE-NAME: "&7· &bNombre&7: &f<player>"
+  LINE-STATUS: "&7· &bEstado&7: &f<status>"
+  STATUS-ONLINE: "&aConectado"
+  STATUS-OFFLINE: "&cDesconectado"
+  STATUS-BLACKLISTED: "&4Blacklisteado"
+  STATUS-BANNED: "&4Baneado"
+  LINE-SERVER-ONLINE: "&7· &bServidor&7: &f<server>"
+  LINE-SERVER-OFFLINE: "&7· &bÚltimo servidor conectado&7: &f<server>"
+  LINE-FIRST: "&7· &bFecha primera conexión&7: &f<when>"
+  LINE-LAST: "&7· &bFecha última conexión&7: &f<when>"
+  LINE-PLAYTIME-LABEL: "&7· &bTiempo jugado&7:"
+  PLAYTIME-NETWORK: "&8  · &fNetwork &7(Todo)&7: &f<time>"
+  SERVER-ENTRY: "&8  · &f<server>&7: &f<time>"
+  FOOTER:
+    - "&7&m------------------------------------------&r"
+
+# — ALTS ————————————————————————
+ALTS:
+  USAGE: "&8• &f/alts <jugador> &7- &eVer multicuentas vinculadas por IP."
+  HEADER:
+    - "&7&m------------------------------------------&r"
+    - "&bAlts &8• &f<player> &7(<count>)"
+  ENTRY: "&8  · <status> &f<player>"
+  EMPTY: "&8  · &7Sin multicuentas detectadas."
+  STATUS-ONLINE: "&a[Conectado]"
+  STATUS-OFFLINE: "&8[Desconectado]"
+  STATUS-BANNED: "&c[Baneado]"
+  FOOTER:
+    - "&7&m------------------------------------------&r"
+
+# — ACCOUNT-TRANSFER ————————————
+ACCOUNT-TRANSFER:
+  USAGE: "&8• &f/transfer <origen> <destino> &7- &eMigrar amigos, playtime, whitelist e IPs."
+  SELF: "<prefix>&cNo puedes transferir una cuenta a sí misma."
+  SUCCESS: "<prefix>&aTransferido &f<from> &a→ &f<to>&a."
+
+# — PROFILE —————————————————————
+PROFILE:
+  USAGE: "&8• &f/profile [jugador] &7- &eVer perfil de red."
+  LINES:
+    - "&7&m------------------------------------------&r"
+    - "&b&lPerfil &8• &f<player>"
+    - "&7· &bUUID&7: &f<uuid>"
+    - "&7· &bRango&7: &f<rank>"
+    - "&7· &bEstado&7: &f<status>"
+    - "&7· &bPrimera conexión&7: &f<first>"
+    - "&7· &bÚltima conexión&7: &f<last>"
+    - "&7· &bTiempo jugado&7: &f<playtime>"
+    - "&7· &bAmigos&7: &f<friends>"
+    - "&7· &bDiscord&7: &f<discord>"
+    - "&7&m------------------------------------------&r"
+  STATUS-ONLINE: "&aConectado &7(&f<server>&7)"
+  STATUS-OFFLINE: "&cDesconectado"
+  DISCORD-LINKED: "&aVinculado"
+  DISCORD-NOT-LINKED: "&7Sin vincular"
+  NOW: "&aAhora"
+  RANK-NONE: "&7Default"
+
+# — SYNC ————————————————————————
+SYNC:
+  CODE:
+    - "<prefix>&aTu código de sync Discord: &f<code>&a."
+    - "<prefix>&7Caduca en &f<minutes>&7 min. Usa &f/sync <code>&7 en Discord."
+  ALREADY-LINKED: "<prefix>&cTu cuenta ya está vinculada a Discord."
+  NOT-LINKED: "<prefix>&cTu cuenta de Minecraft no está vinculada a Discord."
+  UNLINKED: "<prefix>&aCuenta de Discord desvinculada."
+  UNAVAILABLE: "<prefix>&cEl sync de Discord no está disponible ahora."
+  COOLDOWN: "<prefix>&cEspera &f<seconds>s &cantes de pedir otro código."
+  BLOCKED-PENDING: "<prefix>&cCompleta la autenticación de staff primero."

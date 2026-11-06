@@ -1,0 +1,54 @@
+# *************************************
+# *    IoriProxy | Webhook donations   *
+# *************************************
+# ~ Placeholders: %player% %package% %price% %mode% %collected% %meta% %store%
+# ~ También: <player> <package> <price> <mode> <collected> <meta> <store>
+
+# ────────────────────────────
+# CONFIGURACIÓN DE DISCORD WEBHOOK
+# ────────────────────────────
+# Puedes usar el avatar-url
+#  · https://minotar.net/helm/%player%/128.png
+# Para usar la cabeza del jugador, si no puedes usar:
+#  · https://visage.surgeplay.com/bust/152/%player% para usar la mitad de tu skin
+
+# ────────────────────────────
+# CONNECTION
+# ────────────────────────────
+ENABLED: false
+URL: ""
+USERNAME: "IoriProxy | Donaciones"
+AVATAR-URL: "https://visage.surgeplay.com/bust/152/%player%"
+
+# ────────────────────────────
+# MESSAGE
+# ────────────────────────────
+CONTENT: "🛒 ¡OH! **META GLOBAL**: [**%collected%$**/**%meta%$**] 🎉"
+
+# ────────────────────────────
+# EMBED
+# ────────────────────────────
+EMBED:
+  COLOR: "#F73939"
+  TIMESTAMP: true
+
+  AUTHOR:
+    NAME: ""
+    URL: ""
+    ICON-URL: ""
+
+  TITLE: "📦 **¡NUEVA DONACIÓN!**"
+  TITLE-URL: ""
+
+  DESCRIPTION: |
+
+    👤 **Comprador:** %player%
+    📦 **Paquete:** `%package%`
+    💰 **Precio:** %price%
+    🌎 **Modalidad:** %mode%
+
+  THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+  IMAGE-URL: ""
+
+  FOOTER: "%player% · (%mode%)"
+  FOOTER-ICON-URL: "https://visage.surgeplay.com/face/%player%"

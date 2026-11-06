@@ -1,0 +1,570 @@
+# *************************************
+# *  RoyalCTW | Discord (JDA Proxy)   *
+# *************************************
+# ~ Bot JDA ÚNICO en el PROXY (owner de red: staff-auth DM + /sync + botones). TOKEN solo aquí — nunca hardcode.
+# ~ Core/backends NO arrancan JDA: publican eventos por Redis (sección BRIDGE) y el proxy los envía a Discord.
+# ~ JDA en proxy: discord.yml ENABLED + BOTS.PRIMARY (o BOT) + TOKEN. Core/backends sin JDA.
+# ~ Fail soft sin TOKEN: el staff-auth cae a modo PASSWORD (el step-up sigue activo con contraseña).
+# ~ No arrancar dos JDA con el mismo TOKEN. Rollback = DISCORD-BOT al Core y apagarlo en el proxy.
+# ~ BOTS.PRIMARY puede sobrescribir TOKEN/GUILD-ID raíz.
+# ~ Extra BOTS (ALERTS, …): se arrancan si ENABLED + TOKEN; sin extras → PRIMARY-only.
+# ~ Placeholders embeds: %player% %uuid% %ip% %country% %region% %city% %previous_country% %previous_region%
+# ~                      %discord% %actor% %server% %fails% %duration% %token% %skin_url%
+# ~ Skin/IP no son comandos in-game: van en embeds (AUTHOR-ICON / THUMBNAIL / fields %ip% %skin_url%)
+# ~ La IP nunca se guarda en claro: solo HMAC en storage; en embeds siempre enmascarada.
+
+# ────────────────────────────
+# CONNECTION
+# ────────────────────────────
+ENABLED: false
+TOKEN: ""
+GUILD-ID: ""
+SLASH-COMMANDS: true
+# ~ Intents JDA: welcome/goodbye/boost + staff-auth usan GUILD_MEMBERS (activar en Discord Developer Portal).
+BUTTON-SECRET-ENV: "ROYALCTW_BRIDGE_SECRET"
+
+# ────────────────────────────
+# STAFF-AUTH (geo / token staff — movido desde settings.yml)
+# ────────────────────────────
+STAFF-AUTH:
+  STAFF-PERMISSION: ioriproxy.staff
+  MASK-IP: true
+  GEO-LOOKUP: true
+  GEO-URL: "http://ip-api.com/json/%ip%?fields=status,country,countryCode"
+  TOKEN-TTL-SECONDS: 900
+  GRACE-SECONDS: 2
+  WEBHOOK-ENABLE: true
+
+# ────────────────────────────
+# STAFF-CHAT (webhook por mensaje — MC → Discord)
+# ────────────────────────────
+STAFF-CHAT:
+  ENABLED: true
+  CHANNEL-ID: ""
+  WEBHOOK-URL: ""
+  AUTO-CREATE-WEBHOOK: false
+  USERNAME: "%player%"
+  AVATAR-URL: "https://visage.surgeplay.com/bust/152/%player%"
+  FORMAT: "**[%server%]** %message%"
+
+# ────────────────────────────
+# WELCOME / GOODBYE / BOOST (solo Discord — GuildMember*, no Minecraft)
+# ────────────────────────────
+WELCOME:
+  ENABLED: true
+  CHANNEL-ID: ""
+
+GOODBYE:
+  ENABLED: true
+  CHANNEL-ID: ""
+
+BOOST:
+  ENABLED: true
+  CHANNEL-ID: ""
+
+# ────────────────────────────
+# STORE (embed donaciones — gated por MODULES.DONATIONS en settings.yml)
+# ────────────────────────────
+STORE:
+  ENABLED: true
+  CHANNEL-ID: ""
+
+# ────────────────────────────
+# STATUS (/status <server> slash — sin timer de proxy; sin STATUS-START/STOP)
+# ────────────────────────────
+STATUS:
+  ENABLED: true
+  CHANNEL-ID: ""
+
+# ────────────────────────────
+# PUNISHMENTS (canal por tipo; vacío = DEFAULT-CHANNEL-ID)
+# ────────────────────────────
+PUNISHMENTS:
+  ENABLED: true
+  DEFAULT-CHANNEL-ID: ""
+  BAN:
+    CHANNEL-ID: ""
+  TEMPBAN:
+    CHANNEL-ID: ""
+  MUTE:
+    CHANNEL-ID: ""
+  TEMPMUTE:
+    CHANNEL-ID: ""
+  WARN:
+    CHANNEL-ID: ""
+  KICK:
+    CHANNEL-ID: ""
+
+# ────────────────────────────
+# STAFF-AUTH-FLOW (aviso canal informativo + MD con botones firmados; override visible)
+# ────────────────────────────
+# ~ DM: Approve/Deny con customId HMAC (un solo uso consume token vía StaffAuthService).
+# ~ Canal NOTIFY: solo embed informativo (sin botón approve).
+# ~ Botón legacy staffauth:approve (canal) sigue registrado para compat — migrar a MD.
+STAFF-AUTH-FLOW:
+  ENABLED: true
+  NOTIFY:
+    CHANNEL-ID: ""
+  DM:
+    ENABLED: true
+  OVERRIDE:
+    ROLE-IDS: []
+    MC-PERMISSION: "ioriproxy.staffauth.override"
+    LOG-CHANNEL-ID: ""
+
+# ────────────────────────────
+# BOT (JDA embeds / canales — ENABLED + TOKEN activan; ver BOTS.PRIMARY)
+# ────────────────────────────
+BOT:
+  ENABLED: false
+  TOKEN: ""
+  GUILD-ID: ""
+  PREFIX: "!"
+  SEND-WEBHOOK-EVENTS: true
+  SLASH-COMMANDS: true
+  PREFIX-COMMANDS: true
+  CHANNELS:
+    STAFF-CHAT: ""
+    PUNISHMENTS: ""
+    WELCOME: ""
+    GOODBYE: ""
+    BOOST: ""
+    STORE: ""
+    STATUS: ""
+    STAFF-AUTH: ""
+  COMMANDS:
+    CHANNEL-ID: ""
+    ROLE-IDS: []
+    BAN: true
+    TEMPBAN: true
+    MUTE: true
+    TEMPMUTE: true
+    WARN: true
+    KICK: true
+
+# ────────────────────────────
+# BRIDGE (Core/backends → JDA del proxy)
+# ────────────────────────────
+# ~ Reutiliza la conexión REDIS del proxy; aquí solo canales y límites.
+# ~ Todo lo que antes enviaba Core a Discord (staff-auth, punishments, store, status…) viaja por aquí.
+BRIDGE:
+  ENABLED: true
+  # ~ backends → proxy (embeds, logs, peticiones de reto)
+  CHANNEL-IN: "royalctw:discord:in"
+  # ~ proxy → backends (resultado de botones, sync OK, desbloqueos)
+  CHANNEL-OUT: "royalctw:discord:out"
+  # ~ Eventos firmados con HMAC; secreto SOLO por variable de entorno.
+  SIGN-EVENTS: true
+  SECRET-ENV: "ROYALCTW_BRIDGE_SECRET"
+  # ~ Si JDA cae: se encola; al superar QUEUE-MAX se descarta lo más viejo.
+  QUEUE-MAX: 500
+  DROP-AFTER-SECONDS: 120
+
+# ────────────────────────────
+# SYNC (OTC in-game → slash /sync)
+# ────────────────────────────
+SYNC:
+  # ~ Código alfanumérico ≥10; TTL por defecto 5 minutos. Un solo uso, guardado como hash.
+  CODE-TTL-SECONDS: 300
+  COOLDOWN-SECONDS: 30
+  # ~ Rate-limit de /sync redeem por Discord ID.
+  REDEEM-COOLDOWN-SECONDS: 5
+
+# ────────────────────────────
+# STAFFREG (alta por admin + vínculo obligatorio)
+# ────────────────────────────
+# ~ Un admin autenticado registra al staff: /staffreg create <nick> <password>.
+# ~ Se guarda: nick, uuid, hash de contraseña, y en el primer login IP(HMAC)/país/región/ciudad.
+# ~ Después se vincula Discord: OTC con /sync (SYNC) o asignación por admin (ADMIN-ASSIGN).
+STAFFREG:
+  CREATE:
+    PERMISSION: "royalctw.staffreg.create"
+    # ~ El admin que crea debe estar autenticado y pasar STEP-UP.
+    REQUIRE-STEP-UP: true
+    # ~ Nunca se muestra la contraseña en logs, Discord ni embeds.
+    LOG-PASSWORD: false
+  PASSWORD:
+    ENABLED: true
+    ALGORITHM: "ARGON2ID"
+    MIN-LENGTH: 12
+    # ~ La contraseña puesta por el admin es temporal: el staff debe cambiarla en su primer login.
+    MUST-CHANGE-ON-FIRST-LOGIN: true
+  # ~ Vínculo con Discord obligatorio. Sin vincular: aviso + modo PASSWORD (ver UNLINKED).
+  REQUIRE-DISCORD-LINK: true
+  ONE-DISCORD-PER-ACCOUNT: true
+  # ~ Asignar Discord desde un admin (ID numérico o @usuario único). El dueño confirma por botón en MD.
+  ADMIN-ASSIGN:
+    ENABLED: true
+    ACCEPT-ID: true
+    ACCEPT-USERNAME: true
+    REQUIRE-OWNER-CONFIRM: true
+    CONFIRM-TTL-SECONDS: 300
+  # ~ Staff sin Discord vinculado
+  UNLINKED:
+    NOTICE-ON-JOIN: true
+    REMINDER-SECONDS: 120
+    ALLOW-PASSWORD-LOGIN: true
+    # ~ Sin Discord el step-up se pide con contraseña.
+    STEP-UP-FALLBACK: "PASSWORD"
+
+# ────────────────────────────
+# AUTH (login, confianza, cambio de lugar)
+# ────────────────────────────
+# ~ MODES: DISCORD = botón por MD · PASSWORD = /staff login <pass>. Funciona sin Discord.
+# ~ Solo se pide login la primera vez; se guarda IP(HMAC), país, región y ciudad.
+# ~ Mientras no cambie el país/lugar, no se vuelve a pedir.
+AUTH:
+  MODES: [DISCORD, PASSWORD]
+  TRUST:
+    # ~ 0 = no caduca nunca (solo se invalida por cambio de lugar, bloqueo o revocación). Recomendado 30 si quieres caducidad.
+    EXPIRE-DAYS: 0
+    STORE: [IP, COUNTRY, REGION, CITY]
+  CHANGE-DETECTION:
+    COUNTRY: true
+    REGION: true
+    # ~ Ciudad/pueblo: la geo por IP móvil falla mucho; activa solo si aceptas más falsos positivos.
+    CITY: false
+    # ~ VPN/proxy/hosting detectado = tratar como cambio de lugar.
+    VPN-PROXY: true
+  ON-CHANGE:
+    # ~ Se quitan TODOS los permisos hasta aprobar; se conserva solo el rango (tag).
+    STRIP-PERMISSIONS: true
+    KEEP-RANK-TAG: true
+    BLOCK-STAFF-COMMANDS: true
+    CHALLENGE-TTL-SECONDS: 120
+    # ~ 0 = no expulsar mientras espera.
+    KICK-AFTER-SECONDS: 0
+    # ~ Sin Discord vinculado o MD cerrado: permitir aprobar con contraseña.
+    ALLOW-PASSWORD-FALLBACK: true
+  # ~ Nadie con OP o permiso * entra sin estar vinculado/autenticado: se le retiran hasta autenticar.
+  ENFORCE-OP-AND-WILDCARD: true
+
+# ────────────────────────────
+# FAILS (anti fuerza bruta)
+# ────────────────────────────
+FAILS:
+  MAX-FAILS: 3
+  WINDOW-SECONDS: 900
+  # ~ BAN = baneo por seguridad + revocar sesiones + aviso a CHANNELS.SECURITY.
+  ACTION: "BAN"
+  # ~ Formato 30m / 24h / 7d / PERMANENT.
+  BAN-DURATION: "24h"
+  REVOKE-SESSIONS: true
+  ALERT-DISCORD: true
+  # ~ Botón Unban en el aviso (solo roles de COMMANDS.ROLE-IDS; nunca el propio afectado).
+  UNBAN-BUTTON: true
+
+# ────────────────────────────
+# STEP-UP (aprobación fresca para acciones peligrosas)
+# ────────────────────────────
+# ~ SIEMPRE activo. No desactivar en producción.
+STEP-UP:
+  ENABLED: true
+  TTL-SECONDS: 300
+  # ~ DISCORD = botón por MD · PASSWORD = contraseña. Sin Discord vinculado usa STAFFREG.UNLINKED.STEP-UP-FALLBACK.
+  METHOD: "DISCORD"
+  CONSOLE: true
+  PERMANENT-BAN: true
+  COMMANDS:
+    - "op"
+    - "deop"
+    - "lp"
+    - "luckperms"
+    - "stop"
+    - "restart"
+    - "reload"
+    - "staffreg"
+  PERMISSION-NODES:
+    - "*"
+    - "minecraft.command.op"
+
+# ────────────────────────────
+# COMMANDS (staff role gate — staff-auth buttons)
+# ────────────────────────────
+# ~ ROLE-IDS vacío = MODERATE_MEMBERS / BAN_MEMBERS. CHANNEL-ID vacío = cualquier canal.
+COMMANDS:
+  CHANNEL-ID: ""
+  ROLE-IDS: []
+
+# ────────────────────────────
+# BOTS
+# ────────────────────────────
+# ~ PRIMARY: slash/staff-auth. Si ENABLED+TOKEN → usa ese token; si no → TOKEN raíz.
+# ~ Otras claves (ALERTS, …): JDA extra solo si ENABLED + TOKEN no vacío. Sin ellas = PRIMARY-only.
+BOTS:
+  PRIMARY:
+    ENABLED: false
+    TOKEN: ""
+    GUILD-ID: ""
+  # ALERTS:
+  #   ENABLED: false
+  #   TOKEN: ""
+  #   GUILD-ID: ""
+
+# ────────────────────────────
+# CHANNELS (snowflake IDs)
+# ────────────────────────────
+# ~ STAFF-AUTH = fallback admin si el staff no tiene Discord vinculado (nunca self-approve).
+# ~ SECURITY = alertas de bloqueo, "No fui yo" y baneos por fallos.
+CHANNELS:
+  STAFF-AUTH: ""
+  SECURITY: ""
+  STAFF-CHAT: ""
+  PUNISHMENTS: ""
+  STATUS: ""
+  WELCOME: ""
+  GOODBYE: ""
+  BOOST: ""
+  STORE: ""
+
+# ────────────────────────────
+# BUTTONS (staff-auth / step-up / vínculo)
+# ────────────────────────────
+# ~ STYLE: PRIMARY | SECONDARY | SUCCESS | DANGER
+# ~ El customId va firmado (HMAC) con acción + token del reto; un solo uso; caduca con el TTL del reto.
+# ~ Solo puede pulsar el Discord vinculado de esa cuenta. En el canal fallback, un admin (nunca el propio staff).
+BUTTONS:
+  SIGN-CUSTOM-ID: true
+  DISABLE-AFTER-USE: true
+  ONLY-OWNER-CAN-PRESS: true
+  APPROVE:
+    LABEL: "Approve"
+    EMOJI: "✅"
+    STYLE: "SUCCESS"
+  DENY:
+    LABEL: "Deny"
+    EMOJI: "⛔"
+    STYLE: "DANGER"
+  NOT-ME:
+    LABEL: "No fui yo"
+    EMOJI: "🚨"
+    STYLE: "DANGER"
+  CONFIRM-LINK:
+    LABEL: "Confirmar vínculo"
+    EMOJI: "🔗"
+    STYLE: "PRIMARY"
+  UNBAN:
+    LABEL: "Unban"
+    EMOJI: "🔓"
+    STYLE: "SECONDARY"
+
+# ────────────────────────────
+# REPLIES (ephemeral Discord)
+# ────────────────────────────
+REPLIES:
+  SYNC-OK: "✅ Linked to **%player%**."
+  SYNC-INVALID: "❌ Invalid or expired code."
+  SYNC-ALREADY: "❌ Account already linked."
+  SYNC-UNAVAILABLE: "❌ Sync unavailable."
+  SYNC-RATE: "❌ Too many attempts. Try again shortly."
+  LINK-CONFIRMED: "✅ Linked to **%player%**."
+  LINK-NOT-OWNER: "❌ This link request is not for your account."
+  LINK-EXPIRED: "❌ Link request expired."
+  STAFF-AUTH-APPROVED: "✅ Approved by **%actor%**."
+  STAFF-AUTH-DENIED: "⛔ Denied by **%actor%**."
+  STAFF-AUTH-NOT-ME: "🚨 Reported by **%actor%**. Account locked and sessions revoked."
+  STAFF-AUTH-SELF: "❌ You cannot approve your own staff-auth request."
+  STAFF-AUTH-NOT-OWNER: "❌ Only the linked Discord account can answer this request."
+  STAFF-AUTH-INVALID: "❌ Token invalid or already used."
+  STAFF-AUTH-ROLE: "❌ Missing Discord staff role."
+  UNBAN-OK: "🔓 **%player%** unbanned by **%actor%**."
+  BOT-DISABLED: "Bot disabled."
+
+# ────────────────────────────
+# EMBEDS
+# ────────────────────────────
+EMBEDS:
+  STAFF-AUTH-NOTIFY:
+    COLOR: "#F1C40F"
+    AUTHOR-NAME: "RoyalCTW | Staff Auth"
+    AUTHOR-ICON-URL: ""
+    TITLE: "Cambio de lugar · %player%"
+    DESCRIPTION: |
+      🛡️ **Login de staff pendiente de aprobación** (aviso al staff)
+
+      👤 **Player:** %player%
+      🆔 **UUID:** %uuid%
+      🌐 **IP (masked):** %ip%
+      📍 **Ahora:** %country%
+      ↩️ **Antes:** %previous_country%
+    FOOTER: "%player% · staff-auth · notify"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  STAFF-AUTH:
+    COLOR: "#F1C40F"
+    AUTHOR-NAME: "RoyalCTW | Staff Auth"
+    AUTHOR-ICON-URL: ""
+    TITLE: "Cambio de lugar · %player%"
+    DESCRIPTION: |
+      🛡️ **Confirma que eres tú**
+
+      👤 **Player:** %player%
+      🆔 **UUID:** %uuid%
+      🌐 **IP (masked):** %ip%
+      📍 **Ahora:** %country%
+      ↩️ **Antes:** %previous_country%
+
+      Usa los botones de abajo (**Approve** / **Deny**).
+    FOOTER: "%player% · staff-auth · dm"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  STAFF-REG:
+    COLOR: "#3498DB"
+    AUTHOR-NAME: "RoyalCTW | Staffreg"
+    TITLE: "Staff Discord linked"
+    DESCRIPTION: |
+      ✅ **%player%** vinculó su Discord (%discord%).
+
+      El login solo se pedirá de nuevo si cambia el país o el lugar.
+    FOOTER: "staffreg"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  STAFF-CREATED:
+    COLOR: "#2ECC71"
+    AUTHOR-NAME: "RoyalCTW | Staffreg"
+    TITLE: "Staff registrado"
+    DESCRIPTION: |
+      🆕 **%actor%** registró a **%player%**.
+
+      🆔 **UUID:** %uuid%
+      🔗 **Discord:** pendiente de vincular
+    FOOTER: "staffreg"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  LINK-CONFIRM:
+    COLOR: "#3498DB"
+    AUTHOR-NAME: "RoyalCTW | Staffreg"
+    TITLE: "¿Confirmas este vínculo?"
+    DESCRIPTION: |
+      🔗 **%actor%** quiere vincular tu Discord a la cuenta **%player%**.
+
+      Si eres tú, pulsa **Confirmar vínculo**. Si no, ignora este mensaje.
+    FOOTER: "staffreg"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  UNLINKED:
+    COLOR: "#E67E22"
+    AUTHOR-NAME: "RoyalCTW | Staff Auth"
+    TITLE: "Discord sin vincular · %player%"
+    DESCRIPTION: |
+      ⚠️ **%player%** entró sin Discord vinculado.
+
+      Debe vincularlo con `/sync` o pedir a un admin que lo asigne.
+    FOOTER: "staff-auth"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  STEP-UP:
+    COLOR: "#E67E22"
+    AUTHOR-NAME: "RoyalCTW | Staff Auth"
+    TITLE: "Acción sensible · %player%"
+    DESCRIPTION: |
+      🔐 **%player%** quiere ejecutar una acción protegida.
+
+      🖥️ **Servidor:** %server%
+      🌐 **IP (masked):** %ip%
+      ⏱ **Válido:** %duration%
+
+      Pulsa **Approve** / **Deny**.
+    FOOTER: "%player% · step-up"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  SECURITY-ALERT:
+    COLOR: "#E74C3C"
+    AUTHOR-NAME: "RoyalCTW | Seguridad"
+    TITLE: "🚨 No fui yo · %player%"
+    DESCRIPTION: |
+      El dueño reportó un login que no reconoce.
+
+      👤 **Player:** %player%
+      🌐 **IP (masked):** %ip%
+      📍 **Lugar:** %city%, %region%, %country%
+      🔒 Cuenta bloqueada y sesiones revocadas.
+    FOOTER: "security"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  LOGIN-FAIL-BAN:
+    COLOR: "#E74C3C"
+    AUTHOR-NAME: "RoyalCTW | Seguridad"
+    TITLE: "Baneo por seguridad · %player%"
+    DESCRIPTION: |
+      ⛔ **%player%** falló la contraseña **%fails%** veces.
+
+      🌐 **IP (masked):** %ip%
+      📍 **Lugar:** %city%, %region%, %country%
+      ⏱ **Duración:** %duration%
+    FOOTER: "security"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  WELCOME:
+    COLOR: "#2ECC71"
+    AUTHOR-NAME: "RoyalCTW"
+    TITLE: "Bienvenido a %guild%"
+    DESCRIPTION: "👋 %mention% (**%user%**) · miembros: **%members%**"
+    FOOTER: "RoyalCTW · Discord"
+    THUMBNAIL-URL: ""
+    TIMESTAMP: true
+
+  GOODBYE:
+    COLOR: "#E74C3C"
+    AUTHOR-NAME: "RoyalCTW"
+    TITLE: "Salida de %guild%"
+    DESCRIPTION: "👋 **%user%** salió del Discord · miembros: **%members%**"
+    FOOTER: "RoyalCTW · Discord"
+    THUMBNAIL-URL: ""
+    TIMESTAMP: true
+
+  BOOST:
+    COLOR: "#F47FFF"
+    AUTHOR-NAME: "RoyalCTW"
+    TITLE: "¡Nuevo boost!"
+    DESCRIPTION: "🚀 **%booster%** impulsó **%guild%** · boosts: **%boosts%**"
+    FOOTER: "RoyalCTW · Discord"
+    TIMESTAMP: true
+
+  STORE:
+    COLOR: "#F73939"
+    AUTHOR-NAME: "RoyalCTW · Store"
+    TITLE: "Nueva donación"
+    DESCRIPTION: |
+      👤 **Comprador:** %player%
+      📦 **Paquete:** `%package%`
+      💰 **Precio:** %price%
+    FOOTER: "RoyalCTW"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true
+
+  STATUS:
+    COLOR: "#5865F2"
+    AUTHOR-NAME: "RoyalCTW"
+    TITLE: "Estado · %server%"
+    DESCRIPTION: |
+      🖥️ **Servidor:** %server%
+      📡 **En línea:** %server_online%
+      👥 **Jugadores (backend):** %server_players%
+      🌐 **Network online:** %online%
+      🛠️ **Mantenimiento (scope):** %maintenance%
+    FOOTER: "RoyalCTW · /status"
+    TIMESTAMP: true
+
+  PUNISHMENT:
+    COLOR: "#E67E22"
+    AUTHOR-NAME: "RoyalCTW · Moderación"
+    TITLE: "%type% · %player%"
+    DESCRIPTION: |
+      👤 **Jugador:** %player%
+      🛠️ **Tipo:** %type%
+      ⏱ **Duración:** %duration%
+      📝 **Razón:** %reason%
+      👮 **Staff:** %actor%
+    FOOTER: "RoyalCTW"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true

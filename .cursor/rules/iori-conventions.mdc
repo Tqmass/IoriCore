@@ -1,0 +1,25 @@
+---
+description: Convenciones de código y configuración para los proyectos Iori (proxy, core, ctw, bot de Discord)
+alwaysApply: true
+---
+
+# Convenciones Iori
+
+## Código Java
+- Sigue la estructura de **Darling** (`D:\Minecraft\Plugins\SoupPvP\Darling`, paquete `me.vals.darling`) si está accesible: mismos nombres de clase y `impl/` dentro de cada módulo. Si no, imita los módulos ya existentes del repo y reutiliza sus `Utils`.
+- **Todos los enums en un único archivo de enums.** Agrupa `arguments` solo si es necesario.
+- Lombok (`@Getter`, `@Setter`) y Prettier. Nada de boilerplate a mano.
+- No crees constantes intermedias para valores que se usan una sola vez; pásalos inline.
+- Prioriza: simple, legible, rápido (sin trabajo pesado en el hilo principal) y seguro (valida entradas, no loguees secretos).
+- Compatibilidad Spigot 1.8.8/1.8.9 → 1.21: nada de API moderna sin guard; materiales y sonidos pasan por los resolvers centrales.
+
+## YML
+- Pocos archivos, bien separados. Banner `# ***` / `# * Proyecto | Archivo *`, secciones con `# ────────────────────────────`, claves `UPPER-KEBAB`, comentarios `# ~`.
+- Un dato, una fuente de verdad. Lo derivable se deriva (permisos `ioricore.tags.%id%`, comandos por categoría), no se copia.
+- Un yml nunca "solo apunta" a otros ymls.
+- Cambios de estructura = `CONFIG-VERSION` + migrador con backup.
+
+## Forma de trabajar
+- Paso a paso, con feedback honesto: si algo no cuadra con el código real, dilo y propón alternativa.
+- No digas "hecho" sin compilar. Lo que no puedas probar (Discord, servidor real) va a un checklist manual.
+- No hagas commit/push ni borres fuera del alcance pedido.

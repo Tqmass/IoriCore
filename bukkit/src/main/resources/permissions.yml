@@ -1,0 +1,114 @@
+# *************************************
+# *      IoriCore | Permissions       *
+# *************************************
+
+# ── COMMANDS ──
+COMMANDS:
+  # ── CORE ──────────────────────────
+  IORICORE: ioricore.admin
+  RANKS: ioricore.ranks
+  GRANT: ioricore.ranks.grant
+  UNGRANT: ioricore.ranks.ungrant
+  GRANTS: ioricore.ranks.grants
+  SETTINGS: ioricore.settings
+  SCOREBOARD: ioricore.scoreboard
+
+  # ── STAFF ──────────────────────────
+  BAN: ioricore.punish.ban
+  MUTE: ioricore.punish.mute
+  WARN: ioricore.punish.warn
+  KICK: ioricore.punish.kick
+  UNBAN: ioricore.punish.unban
+  UNMUTE: ioricore.punish.unmute
+  UNWARN: ioricore.punish.unwarn
+  STAFF: ioricore.staff
+  STAFFMODE: ioricore.staffmode
+  STAFFREG: ioricore.staffreg
+  PUNISH: ioricore.punish.menu
+  VANISH: ioricore.essentials.vanish
+  WHITELIST: ioricore.whitelist
+  INVSEE: ioricore.essentials.invsee
+  BROADCAST: ioricore.essentials.broadcast
+  REALNAME: ioricore.essentials.realname
+
+  # ── CORE ──────────────────────────
+  HEAL: ioricore.essentials.heal
+  HEALALL: ioricore.essentials.healall
+  TPALL: ioricore.essentials.tpall
+  FEED: ioricore.essentials.feed
+  FLY: ioricore.essentials.fly
+  GOD: ioricore.essentials.god
+  GAMEMODE: ioricore.essentials.gamemode
+  SPEED: ioricore.essentials.speed
+  KILL: ioricore.essentials.kill
+  WEATHER: ioricore.essentials.weather
+  TIME: ioricore.essentials.time
+  WORLD: ioricore.essentials.world
+  NICK: ioricore.essentials.nick
+  REPAIR: ioricore.essentials.repair
+  ENDERCHEST: ioricore.essentials.enderchest
+  CLEAR: ioricore.essentials.clear
+  GIVE: ioricore.essentials.give
+  GETPOS: ioricore.essentials.getpos
+  NEAR: ioricore.essentials.near
+  PING: ioricore.essentials.ping
+  DISPOSAL: ioricore.essentials.disposal
+  WORKBENCH: ioricore.essentials.workbench
+  KIT: ioricore.essentials.kit
+  CREATEKIT: ioricore.essentials.createkit
+  DELETEKIT: ioricore.essentials.deletekit
+
+  # ── TELEPORT ──────────────────────────
+  TP: ioricore.essentials.tp
+  TPHERE: ioricore.essentials.tphere
+  TPPOS: ioricore.essentials.tppos
+  TOP: ioricore.essentials.top
+  BACK: ioricore.essentials.back
+  SPAWN: ioricore.essentials.spawn
+  SETSPAWN: ioricore.essentials.setspawn
+  HOME: ioricore.essentials.home
+  SETHOME: ioricore.essentials.sethome
+  DELHOME: ioricore.essentials.delhome
+  HOMES: ioricore.essentials.homes
+  WARP: ioricore.essentials.warp
+  SETWARP: ioricore.essentials.setwarp
+  DELWARP: ioricore.essentials.delwarp
+  TPA: ioricore.essentials.tpa
+  TPAHERE: ioricore.essentials.tpahere
+  TPACCEPT: ioricore.essentials.tpaccept
+  TPDENY: ioricore.essentials.tpdeny
+  TPCANCEL: ioricore.essentials.tpcancel
+
+  # ── SOCIAL ──────────────────────────
+  MSG: ioricore.essentials.msg
+  REPLY: ioricore.essentials.reply
+  IGNORE: ioricore.essentials.ignore
+  ME: ioricore.essentials.me
+  CHATGAMES: ioricore.chatgames
+
+  # ── ECONOMY ──────────────────────────
+  BALANCE: ioricore.economy.balance
+  PAY: ioricore.economy.pay
+  ECO: ioricore.economy.eco
+  COINSHOP: ioricore.coinshop
+
+  # ── COSMETIC ──────────────────────────
+  TAG: ioricore.tags
+  HAT: ioricore.essentials.hat
+  SKULL: ioricore.essentials.skull
+
+  # ── DISCORD ──────────────────────────
+  SYNC: ioricore.discord.sync
+  UNSYNC: ioricore.discord.unsync
+
+# ── OTROS ──
+ACCOUNT-BRAND:
+  STAFF: ioricore.staff
+  SEE: ioricore.join.brand
+
+STAFFCHAT:
+  SEND: ioricore.staffchat.send
+  RECEIVE: ioricore.staffchat.receive
+
+STAFF-AUTH:
+  STAFF-PERMISSION: ioriproxy.staff

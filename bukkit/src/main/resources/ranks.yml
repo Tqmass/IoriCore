@@ -1,0 +1,88 @@
+# *************************************
+# *         IoriCore | Ranks          *
+# *************************************
+# ~ Fuente de semilla. Con RANKS.STORAGE=SQL se importa a ic_ranks si está vacía.
+# ~ PARENTS por KEY (no por nombre visible). Permisos se heredan: no repetir.
+# ~ Permiso con server: "perm@lobby-1" · negación: "-perm"
+# ~ Brand: RoyalCTW
+
+DEFAULTS:
+  SCOPE: GLOBAL
+  TYPE: NORMAL
+  FLAGS: []
+  VISUAL:
+    COLOR: GRAY
+    BOLD: false
+    ITALIC: false
+    SUFFIX: ""
+
+DEFAULT-RANK: default
+
+RANKS:
+  # ── Jugadores ────────────────────────
+  default:
+    WEIGHT: 0
+    VISUAL:
+      DISPLAY: "&7Default"
+      PREFIX: "&7"
+    PERMISSIONS:
+      - ioricore.settings
+
+  vip:
+    WEIGHT: 400
+    TYPE: DONOR
+    FLAGS: [DONOR]
+    PARENTS: [default]
+    VISUAL:
+      DISPLAY: "&a[VIP]"
+      PREFIX: "&a[VIP] "
+      COLOR: GREEN
+    PERMISSIONS:
+      - ioricore.chat.color
+      - ioricore.join.brand
+
+  # ── Staff ────────────────────────────
+  mod:
+    WEIGHT: 2600
+    TYPE: STAFF
+    FLAGS: [STAFF]
+    PARENTS: [vip]
+    VISUAL:
+      DISPLAY: "&2[Mod]"
+      PREFIX: "&2[Mod] "
+      COLOR: DARK_GREEN
+    PERMISSIONS:
+      - ioriproxy.staff.mod
+      - ioricore.staffmode
+      - ioricore.punish.mute
+      - ioricore.punish.ban
+
+  admin:
+    WEIGHT: 3200
+    TYPE: STAFF
+    FLAGS: [STAFF, ADMIN]
+    PARENTS: [mod]
+    VISUAL:
+      DISPLAY: "&c[Admin]"
+      PREFIX: "&c[Admin] "
+      COLOR: RED
+      BOLD: true
+    PERMISSIONS:
+      - ioriproxy.staff.admin
+      - ioricore.punish.kick
+      - ioricore.ranks
+      - ioricore.ranks.grant
+
+  owner:
+    WEIGHT: 4000
+    TYPE: STAFF
+    FLAGS: [STAFF, ADMIN]
+    PARENTS: [admin]
+    VISUAL:
+      DISPLAY: "&4[Owner]"
+      PREFIX: "&4[Owner] "
+      COLOR: DARK_RED
+      BOLD: true
+    PERMISSIONS:
+      - ioricore.ranks.*
+      - ioricore.admin

@@ -1,0 +1,31 @@
+# *************************************
+# *         IoriProxy | MOTD          *
+# *************************************
+RANDOM: true
+CENTER: true
+FAVICON: ""
+
+MODERN:
+  - |
+    <aqua><bold>RoyalCTW</bold></aqua> <gray>NETWORK</gray> <aqua>ゝ</aqua>  <white>[</white><aqua>1.8 - 1.21</aqua><white>]</white>
+    <white>NUEVO</white> <dark_gray>▾</dark_gray> <aqua>CAPTURE THE WOOL</aqua>
+  - |
+    <aqua><bold>RoyalCTW</bold></aqua> <gray>NETWORK</gray> <aqua>ゝ</aqua>  <white>[</white><aqua>1.8 - 1.21</aqua><white>]</white>
+    <white>NUEVO</white> <dark_gray>▾</dark_gray> <green>FRIENDS</green> <white>&</white> <light_purple>PARTIES</light_purple>
+  - |
+    <aqua><bold>RoyalCTW</bold></aqua> <gray>NETWORK</gray> <aqua>ゝ</aqua>  <white>[</white><aqua>1.8 - 1.21</aqua><white>]</white>
+    <green>¡APERTURA!</green> <dark_gray>▾</dark_gray> <aqua>SURVIVAL VANILLA</aqua>
+  - |
+    <aqua><bold>RoyalCTW</bold></aqua> <gray>NETWORK</gray> <aqua>ゝ</aqua>  <white>[</white><aqua>1.8 - 1.21</aqua><white>]</white>
+    <white><bold>¡BIENVENIDO!</bold></white> <dark_gray>▾</dark_gray> <gold>¡COMIENZA TU AVENTURA!</gold>
+
+LEGACY:
+  - |
+    &b&lRoyalCTW &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
+    &fNUEVO &8▾ &bCAPTURE THE WOOL
+  - |
+    &b&lRoyalCTW &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
+    &fNUEVO &8▾ &aFRIENDS &f& &dPARTIES
+  - |
+    &b&lRoyalCTW &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
+    &a¡APERTURA! &8▾ &bSURVIVAL VANILLA

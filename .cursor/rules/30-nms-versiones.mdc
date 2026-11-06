@@ -1,0 +1,12 @@
+---
+description: IoriProxy es solo proxy — NMS/Spigot fuera de alcance.
+alwaysApply: true
+---
+
+# Sin NMS / sin backend Spigot
+
+IoriProxy es **exclusivamente** Velocity + BungeeCord.
+
+1. **Prohibido** crear módulo `backend-spigot`, paquetes NMS, o dependencias CraftBukkit/Paper server API.
+2. Cualquier `import net.minecraft` / CraftBukkit en este repo = error.
+3. Comunicación con backends: Redis y/o plugin messaging seguro desde el proxy; el plugin Spigot de juego es otro proyecto.

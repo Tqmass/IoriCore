@@ -1,0 +1,13 @@
+# *************************************
+# *     IoriBungee | Bungee Plugin    *
+# *************************************
+
+# ────────────────────────────
+# PLUGIN
+# ────────────────────────────
+name: IoriBungee
+version: ${version}
+main: us.iorilabs.proxy.bungee.IoriProxyBungee
+author: Tqmass
+description: IoriBungee — IoriLabs BungeeCord proxy core
+softDepends: [LuckPerms]

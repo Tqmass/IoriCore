@@ -1,0 +1,9 @@
+# *************************************
+# *   IoriCore | Punishments (Core)   *
+# *************************************
+
+MENUS:
+  MAIN: punish
+  REASONS: punish-reasons
+
+REASONS-PACK: punishments.yml

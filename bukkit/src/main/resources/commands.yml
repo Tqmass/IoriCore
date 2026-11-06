@@ -1,0 +1,429 @@
+# *************************************
+# *        IoriCore | Commands        *
+# *************************************
+# ~ Permisos → permissions.yml · ENABLED false = no se registra · ALIASES omite = defaults
+
+# ────────────────────────────
+# COMMANDS
+# ────────────────────────────
+COMMANDS:
+  # ── CORE ──────────────────────────
+
+  # — /ioricore ————————————————————————
+  IORICORE:
+    ENABLED: true
+    ALIASES: [icore]
+
+  # — /ranks ———————————————————————————
+  RANKS:
+    ENABLED: true
+    ALIASES: [rank]
+
+  # — /grant ———————————————————————————
+  GRANT:
+    ENABLED: true
+    ALIASES: []
+
+  # — /ungrant —————————————————————————
+  UNGRANT:
+    ENABLED: true
+    ALIASES: []
+
+  # — /grants ——————————————————————————
+  GRANTS:
+    ENABLED: true
+    ALIASES: []
+
+  # — /settings ————————————————————————
+  SETTINGS:
+    ENABLED: true
+    ALIASES: [preferencias]
+
+  # — /scoreboard ——————————————————————
+  SCOREBOARD:
+    ENABLED: true
+    ALIASES: [sb, sidebar]
+
+  # ── STAFF ──────────────────────────
+
+  # — /ban —————————————————————————————
+  BAN:
+    ENABLED: true
+    ALIASES: [tempban]
+
+  # — /mute ————————————————————————————
+  MUTE:
+    ENABLED: true
+    ALIASES: [tempmute]
+
+  # — /warn ————————————————————————————
+  WARN:
+    ENABLED: true
+    ALIASES: []
+
+  # — /kick ————————————————————————————
+  KICK:
+    ENABLED: true
+    ALIASES: []
+
+  # — /unban ———————————————————————————
+  UNBAN:
+    ENABLED: true
+    ALIASES: [pardon]
+
+  # — /unmute ——————————————————————————
+  UNMUTE:
+    ENABLED: true
+    ALIASES: []
+
+  # — /unwarn ——————————————————————————
+  UNWARN:
+    ENABLED: true
+    ALIASES: []
+
+  # — /whitelist ———————————————————————
+  WHITELIST:
+    ENABLED: true
+    ALIASES: [wl]
+
+  # — /staff ———————————————————————————
+  STAFF:
+    ENABLED: true
+    ALIASES: []
+
+  # — /staffmode ———————————————————————
+  STAFFMODE:
+    ENABLED: true
+    ALIASES: [sm, mod]
+
+  # — /staffreg (opcional; auth principal = /staff register|login|oauth) —
+  STAFFREG:
+    ENABLED: false
+    ALIASES: []
+
+  # — /punish ——————————————————————————
+  PUNISH:
+    ENABLED: true
+    ALIASES: []
+
+  # — /vanish ——————————————————————————
+  VANISH:
+    ENABLED: true
+    ALIASES: [v]
+
+  # — /invsee ——————————————————————————
+  INVSEE:
+    ENABLED: true
+    ALIASES: []
+
+  # — /broadcast ———————————————————————
+  BROADCAST:
+    ENABLED: true
+    ALIASES: [bc, bcast]
+
+  # — /realname ————————————————————————
+  REALNAME:
+    ENABLED: true
+    ALIASES: []
+
+  # ── CORE ──────────────────────────
+
+  # — /heal ————————————————————————————
+  HEAL:
+    ENABLED: true
+    ALIASES: []
+
+  # — /healall —————————————————————————
+  HEALALL:
+    ENABLED: true
+    ALIASES: []
+
+  # — /tpall ———————————————————————————
+  TPALL:
+    ENABLED: true
+    ALIASES: [teleportall]
+
+  # — /feed ————————————————————————————
+  FEED:
+    ENABLED: true
+    ALIASES: []
+
+  # — /fly —————————————————————————————
+  FLY:
+    ENABLED: true
+    ALIASES: []
+
+  # — /god —————————————————————————————
+  GOD:
+    ENABLED: true
+    ALIASES: []
+
+  # — /gamemode ————————————————————————
+  GAMEMODE:
+    ENABLED: true
+    ALIASES: [gm, gms, gmc, gma, gmsp]
+
+  # — /speed ———————————————————————————
+  SPEED:
+    ENABLED: true
+    ALIASES: []
+
+  # — /kill ————————————————————————————
+  KILL:
+    ENABLED: true
+    ALIASES: [suicide]
+
+  # — /weather —————————————————————————
+  WEATHER:
+    ENABLED: true
+    ALIASES: [sun, rain, thunder]
+
+  # — /time ————————————————————————————
+  TIME:
+    ENABLED: true
+    ALIASES: [day, night]
+
+  # — /world ———————————————————————————
+  WORLD:
+    ENABLED: true
+    ALIASES: []
+
+  # — /nick ————————————————————————————
+  NICK:
+    ENABLED: true
+    ALIASES: [nickname]
+
+  # — /repair ——————————————————————————
+  REPAIR:
+    ENABLED: true
+    ALIASES: [fix]
+
+  # — /enderchest ——————————————————————
+  ENDERCHEST:
+    ENABLED: true
+    ALIASES: [ec, echest]
+
+  # — /clear ———————————————————————————
+  CLEAR:
+    ENABLED: true
+    ALIASES: [ci, clearinventory]
+
+  # — /give ————————————————————————————
+  GIVE:
+    ENABLED: true
+    ALIASES: [i, item]
+
+  # — /getpos ——————————————————————————
+  GETPOS:
+    ENABLED: true
+    ALIASES: [coords, position]
+
+  # — /near ————————————————————————————
+  NEAR:
+    ENABLED: true
+    ALIASES: []
+
+  # — /ping ————————————————————————————
+  PING:
+    ENABLED: true
+    ALIASES: []
+
+  # — /disposal ————————————————————————
+  DISPOSAL:
+    ENABLED: true
+    ALIASES: [trash, disposalchest]
+
+  # — /workbench ———————————————————————
+  WORKBENCH:
+    ENABLED: true
+    ALIASES: [craft, wb, craftingtable]
+
+  # — /kit —————————————————————————————
+  KIT:
+    ENABLED: true
+    ALIASES: [kits]
+
+  # — /createkit ———————————————————————
+  CREATEKIT:
+    ENABLED: true
+    ALIASES: [kitcreate]
+
+  # — /deletekit ———————————————————————
+  DELETEKIT:
+    ENABLED: true
+    ALIASES: [kitdelete]
+
+  # ── TELEPORT ──────────────────────────
+
+  # — /tp ——————————————————————————————
+  TP:
+    ENABLED: true
+    ALIASES: [teleport]
+
+  # — /tphere ——————————————————————————
+  TPHERE:
+    ENABLED: true
+    ALIASES: []
+
+  # — /tppos ———————————————————————————
+  TPPOS:
+    ENABLED: true
+    ALIASES: [teleportpos]
+
+  # — /top —————————————————————————————
+  TOP:
+    ENABLED: true
+    ALIASES: []
+
+  # — /back ————————————————————————————
+  BACK:
+    ENABLED: true
+    ALIASES: []
+
+  # — /spawn ———————————————————————————
+  SPAWN:
+    ENABLED: true
+    ALIASES: []
+
+  # — /setspawn ————————————————————————
+  SETSPAWN:
+    ENABLED: true
+    ALIASES: []
+
+  # — /home ————————————————————————————
+  HOME:
+    ENABLED: true
+    ALIASES: []
+
+  # — /sethome —————————————————————————
+  SETHOME:
+    ENABLED: true
+    ALIASES: []
+
+  # — /delhome —————————————————————————
+  DELHOME:
+    ENABLED: true
+    ALIASES: [deletehome]
+
+  # — /homes ———————————————————————————
+  HOMES:
+    ENABLED: true
+    ALIASES: []
+
+  # — /warp ————————————————————————————
+  WARP:
+    ENABLED: true
+    ALIASES: [warps]
+
+  # — /setwarp —————————————————————————
+  SETWARP:
+    ENABLED: true
+    ALIASES: []
+
+  # — /delwarp —————————————————————————
+  DELWARP:
+    ENABLED: true
+    ALIASES: [deletewarp]
+
+  # — /tpa —————————————————————————————
+  TPA:
+    ENABLED: true
+    ALIASES: []
+
+  # — /tpahere —————————————————————————
+  TPAHERE:
+    ENABLED: true
+    ALIASES: []
+
+  # — /tpaccept ————————————————————————
+  TPACCEPT:
+    ENABLED: true
+    ALIASES: [tpyes]
+
+  # — /tpdeny ——————————————————————————
+  TPDENY:
+    ENABLED: true
+    ALIASES: [tpno]
+
+  # — /tpcancel ————————————————————————
+  TPCANCEL:
+    ENABLED: true
+    ALIASES: [tpacancel, tpc]
+
+  # ── SOCIAL ──────────────────────────
+
+  # — /msg —————————————————————————————
+  MSG:
+    ENABLED: true
+    ALIASES: [tell, w, whisper, message]
+
+  # — /reply ———————————————————————————
+  REPLY:
+    ENABLED: true
+    ALIASES: [r]
+
+  # — /ignore ——————————————————————————
+  IGNORE:
+    ENABLED: true
+    ALIASES: []
+
+  # — /me ——————————————————————————————
+  ME:
+    ENABLED: true
+    ALIASES: [action]
+
+  # — /chatgames ———————————————————————
+  CHATGAMES:
+    ENABLED: true
+    ALIASES: [cg, chatgame]
+
+  # ── ECONOMY ──────────────────────────
+
+  # — /balance —————————————————————————
+  BALANCE:
+    ENABLED: true
+    ALIASES: [money, bal]
+
+  # — /pay —————————————————————————————
+  PAY:
+    ENABLED: true
+    ALIASES: []
+
+  # — /eco —————————————————————————————
+  ECO:
+    ENABLED: true
+    ALIASES: [economy]
+
+  # — /coinshop ————————————————————————
+  COINSHOP:
+    ENABLED: true
+    ALIASES: [shop, tienda]
+
+  # ── COSMETIC ──────────────────────────
+
+  # — /tag —————————————————————————————
+  TAG:
+    ENABLED: true
+    ALIASES: [tags]
+
+  # — /hat —————————————————————————————
+  HAT:
+    ENABLED: true
+    ALIASES: []
+
+  # — /skull ———————————————————————————
+  SKULL:
+    ENABLED: true
+    ALIASES: [head]
+
+  # ── DISCORD ──────────────────────────
+
+  # — /sync ————————————————————————————
+  SYNC:
+    ENABLED: true
+    ALIASES: []
+
+  # — /unsync ——————————————————————————
+  UNSYNC:
+    ENABLED: true
+    ALIASES: []

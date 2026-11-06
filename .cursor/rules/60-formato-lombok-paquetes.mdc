@@ -1,0 +1,41 @@
+---
+description: Formato Java, Lombok obligatorio en holders, paquetes IoriProxy.
+globs: "**/*.java"
+alwaysApply: true
+---
+
+# Formato + Lombok + paquetes (OBLIGATORIO)
+
+## Formato (no negociable)
+1. **Una línea en blanco entre bloques lógicos** (imports vs clase, fields vs ctor, métodos, guard vs trabajo).
+2. **NUNCA** línea en blanco entre cada línea de código.
+3. Guards triviales en **una línea**: `if (x == null) return;`
+4. Tras `npx prettier` / prettier-plugin-java, **revisar** que no queden bloques “pegados” sin aire entre métodos.
+5. Imports: JDK → third-party → `me.tqmass.dev.proxy.*` (grupos separados por blank line).
+6. Tras cambios masivos: `npx prettier --write "**/src/**/*.{java,yml,yaml}"` y luego pasar estilo Darling (aires entre métodos).
+
+## Lombok (OBLIGATORIO en holders)
+1. Clases con muchos campos + accessors (`IoriProxy`, configs, DTOs, command parents): `@Getter` + `@Accessors(fluent = true)`.
+2. **Prohibido** escribir a mano `platform()`, `configs()`, `language()`… si Lombok puede generarlos.
+3. Servicios con deps final: `@RequiredArgsConstructor` cuando aporte; no Lombok en lógica densa si ensucia.
+4. Lombok solo `compileOnly` + `annotationProcessor`.
+
+## Paquetes (mapa)
+- `commands/` — solo comandos + arguments. Handlers finos; la lógica vive en el feature.
+- `modules/` — features con ciclo enable/disable/reload (módulos reales).
+- `server/` — routing, lobby, transferencias, lista de servidores, presencia de servidor.
+- `player/` — friends, playtime, ping orientado a jugador, perfiles.
+- Features grandes de staff/moderation pueden quedar en su paquete (`maintenance`, `report`, …) o migrar a `modules/` si tienen toggle + lifecycle.
+- `helpop` / `request` = comando + servicio mínimo (handler), no árbol inflado.
+- `common/` = utils + command framework; sin Velocity/Bungee.
+- Features se **duplican** velocity/ y bungee/; sync siempre.
+
+## Mensajes YAML
+- Claves **UPPERCASE kebab**: `GENERAL.NO-PERMISSION`.
+- Separadores IoriCTW `# ***` / `# ──`.
+- Modern `messages/{lang}.yml` (1.16+) y legacy `messages/{lang}-legacy.yml` (1.8–1.12).
+- Permitir `&6`, `<#RRGGBB>` y MiniMessage (ColorUtil normaliza).
+- Brand network: **RoyalCTW**. Nunca “Iori Network”.
+
+## Hooks externos
+- Solo soft-hooks LP / PAPI / LiteBans **si una feature los necesita**. Sin PacketEvents. Sin dependencias hard innecesarias.

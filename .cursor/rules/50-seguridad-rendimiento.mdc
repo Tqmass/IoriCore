@@ -1,0 +1,23 @@
+---
+description: Seguridad, async y límites de carga para proxy network.
+alwaysApply: true
+---
+
+# Seguridad y rendimiento
+
+## Seguridad
+1. Validar todos los args de comando (longitud, charset, URLs http/https).
+2. Permisos en cada comando/argument; never trust client.
+3. Plugin messaging (docs PaperMC Velocity):
+   - Marcar `PluginMessageEvent` como **handled** tras validar canal, **antes** de confiar en el source.
+   - No reenviar mensajes de cliente al backend (spoof proxy).
+   - Canales namespaced `ioriproxy:...`; no usar `minecraft:*` reservados.
+4. Rate-limit: report/helpop/stream/donations/gg (cooldowns en settings).
+5. Webhooks/SQL/Redis: secretos solo en config; logs sin passwords/payloads sensibles.
+6. kennytv/Maintenance = **GPL-3**: patrones sí, código no (salvo cumplir GPL).
+
+## Rendimiento
+1. Nunca bloquear el event loop con SQL/HTTP/Redis sync. Usar async + callback sync para jugadores.
+2. Presence/analytics: agregados, no fan-out por tick innecesario.
+3. Caches thread-safe (`ConcurrentHashMap`); pools Hikari/Jedis con límites.
+4. Skill existente: `.cursor/skills/proxy-performance-optimization/SKILL.md`.

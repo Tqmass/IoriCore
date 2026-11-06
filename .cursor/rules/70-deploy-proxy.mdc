@@ -1,0 +1,15 @@
+---
+description: Tras cambios IoriCore, shadowJar + deploy local + Desktop.
+alwaysApply: true
+---
+
+# Deploy obligatorio
+
+Cada vez que el usuario pida cambios de código/config del plugin:
+
+1. `gradlew.bat :velocity:shadowJar :bungee:shadowJar :bukkit:shadowJar --no-daemon`
+2. Copiar `IoriVelo-*.jar` a:
+ `C:\Users\TqmassPC\Desktop\Minecraft Project\Servidores\1. Proxy\plugins`
+3. Borrar jars `IoriVelo-*.jar` / `IoriProxy-*.jar` viejos en esa carpeta antes de copiar.
+4. `IoriCore-Bukkit-*.jar` → plugins del backend (Lobby).
+5. Escritorio: `IoriVelo-<ver>.jar` + `IoriCore-Bukkit-<ver>.jar` (borrar versiones viejas del mismo artifact).

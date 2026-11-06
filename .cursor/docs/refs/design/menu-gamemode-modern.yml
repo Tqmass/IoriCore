@@ -1,0 +1,28 @@
+# *** SAMPLE · gamemode selector (modern 1.16+ style) ***
+# ~ Hex &#RRGGBB · smallcaps (fsymbols) · lore online/season · basehead
+
+menu_title: '&#FFF800&l   &nSelect your gamemode'
+open_command: gamemodes
+update_interval: 1
+register_command: true
+open_commands:
+  - '[sound] BLOCK_CHEST_OPEN'
+size: 28
+items:
+  Prison:
+    material: basehead-eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTgyODUyMmU4NjgwYzU1YjJmZTViOWJjZmM4YWQwNmUzMzIzZjk3ODNkODM1MWNhNTBlZGViNDMxZTYzMTkwZiJ9fX0=
+    slot: 11
+    update: true
+    left_click_commands:
+      - '[connect] Prison'
+      - '[close]'
+    display_name: '&#2C9AFF&lᴘʀɪsᴏɴ'
+    lore:
+      - '&8Version: 26.1.2'
+      - ''
+      - '&7&o(( Mine your way to the top… ))'
+      - ''
+      - '&#7CFF94🛡 &fOnline: &#7CFF94%bungee_prison%'
+      - '&#00FFFD⚑ &fSeason: &#00FFFD#1'
+      - ''
+      - '&#2C9AFF&l➡ &nCLICK&#2C9AFF to Join &f&lᴘʀɪsᴏɴ'

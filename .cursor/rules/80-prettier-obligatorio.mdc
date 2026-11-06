@@ -1,0 +1,16 @@
+---
+description: Siempre Prettier tras tocar Java/YAML
+alwaysApply: true
+---
+
+# Prettier obligatorio
+
+Tras editar Java/YAML del plugin:
+
+```bat
+npx prettier --write "velocity/src/**/*.{java,yml,yaml}" "bungee/src/**/*.{java,yml,yaml}" "bukkit/src/**/*.{java,yml,yaml}" "common/src/**/*.{java,yml,yaml}" "api/src/**/*.{java,yml,yaml}"
+```
+
+Luego revisar aires Darling (blank entre métodos; no blank entre cada línea).
+Sync velocity → bungee de features tocadas.
+`package.json` = solo tooling Prettier (`ioricore-tooling`), no es el plugin.

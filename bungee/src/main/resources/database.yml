@@ -1,0 +1,36 @@
+# *************************************
+# *       IoriProxy | Database        *
+# *************************************
+# ~ NONE  = sin SQL (bans los enforce el Core con data/punishments.yml)
+# ~ MYSQL = misma BD que IoriCore (ic_punishments compartida)
+# ~ H2 eliminado (no compartía bans entre proxy y core)
+
+# ────────────────────────────
+# TYPE
+# ────────────────────────────
+DATABASE: NONE
+
+# ────────────────────────────
+# MYSQL / MARIADB
+# ────────────────────────────
+MYSQL:
+  HOST: 127.0.0.1
+  PORT: 3306
+  DATABASE: ioricore
+  USERNAME: root
+  PASSWORD: ""
+  SSL: false
+  POOL-SIZE: 5
+  MIN-IDLE: 1
+  CONNECTION-TIMEOUT-MS: 15000
+  MAX-LIFETIME-MS: 1800000
+
+# ────────────────────────────
+# MONGODB (document store opcional)
+# ────────────────────────────
+MONGODB:
+  URI-ENABLED: true
+  URI: "mongodb://127.0.0.1:27017/ioricore"
+  HOST: 127.0.0.1
+  PORT: 27017
+  DATABASE: ioricore

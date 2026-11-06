@@ -1,0 +1,359 @@
+# ***
+# * IoriCore | Chat formats
+# ***
+# ~ {LAYOUT} ordena partes · FORMATS colores + PARTS por rango
+# ~ {PLAYER} {MESSAGE} {TAG} + vault/LP/PAPI
+
+EN:
+  LAYOUT: "{tag}{rank}{player}{separator}{message}"
+  FORMATS:
+    owner:
+      PERMISSION: "ioricore.chat.format.owner"
+      RANK-COLOR: "&4"
+      NAME-COLOR: "&4"
+      MESSAGE-COLOR: "&f"
+      PARTS:
+        tag:
+          TEXT: "{TAG}"
+          HOVER:
+            - "&cOwner tag"
+            - "&7RoyalCTW staff"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com/tags"
+        rank:
+          TEXT: "{RANK-COLOR}%vault_prefix%"
+          HOVER:
+            - "&eOwner of the network"
+            - "&7Playtime: &f%ioricore_playtime%"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com"
+        player:
+          TEXT: "{NAME-COLOR}{PLAYER}"
+          HOVER:
+            - "%vault_prefix% &f{PLAYER}"
+            - "&7Playtime: &f%ioricore_playtime%"
+            - "&7Ping: &a%player_ping%ms"
+          CLICK:
+            TYPE: "SUGGEST_COMMAND"
+            VALUE: "/msg {PLAYER} "
+        separator:
+          TEXT: " &8» "
+        message:
+          TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+    staff:
+      PERMISSION: "ioricore.chat.format.staff"
+      RANK-COLOR: "&c"
+      NAME-COLOR: "&c"
+      MESSAGE-COLOR: "&f"
+      PARTS:
+        tag:
+          TEXT: "{TAG}"
+          HOVER:
+            - "&cStaff tag"
+        rank:
+          TEXT: "{RANK-COLOR}%vault_prefix%"
+          HOVER:
+            - "&eStaff member"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com"
+        player:
+          TEXT: "{NAME-COLOR}{PLAYER}"
+          HOVER:
+            - "%vault_prefix% &f{PLAYER}"
+            - "&7Playtime: &f%ioricore_playtime%"
+          CLICK:
+            TYPE: "SUGGEST_COMMAND"
+            VALUE: "/msg {PLAYER} "
+        separator:
+          TEXT: " &8» "
+        message:
+          TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+    default:
+      RANK-COLOR: "&7"
+      NAME-COLOR: "&f"
+      MESSAGE-COLOR: "&f"
+      PARTS:
+        tag:
+          TEXT: "{TAG}"
+        rank:
+          TEXT: "{RANK-COLOR}%vault_prefix%"
+          HOVER:
+            - "&eGet a rank in our store"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com"
+        player:
+          TEXT: "{NAME-COLOR}{PLAYER}"
+          HOVER:
+            - "&f{PLAYER}"
+            - "&7Playtime: &f%ioricore_playtime%"
+          CLICK:
+            TYPE: "SUGGEST_COMMAND"
+            VALUE: "/msg {PLAYER} "
+        separator:
+          TEXT: " &8» "
+        message:
+          TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+
+ES:
+  LAYOUT: "{tag}{rank}{player}{separator}{message}"
+  FORMATS:
+    owner:
+      PERMISSION: "ioricore.chat.format.owner"
+      RANK-COLOR: "&4"
+      NAME-COLOR: "&4"
+      MESSAGE-COLOR: "&f"
+      PARTS:
+        tag:
+          TEXT: "{TAG}"
+          HOVER:
+            - "&cTag de Owner"
+            - "&7Staff RoyalCTW"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com/tags"
+        rank:
+          TEXT: "{RANK-COLOR}%vault_prefix%"
+          HOVER:
+            - "&eDueño de la network"
+            - "&7Playtime: &f%ioricore_playtime%"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com"
+        player:
+          TEXT: "{NAME-COLOR}{PLAYER}"
+          HOVER:
+            - "%vault_prefix% &f{PLAYER}"
+            - "&7Playtime: &f%ioricore_playtime%"
+            - "&7Ping: &a%player_ping%ms"
+          CLICK:
+            TYPE: "SUGGEST_COMMAND"
+            VALUE: "/msg {PLAYER} "
+        separator:
+          TEXT: " &8» "
+        message:
+          TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+    staff:
+      PERMISSION: "ioricore.chat.format.staff"
+      RANK-COLOR: "&c"
+      NAME-COLOR: "&c"
+      MESSAGE-COLOR: "&f"
+      PARTS:
+        tag:
+          TEXT: "{TAG}"
+          HOVER:
+            - "&cTag de Staff"
+        rank:
+          TEXT: "{RANK-COLOR}%vault_prefix%"
+          HOVER:
+            - "&eMiembro del staff"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com"
+        player:
+          TEXT: "{NAME-COLOR}{PLAYER}"
+          HOVER:
+            - "%vault_prefix% &f{PLAYER}"
+            - "&7Playtime: &f%ioricore_playtime%"
+          CLICK:
+            TYPE: "SUGGEST_COMMAND"
+            VALUE: "/msg {PLAYER} "
+        separator:
+          TEXT: " &8» "
+        message:
+          TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+    default:
+      RANK-COLOR: "&7"
+      NAME-COLOR: "&f"
+      MESSAGE-COLOR: "&f"
+      PARTS:
+        tag:
+          TEXT: "{TAG}"
+        rank:
+          TEXT: "{RANK-COLOR}%vault_prefix%"
+          HOVER:
+            - "&eConsigue un rango en la tienda"
+          CLICK:
+            TYPE: "OPEN_URL"
+            VALUE: "https://store.example.com"
+        player:
+          TEXT: "{NAME-COLOR}{PLAYER}"
+          HOVER:
+            - "&f{PLAYER}"
+            - "&7Playtime: &f%ioricore_playtime%"
+          CLICK:
+            TYPE: "SUGGEST_COMMAND"
+            VALUE: "/msg {PLAYER} "
+        separator:
+          TEXT: " &8» "
+        message:
+          TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+
+LEGACY:
+  EN:
+    LAYOUT: "{tag}{rank}{player}{separator}{message}"
+    FORMATS:
+      owner:
+        PERMISSION: "ioricore.chat.format.owner"
+        RANK-COLOR: "&4"
+        NAME-COLOR: "&4"
+        MESSAGE-COLOR: "&f"
+        PARTS:
+          tag:
+            TEXT: "{TAG}"
+            HOVER:
+              - "&cOwner tag"
+          rank:
+            TEXT: "{RANK-COLOR}%vault_prefix%"
+            HOVER:
+              - "&eOwner of the network"
+            CLICK:
+              TYPE: "OPEN_URL"
+              VALUE: "https://store.example.com"
+          player:
+            TEXT: "{NAME-COLOR}{PLAYER}"
+            HOVER:
+              - "%vault_prefix% &f{PLAYER}"
+              - "&7Ping: &a%player_ping%ms"
+            CLICK:
+              TYPE: "SUGGEST_COMMAND"
+              VALUE: "/msg {PLAYER} "
+          separator:
+            TEXT: " &8» "
+          message:
+            TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+      staff:
+        PERMISSION: "ioricore.chat.format.staff"
+        RANK-COLOR: "&c"
+        NAME-COLOR: "&c"
+        MESSAGE-COLOR: "&f"
+        PARTS:
+          tag:
+            TEXT: "{TAG}"
+            HOVER:
+              - "&cStaff tag"
+          rank:
+            TEXT: "{RANK-COLOR}%vault_prefix%"
+            HOVER:
+              - "&eStaff member"
+          player:
+            TEXT: "{NAME-COLOR}{PLAYER}"
+            HOVER:
+              - "%vault_prefix% &f{PLAYER}"
+            CLICK:
+              TYPE: "SUGGEST_COMMAND"
+              VALUE: "/msg {PLAYER} "
+          separator:
+            TEXT: " &8» "
+          message:
+            TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+      default:
+        RANK-COLOR: "&7"
+        NAME-COLOR: "&f"
+        MESSAGE-COLOR: "&f"
+        PARTS:
+          tag:
+            TEXT: "{TAG}"
+          rank:
+            TEXT: "{RANK-COLOR}%vault_prefix%"
+            HOVER:
+              - "&eGet a rank in the store"
+            CLICK:
+              TYPE: "OPEN_URL"
+              VALUE: "https://store.example.com"
+          player:
+            TEXT: "{NAME-COLOR}{PLAYER}"
+            HOVER:
+              - "&f{PLAYER}"
+            CLICK:
+              TYPE: "SUGGEST_COMMAND"
+              VALUE: "/msg {PLAYER} "
+          separator:
+            TEXT: " &8» "
+          message:
+            TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+  ES:
+    LAYOUT: "{tag}{rank}{player}{separator}{message}"
+    FORMATS:
+      owner:
+        PERMISSION: "ioricore.chat.format.owner"
+        RANK-COLOR: "&4"
+        NAME-COLOR: "&4"
+        MESSAGE-COLOR: "&f"
+        PARTS:
+          tag:
+            TEXT: "{TAG}"
+            HOVER:
+              - "&cTag de Owner"
+          rank:
+            TEXT: "{RANK-COLOR}%vault_prefix%"
+            HOVER:
+              - "&eDueño de la network"
+            CLICK:
+              TYPE: "OPEN_URL"
+              VALUE: "https://store.example.com"
+          player:
+            TEXT: "{NAME-COLOR}{PLAYER}"
+            HOVER:
+              - "%vault_prefix% &f{PLAYER}"
+              - "&7Ping: &a%player_ping%ms"
+            CLICK:
+              TYPE: "SUGGEST_COMMAND"
+              VALUE: "/msg {PLAYER} "
+          separator:
+            TEXT: " &8» "
+          message:
+            TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+      staff:
+        PERMISSION: "ioricore.chat.format.staff"
+        RANK-COLOR: "&c"
+        NAME-COLOR: "&c"
+        MESSAGE-COLOR: "&f"
+        PARTS:
+          tag:
+            TEXT: "{TAG}"
+            HOVER:
+              - "&cTag de Staff"
+          rank:
+            TEXT: "{RANK-COLOR}%vault_prefix%"
+            HOVER:
+              - "&eMiembro del staff"
+          player:
+            TEXT: "{NAME-COLOR}{PLAYER}"
+            HOVER:
+              - "%vault_prefix% &f{PLAYER}"
+            CLICK:
+              TYPE: "SUGGEST_COMMAND"
+              VALUE: "/msg {PLAYER} "
+          separator:
+            TEXT: " &8» "
+          message:
+            TEXT: "{MESSAGE-COLOR}{MESSAGE}"
+      default:
+        RANK-COLOR: "&7"
+        NAME-COLOR: "&f"
+        MESSAGE-COLOR: "&f"
+        PARTS:
+          tag:
+            TEXT: "{TAG}"
+          rank:
+            TEXT: "{RANK-COLOR}%vault_prefix%"
+            HOVER:
+              - "&eConsigue un rango en la tienda"
+            CLICK:
+              TYPE: "OPEN_URL"
+              VALUE: "https://store.example.com"
+          player:
+            TEXT: "{NAME-COLOR}{PLAYER}"
+            HOVER:
+              - "&f{PLAYER}"
+            CLICK:
+              TYPE: "SUGGEST_COMMAND"
+              VALUE: "/msg {PLAYER} "
+          separator:
+            TEXT: " &8» "
+          message:
+            TEXT: "{MESSAGE-COLOR}{MESSAGE}"

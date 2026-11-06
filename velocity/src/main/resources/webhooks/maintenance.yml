@@ -1,0 +1,56 @@
+# *************************************
+# *    IoriProxy | Webhook maintenance *
+# *************************************
+# ~ Placeholders: %action% %scope% %duration% %reason% %by%
+# ~ También: <action> <scope> <duration> <reason> <by>
+
+# ────────────────────────────
+# CONFIGURACIÓN DE DISCORD WEBHOOK
+# ────────────────────────────
+# Puedes usar el avatar-url
+#  · https://minotar.net/helm/%player%/128.png
+# Para usar la cabeza del jugador, si no puedes usar:
+#  · https://visage.surgeplay.com/bust/152/%player% para usar la mitad de tu skin
+
+# ────────────────────────────
+# CONNECTION
+# ────────────────────────────
+ENABLED: false
+URL: ""
+USERNAME: "IoriProxy | Maintenance"
+AVATAR-URL: "https://visage.surgeplay.com/bust/152/%player%"
+
+# ────────────────────────────
+# MESSAGE
+# ────────────────────────────
+CONTENT: "🛠️ **MANTENIMIENTO**"
+
+# ────────────────────────────
+# EMBED
+# ────────────────────────────
+EMBED:
+  COLOR: "#E67E22"
+  TIMESTAMP: true
+
+  AUTHOR:
+    NAME: "IoriProxy | Maintenance"
+    URL: ""
+    ICON-URL: ""
+
+  TITLE: "Mantenimiento · %action%"
+  TITLE-URL: ""
+
+  DESCRIPTION: |
+    🔧 **Actualización de mantenimiento**
+
+    📍 **Alcance:** %scope%
+    ⏱️ **Duración:** %duration%
+    🛡️ **Por:** %by%
+
+    %reason%
+
+  THUMBNAIL-URL: ""
+  IMAGE-URL: ""
+
+  FOOTER: "IoriProxy"
+  FOOTER-ICON-URL: ""

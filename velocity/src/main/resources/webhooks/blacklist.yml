@@ -1,0 +1,55 @@
+# *************************************
+# *    IoriProxy | Webhook blacklist   *
+# *************************************
+# ~ Placeholders: %player% %reason% %staff% %silent%
+# ~ También: <player> <reason> <staff> <silent>
+
+# ────────────────────────────
+# CONFIGURACIÓN DE DISCORD WEBHOOK
+# ────────────────────────────
+# Puedes usar el avatar-url
+#  · https://minotar.net/helm/%player%/128.png
+# Para usar la cabeza del jugador, si no puedes usar:
+#  · https://visage.surgeplay.com/bust/152/%player% para usar la mitad de tu skin
+
+# ────────────────────────────
+# CONNECTION
+# ────────────────────────────
+ENABLED: false
+URL: ""
+USERNAME: "IoriProxy | Blacklist"
+AVATAR-URL: "https://visage.surgeplay.com/bust/152/%player%"
+
+# ────────────────────────────
+# MESSAGE
+# ────────────────────────────
+CONTENT: "⛔ **BLACKLIST ACTUALIZADA**"
+
+# ────────────────────────────
+# EMBED
+# ────────────────────────────
+EMBED:
+  COLOR: "#992D22"
+  TIMESTAMP: true
+
+  AUTHOR:
+    NAME: "IoriProxy | Blacklist"
+    URL: ""
+    ICON-URL: ""
+
+  TITLE: "Blacklist"
+  TITLE-URL: ""
+
+  DESCRIPTION: |
+    🚫 **Jugador blacklisteado**
+
+    👤 **Jugador:** %player%
+    📝 **Motivo:** %reason%
+    🛡️ **Staff:** %staff%
+    🔇 **Silent:** %silent%
+
+  THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+  IMAGE-URL: ""
+
+  FOOTER: "%player%"
+  FOOTER-ICON-URL: "https://visage.surgeplay.com/face/%player%"

@@ -1,0 +1,44 @@
+# ***
+# * IoriCore | Menu TAGS
+# ***
+
+ID: tags
+TITLE-KEY: TAGS.MENU.TITLE
+ROWS: 6
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 7
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 3
+  NAME: " "
+  GLOW: false
+  SLOTS: [0, 8, 45, 53]
+
+DYNAMIC:
+  SOURCE: tags.all
+  SLOTS: ["10-16", "19-25", "28-34"]
+  TEMPLATE:
+    MATERIAL: NAME_TAG
+    NAME-KEY: TAGS.MENU.ITEM-NAME
+    LORE-KEY: TAGS.MENU.ITEM-LORE
+    ACTIONS:
+      ANY: ["[internal] tags.equip {id}"]
+
+ITEMS:
+  BACK:
+    SLOT: 49
+    MATERIAL: ARROW
+    NAME-KEY: TAGS.MENU.BACK-NAME
+    LORE-KEY: TAGS.MENU.BACK-LORE
+    ACTIONS:
+      ANY: ["[close]"]

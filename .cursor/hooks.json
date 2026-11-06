@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "hooks": {
+    "stop": [
+      {
+        "type": "prompt",
+        "prompt": "Antes de terminar: 1) aplicar checklist de .cursor/agents/code-reviewer.md y .cursor/skills/post-task-hygiene/SKILL.md 2) estilo Darling (impl/, argument/, enum-file) 3) YAML solo settings+messages salvo webhooks 4) sync velocity↔bungee si hubo duplicación 5) Prettier en YAMLs tocados si Node disponible 6) gradlew.bat build --no-daemon si cambió Java/resources. Resume en ≤10 líneas."
+      }
+    ]
+  }
+}

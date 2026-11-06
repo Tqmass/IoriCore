@@ -1,0 +1,61 @@
+# *************************************
+# *     IoriProxy | Fallback / Hub    *
+# *************************************
+# ~ Texts from chat/titles: messages/{lang}.yml (LOBBY.*)
+
+# ────────────────────────────
+# PING
+# ────────────────────────────
+PING-DELAY: 1000
+PING-TIMEOUT: 3000
+
+# ────────────────────────────
+# HUB
+# ────────────────────────────
+# ~ /hub (aliases en commands.yml)
+HUB:
+  ENABLED: true
+
+# ────────────────────────────
+# JOIN-BALANCING
+# ────────────────────────────
+JOIN-BALANCING:
+  ENABLED: true
+  GROUP: DEFAULT
+
+# ────────────────────────────
+# MULTILOBBY
+# ────────────────────────────
+MULTILOBBY:
+  ENABLED: false
+  # ~ LEAST_PLAYERS | RANDOM
+  BALANCING: least_players
+  # ~ Vacío = FALLBACK.GROUPS.DEFAULT
+  LOBBIES:
+    - lobby
+    - lobby-1
+    - lobby-2
+
+# ────────────────────────────
+# FALLBACK
+# ────────────────────────────
+FALLBACK:
+  # ~ LEAST_PLAYERS | RANDOM | FIRST (DEFAULT = LEAST_PLAYERS)
+  MODE: DEFAULT
+  GROUPS:
+    DEFAULT:
+      - lobby
+
+ON-SERVER-KICK: true
+ON-SERVER-DOWN: true
+CLEAR-CHAT: true
+
+# ~ Reasons for a kick where we do NOT fall back to the lobby
+IGNORED-REASONS:
+  - ban
+  - banned
+  - kick
+  - kicked
+  - blacklist
+  - blacklisted
+  - maintenance

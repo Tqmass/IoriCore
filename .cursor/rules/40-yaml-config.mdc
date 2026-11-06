@@ -1,0 +1,33 @@
+---
+description: Config IoriProxy — settings + YAMLs por dominio; estilo IoriCTW.
+globs: "**/*.{yml,yaml,java}"
+alwaysApply: false
+---
+
+# YAML config (IoriCTW)
+
+## settings.yml
+- `SETTINGS`, `PLAYTIME`, `COOLDOWNS`, `NOTIFICATIONS`, `FRIENDS`, `COMMAND-WHITELIST`, `ANNOUNCEMENTS` (intervalo/random/sound), `ANALYTICS`, `MODULES`
+- Comentarios `# ~` solo explican para qué sirve
+
+## Archivos por dominio
+`redis.yml`, `database.yml`, `motd.yml`, `fallback.yml`, `queue.yml`, `commands.yml`, `permissions.yml`, `maintenance.yml`, `donations.yml`
+
+## Anuncios
+Lista ordenada en `messages/{lang}.yml` → `ANNOUNCEMENTS:` (bloques `|`). Sin keys. Random/intervalo en settings.
+
+## Eliminados (settings / messages)
+`report.yml`, `helpop.yml`, `friends.yml`, `stream.yml`, `command-whitelist.yml`, `blacklist.yml`, `playtime.yml`, `announcements.yml`, `analytics.yml`
+
+## Estilo
+Separadores `# ***` / `# ──`, claves UPPERCASE kebab.
+Webhooks: `webhooks/*.yml` estilo Helium (TITLE + DESCRIPTION).
+
+## Comentarios (obligatorio al crear YAML)
+Ver `.cursor/design/yaml-comments.md`:
+- Placeholders: bloque `#  Placeholder's ↓` + `#   · {KEY}` o `# ~ Placeholders: ...`
+- Separadores sección / comando / messages
+
+## Discord avatars
+Default bust: `https://visage.surgeplay.com/bust/152/%player%`
+(Alt helm: minotar — ver `.cursor/design/discord-avatars.md`)

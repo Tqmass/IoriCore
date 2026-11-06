@@ -1,0 +1,51 @@
+---
+description: StaffReg — alta admin, Discord obligatorio, trust/geo, step-up, JDA único en proxy.
+alwaysApply: true
+---
+
+# Objetivo
+Rediseñar Staff-Auth como StaffReg: alta de staff por un admin (nick + contraseña), vínculo OBLIGATORIO con
+Discord (OTC con /sync o asignación por admin con confirmación del dueño), login solo la primera vez,
+re-autenticación solo ante cambio de país/lugar, step-up siempre activo, y JDA ÚNICO en el proxy.
+La config vive en discord.yml (adjunto): respeta sus claves y secciones tal cual.
+
+# Decisiones cerradas (no re-discutir)
+1. Un admin autenticado registra staff: /staffreg create <nick> <password>. La contraseña es temporal
+   (MUST-CHANGE-ON-FIRST-LOGIN) y se guarda con Argon2id. Nunca en claro, nunca en logs ni embeds.
+2. Vínculo Discord obligatorio. Dos caminos: OTC in-game -> /sync, o un admin asigna ID/@usuario y el
+   dueño confirma con botón por MD. Un Discord = una cuenta staff.
+3. Primer login: se guarda IP (solo HMAC), país, región y ciudad. Mientras no cambie el lugar, no se
+   vuelve a pedir login (TRUST.EXPIRE-DAYS configurable, 0 = nunca).
+4. Cambio de país/región (ciudad opcional) o VPN/proxy: se quitan TODOS los permisos, queda solo el rango
+   (tag), y se manda reto por MD con botones Approve / Deny / No fui yo.
+5. Debe funcionar SIN Discord: modo PASSWORD (/staff login). Aviso visible de "Discord sin vincular" y
+   forma de asignarlo. El step-up sin Discord se pide con contraseña.
+6. 3 fallos de contraseña = baneo por seguridad (duración en FAILS.BAN-DURATION) + revocar sesiones +
+   alerta en CHANNELS.SECURITY con botón Unban.
+7. Step-up SIEMPRE activo (STEP-UP): /op, /lp, /stop, ban permanente, consola, nodos "*" y
+   minecraft.command.op requieren aprobación fresca (TTL-SECONDS). No existe flag para saltárselo.
+8. Nadie con OP o "*" entra sin estar vinculado/autenticado: se retiran hasta autenticar
+   (AUTH.ENFORCE-OP-AND-WILDCARD).
+9. JDA solo en el proxy. Core/backends publican por Redis (BRIDGE) y reciben resultados por CHANNEL-OUT.
+
+# Principios innegociables
+- Fail closed: si Redis, SQL o Discord fallan, el staff queda restringido (salvo modo PASSWORD válido).
+- El proxy es la autoridad; los backends solo consultan y aplican.
+- Nunca loguear contraseñas, OTC, tokens, TOTP ni IPs en claro.
+- Cero I/O bloqueante en el hilo principal: todo async (CompletableFuture).
+- Secretos solo por variables de entorno (TOKEN, pepper de HMAC, clave AES, secreto del BRIDGE).
+- Botones: customId firmado (HMAC) con acción + token del reto, un solo uso, caducidad, y solo el Discord
+  vinculado puede pulsar (en el canal fallback, un admin que NUNCA sea el propio staff).
+- Comparaciones de secretos en tiempo constante. OTC y contraseñas siempre hasheados.
+- Requisito de red: online-mode y forwarding seguro (Velocity modern forwarding o BungeeGuard).
+
+# Estilo
+- Estructura y nombres calcados de Darling (me.vals.darling): módulos con impl/, reutilizar Utils válidos.
+- Todos los enums de StaffReg en un único archivo. Arguments agrupados solo si hacen falta.
+- Lombok (@Getter/@Setter), Prettier, código limpio, simple y rápido.
+- Config StaffReg/Discord: discord.yml (+ messages). Separadores ordenados como IoriCTW.
+- Ideas útiles de CoreDub/Helium permitidas, pero con la organización de Darling.
+
+# Proceso
+Trabaja por fases (docs/plan o prompt StaffReg). Al terminar cada una: compila, resume cambios, lista riesgos y espera OK.
+No avances si no se cumplen los criterios de aceptación.

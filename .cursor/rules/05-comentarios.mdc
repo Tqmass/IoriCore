@@ -1,0 +1,18 @@
+---
+description: Prohibido Javadoc narrativo; solo cabecera estilo Darling si hace falta
+alwaysApply: true
+---
+
+# Comentarios
+
+## Prohibido
+- Javadoc que explique qué hace el método (`/** Sends alert… */`, `/** Migrates… */`).
+- Comentarios de decisión larga en el código (`Never invent ranks…`).
+- `// Merge playtime…`, `// Incoming requests…` narrando el flujo.
+
+## Permitido
+- Cabecera de archivo estilo Darling (copyright / `@author` / `@project`) **solo** si el usuario la pide.
+- Un comentario corto **solo** si explica un porqué no obvio (licencia GPL, workaround API).
+
+## Regla
+El nombre del método + código limpio sustituyen al comentario. Si hace falta explicación → `.cursor/docs/memory/DECISIONS.md`.

@@ -1,0 +1,36 @@
+# ***
+# * IoriCore | Menu PUNISH-REASONS (submenu, legacy)
+# ***
+
+ID: punish-reasons
+PARENT: punish
+THEME: default
+TITLE: "&8Punish &7{target} &8· &f{category}"
+ROWS: 6
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  CLICK: MENU-CLICK
+
+DYNAMIC:
+  SOURCE: punish.reasons
+  SLOTS: ["10-16", "19-25", "28-34", "37-43"]
+  TEMPLATE:
+    MATERIAL: "{material}"
+    MATERIAL-FALLBACK: "{material-fallback}"
+    NAME: "{name}"
+    LORE:
+      - "&7Reason: &f{reason}"
+      - "&7Duration: &f{duration}"
+    ACTIONS:
+      ANY: ["[internal] punish.apply {id}"]
+
+ITEMS:
+  BACK:
+    SLOT: 49
+    MATERIAL: ARROW
+    DATA: 0
+    NAME: "&7Back"
+    ACTIONS:
+      ANY: ["[back]"]

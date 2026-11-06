@@ -1,0 +1,21 @@
+# *** SAMPLE · Alonso-style chat format (modern) ***
+# ~ Ideas: LOWER_FIRST/HIGHER_FIRST, parts con hover/click, PAPI
+# ~ IoriCore: chat/formats/{en,es}.yml + legacy/ — UPPERCASE propio
+
+default-priority-ordering: LOWER_FIRST
+formats:
+  - name: default
+    priority: 99999
+    chat-color: '&f'
+    permission: ''
+    use-placeholder-api: true
+    parts:
+      - display: '%vault_suffix%&3%player_name% '
+        click-action: '[SUGGEST] /msg {name} '
+        tooltip:
+          - '&e&l(!) &6%player_name% stats'
+          - ''
+          - ' &6❙ &ePlaytime: &7⌚ %statistic_time_played%'
+      - display: '&8➡ '
+        click-action: '[NONE] '
+        tooltip: []

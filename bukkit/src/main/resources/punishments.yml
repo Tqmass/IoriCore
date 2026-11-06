@@ -1,0 +1,93 @@
+# *************************************
+# * IoriCore | Punishment reasons     *
+# *************************************
+# ~ Catálogo de motivos para /punish (categorías WARN, MUTE, …)
+# ~ Registro de sanciones aplicadas: data/punishments.yml (YAML store)
+# ~ Placeholders: {player} {reason} {duration} · EXECUTOR: CONSOLE | PLAYER
+# ~ CONFIG-VERSION: migraciones con backup .bak
+
+CONFIG-VERSION: 1
+
+WARN:
+  - ID: warn-spam
+    MATERIAL: PAPER
+    MATERIAL-FALLBACK: PAPER
+    NAME: "&eSpam"
+    REASON: "Spamming in chat"
+    DURATION: ""
+    EXECUTOR: CONSOLE
+    COMMAND: "warn {player} {reason}"
+  - ID: warn-advertising
+    MATERIAL: MAP
+    MATERIAL-FALLBACK: PAPER
+    NAME: "&eAdvertising"
+    REASON: "Unauthorized advertising"
+    DURATION: ""
+    EXECUTOR: CONSOLE
+    COMMAND: "warn {player} {reason}"
+
+MUTE:
+  - ID: mute-toxic
+    MATERIAL: BOOK
+    MATERIAL-FALLBACK: BOOK
+    NAME: "&6Permanent mute · Toxicity"
+    REASON: "Toxic behaviour"
+    DURATION: ""
+    EXECUTOR: CONSOLE
+    COMMAND: "mute {player} {reason}"
+
+TEMPMUTE:
+  - ID: tempmute-spam
+    MATERIAL: WRITABLE_BOOK
+    MATERIAL-FALLBACK: BOOK_AND_QUILL
+    NAME: "&6Temp mute · Spam"
+    REASON: "Chat spam"
+    DURATION: "1h"
+    EXECUTOR: CONSOLE
+    COMMAND: "tempmute {player} {duration} {reason}"
+  - ID: tempmute-toxic
+    MATERIAL: BOOK
+    MATERIAL-FALLBACK: BOOK
+    NAME: "&6Temp mute · Toxicity"
+    REASON: "Toxic behaviour"
+    DURATION: "6h"
+    EXECUTOR: CONSOLE
+    COMMAND: "tempmute {player} {duration} {reason}"
+
+BAN:
+  - ID: ban-evasion
+    MATERIAL: BARRIER
+    MATERIAL-FALLBACK: BARRIER
+    NAME: "&cPermanent ban · Evasion"
+    REASON: "Ban evasion"
+    DURATION: ""
+    EXECUTOR: CONSOLE
+    COMMAND: "ban {player} {reason}"
+
+TEMPBAN:
+  - ID: tempban-hacking
+    MATERIAL: REDSTONE_BLOCK
+    MATERIAL-FALLBACK: REDSTONE_BLOCK
+    NAME: "&cTemp ban · Hacking"
+    REASON: "Unfair advantage / hacking"
+    DURATION: "30d"
+    EXECUTOR: CONSOLE
+    COMMAND: "tempban {player} {duration} {reason}"
+  - ID: tempban-grief
+    MATERIAL: TNT
+    MATERIAL-FALLBACK: TNT
+    NAME: "&cTemp ban · Griefing"
+    REASON: "Griefing"
+    DURATION: "7d"
+    EXECUTOR: CONSOLE
+    COMMAND: "tempban {player} {duration} {reason}"
+
+KICK:
+  - ID: kick-spam
+    MATERIAL: IRON_BOOTS
+    MATERIAL-FALLBACK: IRON_BOOTS
+    NAME: "&7Kick · Spam"
+    REASON: "Spam (kick)"
+    DURATION: ""
+    EXECUTOR: CONSOLE
+    COMMAND: "kick {player} {reason}"

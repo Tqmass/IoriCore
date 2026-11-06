@@ -1,0 +1,87 @@
+# *************************************
+# *  RoyalCTW | Discord Community      *
+# *************************************
+# ~ Paneles, tickets y sorteos (JDA en proxy). Persistencia: repositorios SQL/Mongo/H2 (fases siguientes).
+# ~ Patrones de comportamiento inspirados en Snowfall (Apache-2.0, https://github.com/v4lss/Snowfall) —
+#   no copiado literal; si se adapta fragmento concreto, conservar NOTICE en el fuente.
+# ~ Este archivo se carga junto a discord.yml; el bot aún no registra comandos community (ver DEFERRED).
+
+NOTICE: "Estructura alineada con mega-prompt; ideas de tickets/sorteos tipo Snowfall (Apache-2.0) solo como referencia de flujo."
+
+DEFERRED:
+  - "Comandos /panel, /ticket, /giveaway y listeners de componentes (OPEN_TICKET, etc.)."
+  - "Repositorios: ic_community_panels, ic_community_tickets, ic_community_giveaways + índices únicos participación."
+  - "Scheduler persistente de sorteos y re-hydrate al arranque."
+
+# ────────────────────────────
+# PANELS (mensajes persistentes con botones / selects)
+# ────────────────────────────
+PANELS:
+  ENABLED: false
+  support:
+    CHANNEL-ID: ""
+    EMBED:
+      COLOR: "#5865F2"
+      TITLE: "Soporte"
+      DESCRIPTION: "Abre un ticket o usa el menú rápido."
+    COMPONENTS:
+      - TYPE: BUTTON
+        ID: open
+        LABEL: "Abrir ticket"
+        STYLE: PRIMARY
+        ACTION: "OPEN_TICKET_MENU"
+      - TYPE: STRING_SELECT
+        ID: quick
+        PLACEHOLDER: "Acceso rápido"
+        OPTIONS:
+          - { LABEL: "Vincular cuenta", VALUE: link, ACTION: "LINK_ACCOUNT" }
+          - { LABEL: "Reglas", VALUE: rules, ACTION: "REPLY:RULES" }
+
+# ────────────────────────────
+# TICKETS (categorías Discord + staff roles)
+# ────────────────────────────
+TICKETS:
+  ENABLED: false
+  SETTINGS:
+    MAX-OPEN-PER-USER: 1
+    COOLDOWN-SECONDS: 120
+    CLOSE-CONFIRMATION: true
+    DELETE-AFTER-SECONDS: 60
+    LOG-CHANNEL-ID: ""
+  CATEGORIES:
+    general:
+      NAME: "Soporte"
+      EMOJI: "📩"
+      DESCRIPTION: "Incidencias generales"
+      DISCORD-CATEGORY-ID: ""
+      STAFF-ROLE-IDS: []
+      NAME-FORMAT: "ticket-%number%"
+      MODAL:
+        ENABLED: false
+        LABEL: "Motivo"
+        PLACEHOLDER: "Describe brevemente…"
+        MIN-LENGTH: 8
+        MAX-LENGTH: 256
+
+# ────────────────────────────
+# GIVEAWAYS (participación por botón; sin reacciones)
+# ────────────────────────────
+GIVEAWAYS:
+  ENABLED: false
+  SETTINGS:
+    MIN-UPDATE-INTERVAL-SECONDS: 30
+    REQUIRE-LINKED-MC: true
+    DEFAULT-ROLE-REQUIREMENTS: []
+
+# ────────────────────────────
+# ROLE-SYNC (NO IMPLEMENTAR — solo documentación)
+# ────────────────────────────
+# ROLE-SYNC:
+#   ENABLED: false
+#   # Futuro: cuenta vinculada + LuckPerms + GUILD_MEMBERS + sync en login / role update.
+#   # Ver docs/ROADMAP.md (Helium como referencia de código).
+
+ROADMAP:
+  - "ROLE-SYNC: jugador con cuenta Discord vinculada; reflejar rangos LP según roles; re-sync al login y RoleUpdate."
+  - "Tickets: transcript adjunto a LOG-CHANNEL-ID; numeración atómica en DB."
+  - "Sorteos: reroll sin repetición; MD a ganadores con fallback a canal."

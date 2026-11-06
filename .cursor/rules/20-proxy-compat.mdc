@@ -1,0 +1,23 @@
+---
+description: Compatibilidad Velocity + BungeeCord y capa common.
+globs: "**/{velocity,bungee,common}/**/*.java"
+alwaysApply: false
+---
+
+# Proxy compat
+
+## Fuentes
+- Velocity JD 3.4: https://jd.papermc.io/velocity/3.4.0/
+- Velocity dev: https://docs.papermc.io/velocity/dev/
+- Plugin messaging Velocity: https://docs.papermc.io/velocity/dev/plugin-messaging/
+- Adventure Bungee (legacy): https://docs.papermc.io/adventure/platform/bungeecord/ (unmaintained; usar con cuidado)
+- Patrón LuckPerms: common + plugins por plataforma (https://luckperms.net/wiki/Contributing)
+
+## Reglas
+1. **Ningún** `import com.velocitypowered` / `net.md_5.bungee` en `common/`.
+2. Contratos en common (`ProxyPlatform`, commands, presence ports). Adaptadores en `velocity/.../impl` y `bungee/.../impl`.
+3. Velocity: Adventure nativo. Bungee: `BungeeAudiences` + cerrar en disable.
+4. Comandos case-insensitive; permisos `ioriproxy.*`.
+5. Helium: solo ideas (MOTD/maintenance/presence). Código desordenado — **no** copiar estructura Helium.
+6. CoreDub Proxy-API: tipado de mensajes Redis / reconnect — **ideas**; reescribir sobre Jedis actual (no sockets custom).
+7. Preferir Redis pub/sub para fan-out multi-proxy; plugin messaging solo proxy↔backend con reglas de `50-seguridad`.

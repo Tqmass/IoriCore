@@ -1,0 +1,61 @@
+# Build
+.gradle/
+build/
+out/
+bin/
+*.class
+*.log
+BuildTools.log.txt
+
+# Jars (keep wrapper)
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+.DS_Store
+
+# Secrets / runtime
+*.env
+.env*
+**/run/
+**/logs/
+**/plugins/
+local/
+*.bak
+*.bak-*
+
+# Node tooling (Prettier)
+node_modules/
+package-lock.json
+
+# Local Cursor caches / refs (keep rules/skills via force-add if needed)
+.cursor/_refs/
+.cursor/_decompiled/
+.cursor.rar
+
+# Portable Git (never ship)
+PortableGit-*/
+PortableGit*/
+
+# Extract / decompile leftovers
+.tmp*/
+tools/
+configspigot.yml
+configproxy.yml
+data.yml
+/io/
+/it/
+/javax/
+/META-INF/
+/mojang-translations/
+/net/
+/org/
+
+# Old Claude home (migrated to .cursor)
+.claude/

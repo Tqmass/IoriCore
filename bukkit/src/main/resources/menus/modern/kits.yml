@@ -1,0 +1,43 @@
+# ***
+# * IoriCore | Menu KITS
+# ***
+
+ID: kits
+TITLE: "&8Kits"
+ROWS: 4
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  OPEN: UI-CLICK
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: GRAY_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+
+DYNAMIC:
+  SOURCE: kits.enabled
+  SLOTS: ["10-16", "19-25"]
+  TEMPLATE:
+    MATERIAL: CHEST
+    NAME: "&e{kit}"
+    LORE:
+      - "&7Permission: &f{permission}"
+      - "&7Cooldown: &f{cooldown}"
+      - "&7Ready: &f{ready}"
+      - ""
+      - "&eClick to claim"
+    ACTIONS:
+      ANY: ["[internal] kits.give {kit}"]
+
+ITEMS:
+  CLOSE:
+    SLOT: 31
+    MATERIAL: BARRIER
+    MATERIAL-FALLBACK: REDSTONE_BLOCK
+    NAME: "&cClose"
+    ACTIONS:
+      ANY: ["[close]"]

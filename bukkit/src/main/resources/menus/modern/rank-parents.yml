@@ -1,0 +1,53 @@
+# ***
+# * IoriCore | Menu RANK-PARENTS
+# ***
+
+ID: rank-parents
+TITLE-KEY: RANKS.MENU.PARENTS-TITLE
+ROWS: 4
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: GRAY_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: LIGHT_BLUE_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+  SLOTS: [4, 31]
+
+DYNAMIC:
+  SOURCE: ranks.parents
+  SLOTS: ["10-16", "19-25"]
+  TEMPLATE:
+    MATERIAL: PAPER
+    NAME: "&f{display}"
+    LORE:
+      - "&7Priority: &f{priority}"
+      - "&eClick to remove"
+    ACTIONS:
+      ANY: ["[internal] ranks.parent-remove {parent}"]
+
+ITEMS:
+  ADD:
+    SLOT: 31
+    MATERIAL: EMERALD
+    NAME-KEY: RANKS.MENU.PARENT-ADD-NAME
+    LORE-KEY: RANKS.MENU.PARENT-ADD-LORE
+    ACTIONS:
+      ANY: ["[internal] ranks.parent-add"]
+  BACK:
+    SLOT: 35
+    MATERIAL: ARROW
+    NAME-KEY: RANKS.MENU.PARENT-BACK-NAME
+    LORE-KEY: RANKS.MENU.PARENT-BACK-LORE
+    ACTIONS:
+      ANY: ["[back]"]

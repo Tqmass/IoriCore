@@ -1,0 +1,5 @@
+build/
+.gradle/
+**/generated/
+**/*.jar
+node_modules/

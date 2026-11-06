@@ -1,0 +1,29 @@
+# *************************************
+# *        IoriProxy | Redis          *
+# *************************************
+# ~ Pub/sub sync (presence, maintenance, chat, reports...). Origin id: settings.yml SETTINGS.PROXY-ID (unique per proxy).
+
+# ────────────────────────────
+# CONNECTION
+# ────────────────────────────
+ENABLED: false
+HOST: 127.0.0.1
+PORT: 6379
+DATABASE: 0
+TIMEOUT-MS: 2000
+SSL: false
+
+# ────────────────────────────
+# NAMESPACE
+# ────────────────────────────
+# ~ KEY-PREFIX prefixes every stored key; CHANNEL is the pub/sub channel base
+KEY-PREFIX: ioriproxy
+CHANNEL: ioriproxy
+
+# ────────────────────────────
+# AUTHENTICATION
+# ────────────────────────────
+AUTHENTICATION:
+  ENABLED: false
+  USERNAME: ""
+  PASSWORD: ""

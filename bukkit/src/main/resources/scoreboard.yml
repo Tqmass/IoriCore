@@ -1,0 +1,81 @@
+# *************************************
+# *     IoriCore | Scoreboard         *
+# *************************************
+
+# ────────────────────────────
+# GENERAL SETTINGS
+# ────────────────────────────
+UPDATE-TICKS: 20
+DISABLE-LUNAR-NUMBERS: true
+DEFAULT-SCOREBOARD-STYLE: LOBBY
+
+# ────────────────────────────
+# PLACEHOLDERS
+# ────────────────────────────
+# ~ Internal: {player} {online} {max} {server} {ping} {world}
+# ~ Custom: {friends} {coins} {kills} {deaths} {playtime} {balance} {gems} {credits}
+# ~ Profile: {first_join} {last_join} {first_connection}
+# ~ Rank: <rank> {rank_display} {rank_prefix} {rank_suffix}
+# ~ Time: <time> <time:HH:mm:ss> <time:dd.MM.yyyy> <time:dd/MM/yyyy>
+# ~ Server: <server_NAME> <server_NAME_online> <server_NAME_max> <server_NAME_version>
+# ~ External PAPI: %player_ping% %server_time_dd.MM.yyyy% %luckperms_prefix% …
+# ~ Anim: <animation:ID> · INTERVAL = ticks por frame (20 = 1s)
+
+STYLES:
+  LOBBY:
+    MODERN:
+      TITLE: "<animation:SERVER_NAME>"
+      LINES:
+        - "  &7⌚ <time:dd/MM/yyyy>"
+        - ""
+        - " &f¡Hola &c@{player}&f!"
+        - ""
+        - " &c❘ &fRango: &c<rank>"
+        - "<animation:PLAYER_CURRENCY>"
+        - ""
+        - " &c● &fAmigos: &c{friends}"
+        - " &c● &fConectados: &c{online}"
+        - " &c● &fPing: &c{ping}ms"
+        - ""
+        - " &7&oplay.royalctw.club"
+
+    LEGACY:
+      TITLE: "<animation:SERVER_NAME>"
+      LINES:
+        - "    &7⌚ <time:dd/MM/yyyy>"
+        - ""
+        - " &f¡Hola &c@{player}&f!"
+        - ""
+        - " &c❘ &fRango: &c&lPOBRE"
+        - "<animation:PLAYER_CURRENCY>"
+        - ""
+        - " &c● &fAmigos: &c{friends}"
+        - " &c● &fConectados: &c{online}"
+        - " &c● &fPing: &c{ping}ms"
+        - ""
+        - " &7&oplay.royalctw.club"
+
+ANIMATIONS:
+  SERVER_NAME:
+    INTERVAL: 6
+    FRAMES:
+      - "&c&lROYAL NETWORK"
+      - "&c&lR"
+      - "&c&lRO"
+      - "&c&lROY"
+      - "&c&lROYA"
+      - "&c&lROYAL"
+      - "&c&lROYAL "
+      - "&c&lROYAL N"
+      - "&c&lROYAL NE"
+      - "&c&lROYAL NET"
+      - "&c&lROYAL NETW"
+      - "&c&lROYAL NETWO"
+      - "&c&lROYAL NETWOR"
+      - "&c&lROYAL NETWORK"
+
+  PLAYER_CURRENCY:
+    INTERVAL: 40
+    FRAMES:
+      - " &c❘ &fCréditos: &c{credits} &6⛃"
+      - " &c❘ &fGemas: &a{gems} &2◆"

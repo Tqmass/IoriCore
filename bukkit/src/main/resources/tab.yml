@@ -1,0 +1,45 @@
+# *************************************
+# *         IoriCore | TAB            *
+# *************************************
+
+# ────────────────────────────
+# GENERAL SETTINGS
+# ────────────────────────────
+UPDATE-TICKS: 40
+
+# ────────────────────────────
+# PLACEHOLDERS
+# ────────────────────────────
+# ~ Internal: {player} {online} {max} {server} {mode} {brand} {promo} {ping} {world}
+# ~ Custom: {friends} {coins} {balance} {gems} {credits} {playtime}
+# ~ Rank: {rank_display} {rank_prefix} {rank_suffix} <rank>
+# ~ Time: <time> <time:HH:mm:ss> <time:dd/MM/yyyy>
+# ~ External PAPI: %player_ping% %luckperms_prefix% %vault_rank% …
+# ~ Layouts: MODERN 1.13+ · LEGACY 1.8–1.12 (HEADER/FOOTER abajo)
+
+MODERN:
+  HEADER:
+    - ""
+    - "&b&l{brand}"
+    - "&7{mode} &8» &f{server}"
+    - "&7Hay &f{online} &7jugadores en la network."
+    - ""
+  FOOTER:
+    - ""
+    - "&7Ping &8» &f{ping}ms &8· &7Max &8» &f{max}"
+    - "&fEstás en &bplay.royalctw.net&f!"
+    - "{promo}"
+    - ""
+
+LEGACY:
+  HEADER:
+    - ""
+    - "&b&l{brand}"
+    - "&7{server} &8· &a{online}&7/&f{max} &8· &7{mode}"
+    - ""
+  FOOTER:
+    - ""
+    - "&7Ping &f{ping}ms"
+    - "&bplay.royalctw.net"
+    - "{promo}"
+    - ""

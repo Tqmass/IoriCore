@@ -1,0 +1,213 @@
+# *************************************
+# *         IoriCore | Settings       *
+# *************************************
+# ~ SQL → database.yml · Redis → redis.yml
+
+SETTINGS:
+  LANGUAGE: ES
+  DEBUG: false
+  SERVER-NAME: "lobby-1"
+  FALLBACK-VERSION: 1.8.9
+
+MODULES:
+  ECONOMY: false
+  CHAT-GAMES: false
+  GENDER: true
+  TAGS: false
+  COINSHOP: false
+  STAFF-MODE: true
+  GEYSER-HOOK: true
+  LITEBANS-HOOK: true
+  CUSTOM-JOINS: true
+  ACCOUNT-BRAND: true
+  ACTION-BAR: true
+  CHAT-LOGS: true
+  RANKS: true
+  PUNISHMENTS: true
+  PLUGIN-MESSAGING: true
+  STAFF-AUTH: false
+  PLAYER-SETTINGS: true
+  CORE: true
+  SCOREBOARD: true
+  TAB: true
+  CHAT-FORMAT: true
+  NAMETAG: true
+  DISCORD: false
+  VAULT-HOOK: true
+  LUCKPERMS-HOOK: true
+  APOLLO-HOOK: true
+  NLOGIN-HOOK: true
+
+# ────────────────────────────
+# ACCOUNT-BRAND
+# ────────────────────────────
+ACCOUNT-BRAND:
+  ENABLED: true
+  HOOKS:
+    GEYSER: true
+    NLOGIN: true
+
+# ────────────────────────────
+# CUSTOM-JOINS
+# ────────────────────────────
+CUSTOM-JOINS:
+  DELAY-TICKS: 20
+  PICTURE-LOGIN: true
+  GIVE-HEAD: false
+  SKIN-URL: "https://crafthead.net/helm/%player%/8"
+  VIP-MESSAGES:
+    DONOR:
+      PERMISSION: ioricore.rank.donor
+      JOIN:
+        ENABLED: true
+        MESSAGE: "<prefix>&6&l+ &e{player} &7joined &8· &6Donor"
+        SOUND: ORB_PICKUP
+      LEAVE:
+        ENABLED: false
+        MESSAGE: ""
+        SOUND: ""
+
+# ────────────────────────────
+# ACTION-BAR
+# ────────────────────────────
+ACTION-BAR:
+  ENABLED: true
+  INTERVAL: 8
+  MESSAGES:
+    - "&9discord.gg/royalctw"
+    - "&7Store &8» &bstore.royalctw.net"
+    - "&7Welcome &f{player}&7 · &a{online}&7/&a{max}"
+
+# ────────────────────────────
+# DATABASE.TYPE = MYSQL | MONGODB | NONE (detalle en database.yml)
+# ────────────────────────────
+DATABASE:
+  TYPE: NONE
+
+# ────────────────────────────
+# PERSISTENCE
+# ────────────────────────────
+PERSISTENCE:
+  HOMES: true
+  WARPS: true
+  BACK: true
+  INVENTORY: true
+  STATS: true
+  KITS: true
+  ECONOMY: true
+  TAGS: true
+
+# ────────────────────────────
+# ECONOMY
+# ────────────────────────────
+ECONOMY:
+  STORAGE: YAML
+  STARTING-BALANCE: 0
+
+# ────────────────────────────
+# CORE
+# ────────────────────────────
+CORE:
+  TPA-TIMEOUT-SECONDS: 60
+  MAX-HOMES: 3
+  SPAWN-ON-JOIN: false
+  SPAWN-ON-DEATH: true
+  NEAR-RADIUS: 100
+
+# ────────────────────────────
+# WORLD
+# ────────────────────────────
+WORLD:
+  DISABLE-MOB-SPAWN: false
+  DISABLE-WEATHER: false
+  DISABLE-EXPLOSIONS: false
+  DISABLE-HUNGER: false
+  DISABLE-FALL-DAMAGE: false
+  DISABLE-FIRE-SPREAD: false
+  DISABLE-LEAF-DECAY: false
+  DISABLE-BLOCK-BREAK: false
+  DISABLE-BLOCK-PLACE: false
+
+# ────────────────────────────
+# STAFF-AUTH
+# ────────────────────────────
+STAFF-AUTH:
+  GRACE-TICKS: 40
+  REG-CODE-TTL-SECONDS: 900
+  MIN-PASSWORD-LENGTH: 8
+  MAX-LOGIN-ATTEMPTS: 5
+  LOCKOUT-SECONDS: 300
+  REQUIRE-LOCAL-LOGIN: true
+  ENFORCE-WITHOUT-PROXY: false
+  RESTRICT-WHILE-PENDING: true
+  RESTRICT-ON-DENY: true
+
+# ────────────────────────────
+# RANKS
+# ────────────────────────────
+RANKS:
+  STORAGE: YAML
+  LUCKPERMS-MODE: OFF
+
+# ────────────────────────────
+# CHAT-LOGS
+# ────────────────────────────
+CHAT-LOGS:
+  PLAYER-FOLDER: NAME
+  MAX-LINES: 100000
+  PURGE-DAYS: 60
+
+# ────────────────────────────
+# GENDER
+# ────────────────────────────
+GENDER:
+  MALE: "&b♂"
+  FEMALE: "&d♀"
+  OTHER: "&7·"
+  UNKNOWN: ""
+
+# ────────────────────────────
+# TAB
+# ────────────────────────────
+TAB:
+  TEXT:
+    BRAND: "RoyalCTW"
+    PROMO: ""
+    MODES:
+      DEFAULT: "Lobby"
+      LOBBY: "Lobby"
+      LOBBY-1: "Lobby"
+
+# ────────────────────────────
+# MENUS (themes + separator)
+# ────────────────────────────
+MENUS:
+  STYLE:
+    SEPARATOR-WIDTH: 26
+  THEMES:
+    default:
+      FILLER:
+        MATERIAL: GRAY_STAINED_GLASS_PANE
+        DATA: 0
+        NAME: " "
+        GLOW: false
+      ACCENT-FILLER:
+        MATERIAL: BLACK_STAINED_GLASS_PANE
+        DATA: 0
+        NAME: " "
+        GLOW: false
+      SOUND:
+        OPEN: MENU-OPEN
+        CLICK: MENU-CLICK
+        BACK: MENU-BACK
+        PAGE: MENU-PAGE
+        LOCKED: MENU-LOCKED
+        SUCCESS: MENU-SUCCESS
+        ERROR: MENU-ERROR
+
+# ────────────────────────────
+# GGWAVE-CHAT (backend via Redis)
+# ────────────────────────────
+GGWAVE-CHAT:
+  ENABLED: true
+  FORMAT: "&7<{player}&7> &r{message}"

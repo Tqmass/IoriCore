@@ -1,0 +1,74 @@
+# ***
+# * IoriCore | Menu SETTINGS
+# ***
+# ~ Modern (protocol >340). 1.13–1.15 reciben modern; materiales 1.16+ con MATERIAL-FALLBACK.
+# ~ Textos: NAME/LORE aquí o NAME-KEY/LORE-KEY → messages
+
+ID: settings
+TITLE-KEY: SETTINGS.MENU.TITLE
+ROWS: 3
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  OPEN: UI-CLICK
+  CLICK: UI-CLICK
+  DENY: DENY
+
+# ──── Decoración ────
+FILLER:
+  MATERIAL: GRAY_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: LIGHT_BLUE_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+  SLOTS: [0, 8, 26]
+
+# ──── Items ────
+ITEMS:
+  SOUNDS:
+    SLOT: 11
+    MATERIAL: NOTE_BLOCK
+    NAME-KEY: SETTINGS.MENU.SOUNDS-NAME
+    LORE-KEY: SETTINGS.MENU.SOUNDS-LORE
+    ACTIONS:
+      ANY:
+        - "[open] settings-sounds"
+  PARTICLES:
+    SLOT: 12
+    MATERIAL: BLAZE_POWDER
+    MATERIAL-FALLBACK: FIREWORK
+    NAME-KEY: SETTINGS.MENU.PARTICLES-NAME
+    LORE-KEY: SETTINGS.MENU.PARTICLES-LORE
+    ACTIONS:
+      ANY:
+        - "[open] settings-particles"
+  LANGUAGE:
+    SLOT: 13
+    MATERIAL: BOOK
+    NAME-KEY: SETTINGS.MENU.LANGUAGE-NAME
+    LORE-KEY: SETTINGS.MENU.LANGUAGE-LORE
+    ACTIONS:
+      ANY:
+        - "[open] settings-lang"
+  PREMIUM:
+    SLOT: 14
+    MATERIAL: GOLD_INGOT
+    NAME-KEY: SETTINGS.MENU.PREMIUM-NAME
+    LORE-KEY: SETTINGS.MENU.PREMIUM-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] settings.toggle-premium"
+  PASSWORD:
+    SLOT: 15
+    MATERIAL: IRON_DOOR
+    NAME-KEY: SETTINGS.MENU.PASSWORD-NAME
+    LORE-KEY: SETTINGS.MENU.PASSWORD-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] settings.password"

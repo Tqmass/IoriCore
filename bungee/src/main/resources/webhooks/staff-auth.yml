@@ -1,0 +1,50 @@
+# *************************************
+# *  RoyalCTW | Webhook staff-auth    *
+# *************************************
+# ~ Placeholders: %player% %uuid% %ip% %country% %previous_country% %token%
+# ~ Webhook opcional. Approve JDA vive en Core (Redis); proxy JDA solo si MODULES.DISCORD-BOT.
+
+# ────────────────────────────
+# CONNECTION
+# ────────────────────────────
+ENABLED: false
+URL: ""
+USERNAME: "RoyalCTW | Staff Auth"
+AVATAR-URL: "https://visage.surgeplay.com/bust/152/%player%"
+
+# ────────────────────────────
+# MESSAGE
+# ────────────────────────────
+CONTENT: "🔐 **Staff auth required** · approve `/staffauth approve %token%`"
+
+# ────────────────────────────
+# EMBED
+# ────────────────────────────
+EMBED:
+  COLOR: "#F1C40F"
+  TIMESTAMP: true
+
+  AUTHOR:
+    NAME: "RoyalCTW | Staff Auth"
+    URL: ""
+    ICON-URL: ""
+
+  TITLE: "IP/geo change · %player%"
+  TITLE-URL: ""
+
+  DESCRIPTION: |
+    🛡️ **Staff login needs approval**
+
+    👤 **Player:** %player%
+    🆔 **UUID:** %uuid%
+    🌐 **IP (masked):** %ip%
+    📍 **Country:** %country%
+    ↩ **Previous country:** %previous_country%
+
+    ✅ Approve: `/staffauth approve %token%`
+
+  THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+  IMAGE-URL: ""
+
+  FOOTER: "%player% · staff-auth"
+  FOOTER-ICON-URL: "https://visage.surgeplay.com/face/%player%"

@@ -1,0 +1,103 @@
+# *************************************
+# *      IoriProxy | Permissions      *
+# *************************************
+# ~ Nodos de permiso. commands.yml solo tiene labels/aliases.
+
+# ────────────────────────────
+# PERMISSIONS
+# ────────────────────────────
+PERMISSIONS:
+  # ── Core ──
+  RELOAD: ioriproxy.reload
+  REDISTEST: ioriproxy.redistest
+
+  # ── Routing / servers ──
+  SEND: ioriproxy.send
+  SEND-OTHER: ioriproxy.send.other
+  GOTO: ioriproxy.goto
+  FIND: ioriproxy.find
+  WHEREIS: ioriproxy.find
+  SERVERS: ioriproxy.servers
+  HUB: ioriproxy.hub
+
+  # ── Player ──
+  PLAYTIME: ioriproxy.playtime
+  PLAYTIME-OTHER: ioriproxy.playtime.others
+  PING: ioriproxy.ping
+  PING-OTHER: ioriproxy.ping.other
+  FRIENDS: ioriproxy.friends
+  GLIST: ioriproxy.glist
+  ANNOUNCE: ioriproxy.announce
+  ALERT: ioriproxy.alert
+  SEEN: ioriproxy.seen
+  SEEN-ADMIN: ioriproxy.seen.admin
+  SEEN-IPADDRESS: ioriproxy.seen.ipaddress
+  SEEN-COUNTRY: ioriproxy.seen.country
+  PROFILE: ioriproxy.profile
+  PROFILE-OTHER: ioriproxy.profile.other
+  SYNC: ioriproxy.sync
+  UNSYNC: ioriproxy.unsync
+  ALTS: ioriproxy.alts
+  TRANSFER: ioriproxy.transfer
+  SERVER-HEALTH: ioriproxy.server.health
+
+  # ── Staff ──
+  STAFF: ioriproxy.staff
+  STAFF-LIST: ioriproxy.staff.list
+  STAFFAUTH: ioriproxy.staffauth.approve
+  ALERTS: ioriproxy.alerts
+  STAFFCHAT-SEND: ioriproxy.staffchat.send
+  STAFFCHAT-RECEIVE: ioriproxy.staffchat.receive
+  ADMINCHAT-SEND: ioriproxy.adminchat.send
+  ADMINCHAT-RECEIVE: ioriproxy.adminchat.receive
+  ANALYTICS: ioriproxy.analytics
+  FRIENDS-SPY: ioriproxy.friends.spy
+  FRIENDS-BROADCAST: ioriproxy.friends.broadcast
+
+  # ── Maintenance / blacklist ──
+  MAINTENANCE: ioriproxy.maintenance
+  WHITELIST: ioriproxy.whitelist
+  BLACKLIST: ioriproxy.blacklist
+
+  # ── Moderation ──
+  REPORT-SEND: ioriproxy.report.send
+  REPORT-RECEIVE: ioriproxy.report.receive
+  REPORT-RESOLVE: ioriproxy.report.resolve
+  REPORT-TITLE-BYPASS: ioriproxy.report.title.bypass
+  REQUEST-SEND: ioriproxy.request.send
+  REQUEST-RECEIVE: ioriproxy.request.receive
+  REQUEST-REPLY: ioriproxy.request.reply
+  REQUEST-MOVE: ioriproxy.request.move
+
+  # ── Content ──
+  STREAM: ioriproxy.stream
+  YOUTUBE: ioriproxy.youtube
+  DONATIONS: ioriproxy.donations
+
+# ────────────────────────────
+# EXTRA-PERMISSIONS
+# ────────────────────────────
+EXTRA-PERMISSIONS:
+  # ── Bypass ──
+  MAINTENANCE-BYPASS: ioriproxy.maintenance.bypass
+  COMMANDWHITELIST-BYPASS: ioriproxy.commandwhitelist.bypass
+  COMMANDWHITELIST-NOTIFY: ioriproxy.commandwhitelist.notify
+
+  # ── Friends limits ──
+  FRIENDS-LIMIT-VIP: ioriproxy.friends.limit.vip
+  FRIENDS-LIMIT-STAFF: ioriproxy.friends.limit.staff
+
+  # ── Staff ranks (display fallback sin LuckPerms) ──
+  STAFF-ADMIN: ioriproxy.staff.admin
+  STAFF-MOD: ioriproxy.staff.mod
+  STAFF-HELPER: ioriproxy.staff.helper
+
+# ────────────────────────────
+# STAFF
+# ────────────────────────────
+# ~ Rango → permiso para /staff list y staff chat (LP prefix manda si hay LuckPerms)
+STAFF:
+  GROUPS:
+    ADMIN: ioriproxy.staff.admin
+    MOD: ioriproxy.staff.mod
+    HELPER: ioriproxy.staff.helper

@@ -1,0 +1,106 @@
+# ***
+# * IoriCore | Menu STAFF-INSPECT
+# ***
+
+ID: staff-inspect
+TITLE: "&8Inspect &7{target}"
+ROWS: 4
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  OPEN: UI-CLICK
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 7
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 3
+  NAME: " "
+  GLOW: false
+  SLOTS: [0, 8, 27, 35]
+
+ITEMS:
+  INFO:
+    SLOT: 13
+    MATERIAL: SKULL_ITEM
+    MATERIAL-FALLBACK: SKULL_ITEM
+    DATA: 3
+    SKULL:
+      OWNER: "{target}"
+    NAME: "&e{target}"
+    LORE:
+      - "&7Health: &f{health}"
+      - "&7Food: &f{food}"
+      - "&7Gamemode: &f{gamemode}"
+      - "&7World: &f{world}"
+      - "&7Frozen: &f{frozen}"
+      - "&7Vanished: &f{vanished}"
+  FREEZE:
+    SLOT: 10
+    MATERIAL: ICE
+    MATERIAL-FALLBACK: ICE
+    NAME: "&bFreeze"
+    LORE:
+      - "&7Toggle freeze on &f{target}"
+    ACTIONS:
+      ANY: ["[internal] staff.freeze"]
+  TELEPORT:
+    SLOT: 11
+    MATERIAL: ENDER_PEARL
+    NAME: "&aTeleport"
+    LORE:
+      - "&7Teleport to &f{target}"
+    ACTIONS:
+      ANY: ["[internal] staff.teleport"]
+  INVSEE:
+    SLOT: 12
+    MATERIAL: CHEST
+    NAME: "&eInventory"
+    LORE:
+      - "&7Open a read-only inventory copy"
+    ACTIONS:
+      ANY: ["[internal] staff.invsee-readonly"]
+  BAN:
+    SLOT: 14
+    MATERIAL: REDSTONE_BLOCK
+    NAME: "&cBan"
+    LORE:
+      - "&7Punish tip for &f{target}"
+    ACTIONS:
+      ANY: ["[internal] staff.punish ban"]
+  MUTE:
+    SLOT: 15
+    MATERIAL: BOOK
+    NAME: "&6Mute"
+    LORE:
+      - "&7Punish tip for &f{target}"
+    ACTIONS:
+      ANY: ["[internal] staff.punish mute"]
+  WARN:
+    SLOT: 16
+    MATERIAL: PAPER
+    NAME: "&eWarn"
+    LORE:
+      - "&7Punish tip for &f{target}"
+    ACTIONS:
+      ANY: ["[internal] staff.punish warn"]
+  BACK:
+    SLOT: 31
+    MATERIAL: ARROW
+    NAME-KEY: SETTINGS.MENU.BACK-NAME
+    LORE-KEY: SETTINGS.MENU.BACK-LORE
+    ACTIONS:
+      ANY: ["[back]"]
+  CLOSE:
+    SLOT: 30
+    MATERIAL: REDSTONE_BLOCK
+    MATERIAL-FALLBACK: REDSTONE_BLOCK
+    NAME: "&cClose"
+    ACTIONS:
+      ANY: ["[close]"]

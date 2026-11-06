@@ -1,0 +1,67 @@
+# ***
+# * IoriCore | Menu STAFF-PLAYERS
+# ***
+# ~ Online players for staff hotbar. Left = TP · Right = inspect.
+
+ID: staff-players
+TITLE: "&8Online Players"
+ROWS: 6
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  OPEN: UI-CLICK
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: GRAY_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+
+DYNAMIC:
+  SOURCE: staff.players
+  SLOTS: ["10-16", "19-25", "28-34", "37-43"]
+  TEMPLATE:
+    MATERIAL: PLAYER_HEAD
+    MATERIAL-FALLBACK: SKULL_ITEM
+    DATA: 3
+    SKULL:
+      OWNER: "{player}"
+    NAME: "&e{player}"
+    LORE:
+      - "&7Health: &f{health}"
+      - "&7Food: &f{food}"
+      - "&7World: &f{world}"
+      - "&7Gamemode: &f{gamemode}"
+      - ""
+      - "&aLeft-click &7to teleport"
+      - "&eRight-click &7to inspect"
+    ACTIONS:
+      LEFT:
+        - "[internal] staff.teleport {player}"
+      RIGHT:
+        - "[open] staff-inspect {player}"
+
+PAGINATION:
+  PREV: 48
+  NEXT: 50
+  INFO: 49
+
+ITEMS:
+  PREV:
+    MATERIAL: ARROW
+    NAME: "&ePrevious"
+  NEXT:
+    MATERIAL: ARROW
+    NAME: "&eNext"
+  INFO:
+    MATERIAL: PAPER
+    NAME: "&7Page &f{page}&7/&f{pages}"
+  CLOSE:
+    SLOT: 53
+    MATERIAL: BARRIER
+    MATERIAL-FALLBACK: REDSTONE_BLOCK
+    NAME: "&cClose"
+    ACTIONS:
+      ANY: ["[close]"]

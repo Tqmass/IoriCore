@@ -1,0 +1,169 @@
+# *************************************
+# *       IoriProxy | Settings        *
+# *************************************
+
+# ────────────────────────────
+# SETTINGS
+# ────────────────────────────
+SETTINGS:
+  CONFIG-VERSION: 1
+  LANGUAGE: ES
+  DEBUG: false
+  # ~ Id único de este proxy en Redis (origen de eventos). Distinto en cada proxy de la red.
+  PROXY-ID: proxy-1
+  # ~ Versión MC máxima que usa messages/legacy y MOTD/announcements LEGACY
+  # ~ Legacy UI = 1.12.2 hardcoded (ProtocolVersions.LEGACY_MAX_PROTOCOL); clave ignorada
+  LEGACY-MAX-VERSION: 1.12.2
+
+# ────────────────────────────
+# MODULES
+# ────────────────────────────
+MODULES:
+  CORE: true
+  MAINTENANCE: true
+  MOTD: true
+  LOBBY: true
+  MULTILOBBY: true
+  FRIENDS: true
+  PLAYTIME: true
+  ANALYTICS: true
+  STAFFCHAT: true
+  ADMINCHAT: true
+  ANNOUNCEMENTS: true
+  STREAM: true
+  REPORT: true
+  HELPOP: true
+  PING: true
+  BLACKLIST: true
+  COMMAND-WHITELIST: true
+  DONATIONS: true
+  GGWAVE: true
+  DISCORD: true
+  PLACEHOLDERS: true
+  SEND: true
+  WHEREIS: true
+  ALTS: true
+  TRANSFER: true
+  SERVER-HEALTH: true
+  PLUGIN-MESSAGING: true
+  STAFF-AUTH: true
+  PUNISHMENTS: true
+
+# ────────────────────────────
+# PLAYTIME
+# ────────────────────────────
+PLAYTIME:
+  # ~ Cada cuántos segundos se guarda el tiempo online
+  FLUSH-INTERVAL-SECONDS: 60
+  # ~ Seguir contando en memoria si la DB no responde
+  MEMORY-FALLBACK: true
+
+# ────────────────────────────
+# COOLDOWNS
+# ────────────────────────────
+COOLDOWNS:
+  REPORT: 30
+  HELPOP: 20
+  STREAM: 60
+  FRIENDS-REQUEST: 10
+
+# ────────────────────────────
+# NOTIFICATIONS
+# ────────────────────────────
+NOTIFICATIONS:
+  FRIENDS:
+    JOIN: true
+    QUIT: true
+    SERVER-SWITCH: true
+
+# ────────────────────────────
+# FRIENDS
+# ────────────────────────────
+FRIENDS:
+  CONFIRM-REMOVE: true
+  # ~ Límite base. Los grupos abajo pisan si el jugador tiene el permiso (gana el MAX más alto).
+  MAX-FRIENDS:
+    DEFAULT: 50
+    GROUPS:
+      VIP:
+        PERMISSION: ioriproxy.friends.limit.vip
+        MAX: 100
+      STAFF:
+        PERMISSION: ioriproxy.friends.limit.staff
+        MAX: 200
+
+# ────────────────────────────
+# COMMAND-WHITELIST
+# ────────────────────────────
+# ~ Qué comandos puede usar / tab-completar cada grupo. Bypass: permissions.yml
+COMMAND-WHITELIST:
+  # ~ WHITELIST = solo lo listado | BLACKLIST = todo menos GLOBAL-BLOCKED
+  MODE: WHITELIST
+  # ~ PROXY = WHITELIST solo filtra comandos de IoriProxy (los de los backends pasan) | ALL = filtra todo
+  # ~ GLOBAL-BLOCKED se aplica siempre, en cualquier SCOPE.
+  SCOPE: PROXY
+  HIDE-WITHOUT-PERMISSION: true
+  GLOBAL-BLOCKED:
+    - plugins
+    - pl
+    - version
+    - ver
+    - about
+    - "?"
+    - icanhasbukkit
+    - bukkit:plugins
+    - bukkit:pl
+    - bukkit:version
+    - bukkit:ver
+    - minecraft:help
+  GROUPS:
+    DEFAULT:
+      COMMANDS:
+        - hub
+        - lobby
+        - friend
+        - friends
+        - ping
+        - playtime
+        - report
+        - request
+        - glist
+        - seen
+        - announce
+    STAFF:
+      PERMISSION: ioriproxy.staff
+      COMMANDS:
+        - "*"
+
+# ────────────────────────────
+# ANNOUNCEMENTS
+# ────────────────────────────
+# ~ Textos por modalidad en messages/{lang}.yml → ANNOUNCEMENTS.<MODO>
+# ~ Modern 1.16+: messages/{lang}.yml | Legacy 1.8–1.12: messages/legacy/{lang}.yml
+# ~ Modo = nombre servidor sin -N (lobby-1 → LOBBY). Si no hay lista del modo → DEFAULT.
+# ~ RANDOM mezcla el orden por modalidad. SERVERS [] = todos (filtro opcional extra).
+ANNOUNCEMENTS:
+  INTERVAL-SECONDS: 180
+  RANDOM: true
+  SERVERS: []
+  SOUND:
+    ENABLED: true
+    LEGACY: note.pling
+    MODERN: block.note_block.pling
+    VOLUME: 1.0
+    PITCH: 1.0
+
+# ────────────────────────────
+# ANALYTICS
+# ────────────────────────────
+ANALYTICS:
+  # ~ Guardar agregados diarios en la DB configurada
+  PERSIST-DAILY-SQL: true
+
+# ────────────────────────────
+# PUNISHMENTS
+# ────────────────────────────
+PUNISHMENTS:
+  # ~ Segundos que se recuerda "no baneado" en el login (0 = sin caché). Los baneados nunca se cachean.
+  # ~ Se invalida al llegar PUNISHMENT_APPLIED / PUNISHMENT_INVALIDATE por Redis.
+  BAN-CHECK-CACHE-SECONDS: 60

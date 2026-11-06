@@ -1,0 +1,954 @@
+name: IoriCore
+version: "${version}"
+main: us.iorilabs.bukkit.IoriCorePlugin
+api-version: "1.13"
+author: IoriLabs
+description: IoriCore backend (Bukkit/Paper).
+softdepend:
+  [
+    PlaceholderAPI,
+    LuckPerms,
+    LiteBans,
+    Vault,
+    Geyser-Spigot,
+    floodgate,
+    Apollo-Bukkit,
+    Apollo,
+    nLogin,
+    ViaVersion,
+    Essentials,
+  ]
+commands:
+  ioricore:
+    description: Root IoriCore command.
+    aliases: [icore]
+  ranks:
+    description: Open the Rank List menu / manage ranks.
+    aliases: [rank]
+    permission: ioricore.ranks
+  grant:
+    description: Grant a rank to a player.
+    permission: ioricore.ranks.grant
+  ungrant:
+    description: Remove a rank grant from a player.
+    permission: ioricore.ranks.ungrant
+  grants:
+    description: List rank grants for a player.
+    permission: ioricore.ranks.grants
+  ban:
+    description: Ban a player.
+    aliases: [tempban]
+    permission: ioricore.punish.ban
+  mute:
+    description: Mute a player.
+    aliases: [tempmute]
+    permission: ioricore.punish.mute
+  warn:
+    description: Warn a player.
+    permission: ioricore.punish.warn
+  kick:
+    description: Kick a player.
+    permission: ioricore.punish.kick
+  unban:
+    description: Revoke an active ban.
+    aliases: [pardon]
+    permission: ioricore.punish.unban
+  unmute:
+    description: Revoke an active mute.
+    permission: ioricore.punish.unmute
+  unwarn:
+    description: Revoke an active warn.
+    permission: ioricore.punish.unwarn
+  punish:
+    description: Open punish menu for a player.
+    permission: ioricore.punish.menu
+  staff:
+    description: Staff chat, mode, and login (register/login/oauth).
+    permission: ioricore.staff
+  staffreg:
+    description: Legacy alias for Discord staff link (/staff oauth).
+    permission: ioricore.staffreg
+  staffmode:
+    description: Toggle staff mode (IoriCore — not EssentialsX).
+    aliases: [sm, mod]
+    permission: ioricore.staffmode
+  staffchat:
+    description: Toggle staff chat.
+    aliases: [sc]
+    permission: ioricore.staffchat.send
+  settings:
+    description: Open player settings menu.
+    aliases: [preferencias]
+    permission: ioricore.settings
+  heal:
+    description: Heal a player.
+    permission: ioricore.essentials.heal
+  feed:
+    description: Feed a player.
+    permission: ioricore.essentials.feed
+  fly:
+    description: Toggle flight.
+    permission: ioricore.essentials.fly
+  god:
+    description: Toggle god mode.
+    permission: ioricore.essentials.god
+  gamemode:
+    description: Change gamemode.
+    aliases: [gm, gms, gmc, gma, gmsp]
+    permission: ioricore.essentials.gamemode
+  speed:
+    description: Change walk/fly speed.
+    permission: ioricore.essentials.speed
+  kill:
+    description: Kill a player.
+    aliases: [suicide]
+    permission: ioricore.essentials.kill
+  weather:
+    description: Change weather.
+    aliases: [sun, rain, thunder]
+    permission: ioricore.essentials.weather
+  time:
+    description: Change time.
+    aliases: [day, night]
+    permission: ioricore.essentials.time
+  top:
+    description: Teleport to highest block.
+    permission: ioricore.essentials.top
+  world:
+    description: Switch worlds.
+    permission: ioricore.essentials.world
+  tp:
+    description: Teleport to a player.
+    aliases: [teleport]
+    permission: ioricore.essentials.tp
+  tphere:
+    description: Teleport a player to you.
+    permission: ioricore.essentials.tphere
+  back:
+    description: Return to previous location.
+    permission: ioricore.essentials.back
+  nick:
+    description: Change nickname.
+    aliases: [nickname]
+    permission: ioricore.essentials.nick
+  repair:
+    description: Repair held item.
+    aliases: [fix]
+    permission: ioricore.essentials.repair
+  enderchest:
+    description: Open ender chest.
+    aliases: [ec, echest]
+    permission: ioricore.essentials.enderchest
+  spawn:
+    description: Teleport to spawn.
+    permission: ioricore.essentials.spawn
+  setspawn:
+    description: Set spawn.
+    permission: ioricore.essentials.setspawn
+  home:
+    description: Teleport home.
+    permission: ioricore.essentials.home
+  sethome:
+    description: Set a home.
+    permission: ioricore.essentials.sethome
+  delhome:
+    description: Delete a home.
+    aliases: [deletehome]
+    permission: ioricore.essentials.delhome
+  homes:
+    description: List homes.
+    permission: ioricore.essentials.homes
+  warp:
+    description: Teleport to a warp.
+    aliases: [warps]
+    permission: ioricore.essentials.warp
+  setwarp:
+    description: Set a warp.
+    permission: ioricore.essentials.setwarp
+  delwarp:
+    description: Delete a warp.
+    aliases: [deletewarp]
+    permission: ioricore.essentials.delwarp
+  tpa:
+    description: Request teleport.
+    permission: ioricore.essentials.tpa
+  tpahere:
+    description: Request teleport here.
+    permission: ioricore.essentials.tpahere
+  tpaccept:
+    description: Accept teleport request.
+    aliases: [tpyes]
+    permission: ioricore.essentials.tpaccept
+  tpdeny:
+    description: Deny teleport request.
+    aliases: [tpno]
+    permission: ioricore.essentials.tpdeny
+  msg:
+    description: Private message.
+    aliases: [tell, w, whisper, message]
+    permission: ioricore.essentials.msg
+  reply:
+    description: Reply to private message.
+    aliases: [r]
+    permission: ioricore.essentials.reply
+  vanish:
+    description: Toggle vanish.
+    aliases: [v]
+    permission: ioricore.essentials.vanish
+  whitelist:
+    description: Manage the server whitelist.
+    permission: ioricore.whitelist
+  invsee:
+    description: View a player inventory.
+    permission: ioricore.essentials.invsee
+  clear:
+    description: Clear inventory.
+    aliases: [ci, clearinventory]
+    permission: ioricore.essentials.clear
+  broadcast:
+    description: Broadcast a message.
+    aliases: [bc, bcast]
+    permission: ioricore.essentials.broadcast
+  whitelist:
+    description: Manage the server whitelist.
+    aliases: [wl]
+    permission: ioricore.whitelist
+  healall:
+    description: Heal all online players.
+    permission: ioricore.essentials.healall
+  tpall:
+    description: Teleport visible players to you.
+    aliases: [teleportall]
+    permission: ioricore.essentials.tpall
+  gender:
+    description: Set your chat gender icon.
+    permission: ioricore.gender
+  give:
+    description: Give an item.
+    aliases: [i, item]
+    permission: ioricore.essentials.give
+  getpos:
+    description: Show coordinates.
+    aliases: [coords, position]
+    permission: ioricore.essentials.getpos
+  disposal:
+    description: Open a disposal chest.
+    aliases: [trash, disposalchest]
+    permission: ioricore.essentials.disposal
+  kit:
+    description: Claim or list kits.
+    aliases: [kits]
+    permission: ioricore.essentials.kit
+  createkit:
+    description: Create a kit from inventory.
+    aliases: [kitcreate]
+    permission: ioricore.essentials.createkit
+  deletekit:
+    description: Delete a kit.
+    aliases: [kitdelete]
+    permission: ioricore.essentials.deletekit
+  workbench:
+    description: Open a crafting table.
+    aliases: [craft, wb, craftingtable]
+    permission: ioricore.essentials.workbench
+  hat:
+    description: Wear held item as helmet.
+    permission: ioricore.essentials.hat
+  near:
+    description: List nearby players.
+    permission: ioricore.essentials.near
+  ping:
+    description: Show ping.
+    permission: ioricore.essentials.ping
+  realname:
+    description: Resolve nickname to real name.
+    permission: ioricore.essentials.realname
+  tpcancel:
+    description: Cancel outgoing teleport request.
+    aliases: [tpacancel, tpc]
+    permission: ioricore.essentials.tpcancel
+  tppos:
+    description: Teleport to coordinates.
+    aliases: [teleportpos]
+    permission: ioricore.essentials.tppos
+  me:
+    description: Broadcast an action.
+    aliases: [action]
+    permission: ioricore.essentials.me
+  ignore:
+    description: Ignore private messages.
+    permission: ioricore.essentials.ignore
+  skull:
+    description: Give a player skull.
+    aliases: [head]
+    permission: ioricore.essentials.skull
+  scoreboard:
+    description: Toggle sidebar scoreboard.
+    aliases: [sb, sidebar]
+    permission: ioricore.scoreboard
+  balance:
+    description: Show balance.
+    aliases: [money, bal]
+    permission: ioricore.economy.balance
+  pay:
+    description: Pay another player.
+    permission: ioricore.economy.pay
+  eco:
+    description: Economy admin.
+    aliases: [economy]
+    permission: ioricore.economy.eco
+  tag:
+    description: List and equip chat tags.
+    aliases: [tags]
+    permission: ioricore.tags
+  coinshop:
+    description: Open the coin shop.
+    aliases: [shop, tienda]
+    permission: ioricore.coinshop
+  chatgames:
+    description: ChatGames help / admin controls.
+    aliases: [cg, chatgame]
+    permission: ioricore.chatgames
+permissions:
+  # ── Wildcards ──
+  ioricore.admin:
+    description: Full IoriCore access (/ioricore, every node and bypass).
+    default: op
+    children:
+      ioricore.staff: true
+      ioricore.staffmode: true
+      ioricore.tags.*: true
+      ioricore.ranks: true
+      ioricore.ranks.create: true
+      ioricore.ranks.delete: true
+      ioricore.ranks.info: true
+      ioricore.ranks.edit: true
+      ioricore.ranks.permissions: true
+      ioricore.ranks.grant: true
+      ioricore.ranks.ungrant: true
+      ioricore.ranks.grants: true
+      ioricore.ranks.edit.flags: true
+      ioricore.punish.ban: true
+      ioricore.punish.mute: true
+      ioricore.punish.warn: true
+      ioricore.punish.kick: true
+      ioricore.punish.unban: true
+      ioricore.punish.unmute: true
+      ioricore.punish.unwarn: true
+      ioricore.staffmode.freeze: true
+      ioricore.staffmode.freeze.bypass: true
+      ioricore.staffmode.vanish: true
+      ioricore.staffmode.inspect: true
+      ioricore.staffmode.randomtp: true
+      ioricore.staffmode.players: true
+      ioricore.staffmode.thru: true
+      ioricore.staffmode.teleport: true
+      ioricore.staffmode.build: true
+      ioricore.settings: true
+      ioricore.scoreboard: true
+      ioricore.vanish.see: true
+      ioricore.world.bypass: true
+      ioricore.chat.color: true
+      ioricore.chat.format.owner: true
+      ioricore.chat.format.staff: true
+      ioricore.logs.staff: true
+      ioricore.logs.donor: true
+      ioricore.rank.owner: true
+      ioricore.rank.staff: true
+      ioricore.rank.donor: true
+      ioricore.join.brand: true
+      ioricore.economy.balance: true
+      ioricore.economy.balance.others: true
+      ioricore.economy.pay: true
+      ioricore.economy.eco: true
+      ioricore.tags: true
+      ioricore.tags.equip: true
+      ioricore.coinshop: true
+      ioricore.chatgames: true
+      ioricore.chatgames.admin: true
+      ioricore.kit.*: true
+      ioricore.essentials.heal: true
+      ioricore.essentials.feed: true
+      ioricore.essentials.fly: true
+      ioricore.essentials.god: true
+      ioricore.essentials.gamemode: true
+      ioricore.essentials.speed: true
+      ioricore.essentials.kill: true
+      ioricore.essentials.weather: true
+      ioricore.essentials.time: true
+      ioricore.essentials.top: true
+      ioricore.essentials.world: true
+      ioricore.essentials.tp: true
+      ioricore.essentials.tphere: true
+      ioricore.essentials.back: true
+      ioricore.essentials.nick: true
+      ioricore.essentials.repair: true
+      ioricore.essentials.enderchest: true
+      ioricore.essentials.spawn: true
+      ioricore.essentials.setspawn: true
+      ioricore.essentials.home: true
+      ioricore.essentials.sethome: true
+      ioricore.essentials.delhome: true
+      ioricore.essentials.homes: true
+      ioricore.essentials.warp: true
+      ioricore.essentials.setwarp: true
+      ioricore.essentials.delwarp: true
+      ioricore.essentials.tpa: true
+      ioricore.essentials.tpahere: true
+      ioricore.essentials.tpaccept: true
+      ioricore.essentials.tpdeny: true
+      ioricore.essentials.msg: true
+      ioricore.essentials.reply: true
+      ioricore.essentials.vanish: true
+      ioricore.whitelist: true
+      ioricore.essentials.invsee: true
+      ioricore.essentials.clear: true
+      ioricore.essentials.broadcast: true
+      ioricore.essentials.healall: true
+      ioricore.essentials.tpall: true
+      ioricore.essentials.give: true
+      ioricore.gender: true
+      ioricore.essentials.getpos: true
+      ioricore.essentials.disposal: true
+      ioricore.essentials.kit: true
+      ioricore.essentials.createkit: true
+      ioricore.essentials.deletekit: true
+      ioricore.essentials.workbench: true
+      ioricore.essentials.hat: true
+      ioricore.essentials.near: true
+      ioricore.essentials.ping: true
+      ioricore.essentials.realname: true
+      ioricore.essentials.tpcancel: true
+      ioricore.essentials.tppos: true
+      ioricore.essentials.me: true
+      ioricore.essentials.ignore: true
+      ioricore.essentials.skull: true
+      ioricore.essentials.clear.others: true
+      ioricore.essentials.enderchest.others: true
+      ioricore.essentials.feed.others: true
+      ioricore.essentials.fly.others: true
+      ioricore.essentials.gamemode.others: true
+      ioricore.essentials.getpos.others: true
+      ioricore.essentials.god.others: true
+      ioricore.essentials.heal.others: true
+      ioricore.essentials.kill.others: true
+      ioricore.essentials.ping.others: true
+      ioricore.essentials.spawn.others: true
+      ioricore.essentials.speed.others: true
+      ioricore.essentials.tp.others: true
+      ioricore.essentials.vanish.others: true
+      ioricore.essentials.repair.all: true
+      ioricore.essentials.sethome.unlimited: true
+  ioricore.staff:
+    description: Staff marker (alerts, vanish view, logs, moderation tools).
+    default: op
+    children:
+      ioricore.staffreg: true
+      ioricore.staffchat.send: true
+      ioricore.staffchat.receive: true
+      ioricore.punish.menu: true
+      ioricore.staffmode: true
+      ioricore.vanish.see: true
+      ioricore.punish.ban: true
+      ioricore.punish.mute: true
+      ioricore.punish.warn: true
+      ioricore.punish.kick: true
+      ioricore.punish.unban: true
+      ioricore.punish.unmute: true
+      ioricore.punish.unwarn: true
+      ioricore.logs.staff: true
+      ioricore.join.brand: true
+      ioricore.essentials.vanish: true
+      ioricore.essentials.invsee: true
+      ioricore.essentials.tp: true
+      ioricore.essentials.tphere: true
+      ioricore.essentials.realname: true
+  ioricore.staffmode:
+    description: Toggle /staffmode (IoriCore — distinct from EssentialsX).
+    default: op
+    children:
+      ioricore.staffmode.freeze: true
+      ioricore.staffmode.vanish: true
+      ioricore.staffmode.inspect: true
+      ioricore.staffmode.randomtp: true
+      ioricore.staffmode.players: true
+      ioricore.staffmode.thru: true
+      ioricore.staffmode.teleport: true
+  ioricore.tags.*:
+    description: Every tag from data/tags.yml.
+    default: op
+    children:
+      ioricore.tags.heart: true
+      ioricore.tags.star: true
+      ioricore.tags.crown: true
+      ioricore.tags.verified: true
+      ioricore.tags.dollar: true
+      ioricore.tags.fire: true
+      ioricore.tags.ice: true
+      ioricore.tags.lightning: true
+      ioricore.tags.flower: true
+      ioricore.tags.moon: true
+      ioricore.tags.sun: true
+      ioricore.tags.skull: true
+      ioricore.tags.sword: true
+      ioricore.tags.bow: true
+      ioricore.tags.music: true
+      ioricore.tags.king: true
+      ioricore.tags.queen: true
+      ioricore.tags.vip: true
+      ioricore.tags.elite: true
+      ioricore.tags.ultra: true
+      ioricore.tags.christmas: true
+      ioricore.tags.halloween: true
+  # ── Nodes ──
+  ioricore.ranks:
+    description: Open /ranks menu and use rank commands.
+    default: op
+  ioricore.ranks.create:
+    description: Create ranks.
+    default: op
+  ioricore.ranks.delete:
+    description: Delete ranks.
+    default: op
+  ioricore.ranks.info:
+    description: View rank info.
+    default: op
+  ioricore.ranks.edit:
+    description: Edit rank fields, parents and flags.
+    default: op
+  ioricore.ranks.permissions:
+    description: Edit rank permissions.
+    default: op
+  ioricore.ranks.grant:
+    description: Grant ranks to players.
+    default: op
+  ioricore.ranks.ungrant:
+    description: Remove rank grants.
+    default: op
+  ioricore.ranks.grants:
+    description: View grant history.
+    default: op
+  ioricore.ranks.edit.flags:
+    description: Edit rank flags in the rank editor.
+    default: op
+  ioricore.punish.ban:
+    description: Use /ban and /tempban.
+    default: op
+  ioricore.punish.mute:
+    description: Use /mute and /tempmute.
+    default: op
+  ioricore.punish.warn:
+    description: Use /warn.
+    default: op
+  ioricore.punish.kick:
+    description: Use /kick.
+    default: op
+  ioricore.punish.unban:
+    description: Use /unban and /pardon.
+    default: op
+  ioricore.whitelist:
+    description: Use /whitelist.
+    default: op
+  ioricore.punish.unmute:
+    description: Use /unmute.
+    default: op
+  ioricore.punish.unwarn:
+    description: Use /unwarn.
+    default: op
+  ioricore.punish.menu:
+    description: Open /punish menu.
+    default: op
+  ioricore.staffreg:
+    description: Register for staff auth (/staffreg).
+    default: op
+  ioricore.staffchat.send:
+    description: Send messages to staff chat.
+    default: op
+  ioricore.staffchat.receive:
+    description: Receive staff chat messages.
+    default: op
+  ioricore.staffmode.freeze:
+    description: Freeze players via /staff freeze or hotbar.
+    default: op
+  ioricore.staffmode.freeze.bypass:
+    description: Cannot be frozen by staff.
+    default: op
+  ioricore.staffmode.vanish:
+    description: Toggle vanish while in staff mode.
+    default: op
+  ioricore.staffmode.inspect:
+    description: Inspect inventories in staff mode.
+    default: op
+  ioricore.staffmode.randomtp:
+    description: Random teleport hotbar in staff mode.
+    default: op
+  ioricore.staffmode.players:
+    description: Open the online players staff menu.
+    default: op
+  ioricore.staffmode.thru:
+    description: Phase through walls with the staff hotbar.
+    default: op
+  ioricore.staffmode.teleport:
+    description: Teleport to a player from staff menus.
+    default: op
+  ioricore.staffmode.build:
+    description: Bypass block/entity interaction lock in staff mode.
+    default: op
+  ioricore.settings:
+    description: Open /settings.
+    default: true
+  ioricore.discord.sync:
+    description: Use /sync to link Discord.
+    default: true
+  ioricore.discord.unsync:
+    description: Use /unsync to unlink Discord.
+    default: true
+  ioricore.scoreboard:
+    description: Toggle sidebar scoreboard.
+    default: true
+  ioricore.vanish.see:
+    description: See vanished players.
+    default: op
+  ioricore.world.bypass:
+    description: Bypass world management block flags.
+    default: op
+  ioricore.chat.color:
+    description: Use color codes in chat and private messages.
+    default: op
+  ioricore.chat.format.owner:
+    description: Owner chat format.
+    default: op
+  ioricore.chat.format.staff:
+    description: Staff chat format.
+    default: op
+  ioricore.logs.staff:
+    description: Chat logs staff label.
+    default: op
+  ioricore.logs.donor:
+    description: Chat logs donor label.
+    default: op
+  ioricore.rank.owner:
+    description: Owner rank marker.
+    default: op
+  ioricore.rank.staff:
+    description: Staff rank marker.
+    default: op
+  ioricore.rank.donor:
+    description: Donor rank marker.
+    default: op
+  ioricore.join.brand:
+    description: See join brand alerts (premium/cracked/bedrock).
+    default: op
+  ioricore.economy.balance:
+    description: View your balance.
+    default: true
+  ioricore.economy.balance.others:
+    description: View other players balance.
+    default: op
+  ioricore.economy.pay:
+    description: Pay players.
+    default: true
+  ioricore.economy.eco:
+    description: Economy admin give/take/set.
+    default: op
+  ioricore.tags:
+    description: Use /tag.
+    default: true
+  ioricore.tags.equip:
+    description: Equip/unequip tags.
+    default: true
+  ioricore.coinshop:
+    description: Open /coinshop.
+    default: true
+  ioricore.chatgames:
+    description: Use /chatgames help.
+    default: true
+  ioricore.chatgames.admin:
+    description: Force/skip ChatGames rounds.
+    default: op
+  ioricore.kit.*:
+    description: "Claim every kit (per kit: ioricore.kit.<name>)."
+    default: op
+  ioricore.essentials.heal:
+    description: Use /heal.
+    default: op
+  ioricore.essentials.feed:
+    description: Use /feed.
+    default: op
+  ioricore.essentials.fly:
+    description: Use /fly.
+    default: op
+  ioricore.essentials.god:
+    description: Use /god.
+    default: op
+  ioricore.essentials.gamemode:
+    description: Use /gamemode.
+    default: op
+  ioricore.essentials.speed:
+    description: Use /speed.
+    default: op
+  ioricore.essentials.kill:
+    description: Use /kill.
+    default: op
+  ioricore.essentials.weather:
+    description: Use /weather.
+    default: op
+  ioricore.essentials.time:
+    description: Use /time.
+    default: op
+  ioricore.essentials.top:
+    description: Use /top.
+    default: true
+  ioricore.essentials.world:
+    description: Use /world.
+    default: op
+  ioricore.essentials.tp:
+    description: Use /tp.
+    default: op
+  ioricore.essentials.tphere:
+    description: Use /tphere.
+    default: op
+  ioricore.essentials.back:
+    description: Use /back.
+    default: true
+  ioricore.essentials.nick:
+    description: Use /nick.
+    default: op
+  ioricore.essentials.repair:
+    description: Use /repair.
+    default: op
+  ioricore.essentials.enderchest:
+    description: Use /enderchest.
+    default: true
+  ioricore.essentials.spawn:
+    description: Use /spawn.
+    default: true
+  ioricore.essentials.setspawn:
+    description: Use /setspawn.
+    default: op
+  ioricore.essentials.home:
+    description: Use /home.
+    default: true
+  ioricore.essentials.sethome:
+    description: Use /sethome.
+    default: true
+  ioricore.essentials.delhome:
+    description: Use /delhome.
+    default: true
+  ioricore.essentials.homes:
+    description: Use /homes.
+    default: true
+  ioricore.essentials.warp:
+    description: Use /warp.
+    default: true
+  ioricore.essentials.setwarp:
+    description: Use /setwarp.
+    default: op
+  ioricore.essentials.delwarp:
+    description: Use /delwarp.
+    default: op
+  ioricore.essentials.tpa:
+    description: Use /tpa.
+    default: true
+  ioricore.essentials.tpahere:
+    description: Use /tpahere.
+    default: true
+  ioricore.essentials.tpaccept:
+    description: Use /tpaccept.
+    default: true
+  ioricore.essentials.tpdeny:
+    description: Use /tpdeny.
+    default: true
+  ioricore.essentials.msg:
+    description: Use /msg.
+    default: true
+  ioricore.essentials.reply:
+    description: Use /reply.
+    default: true
+  ioricore.essentials.vanish:
+    description: Use /vanish.
+    default: op
+  ioricore.whitelist:
+    description: Use /whitelist.
+    default: op
+  ioricore.essentials.invsee:
+    description: Use /invsee.
+    default: op
+  ioricore.essentials.clear:
+    description: Use /clear.
+    default: op
+  ioricore.essentials.broadcast:
+    description: Use /broadcast.
+    default: op
+  ioricore.essentials.healall:
+    description: Use /healall.
+    default: op
+  ioricore.essentials.tpall:
+    description: Use /tpall.
+    default: op
+  ioricore.gender:
+    description: Use /gender.
+    default: true
+  ioricore.essentials.give:
+    description: Use /give.
+    default: op
+  ioricore.essentials.getpos:
+    description: Use /getpos.
+    default: true
+  ioricore.essentials.disposal:
+    description: Use /disposal.
+    default: true
+  ioricore.essentials.kit:
+    description: Use /kit.
+    default: true
+  ioricore.essentials.createkit:
+    description: Use /createkit.
+    default: op
+  ioricore.essentials.deletekit:
+    description: Use /deletekit.
+    default: op
+  ioricore.essentials.workbench:
+    description: Use /workbench.
+    default: true
+  ioricore.essentials.hat:
+    description: Use /hat.
+    default: true
+  ioricore.essentials.near:
+    description: Use /near.
+    default: true
+  ioricore.essentials.ping:
+    description: Use /ping.
+    default: true
+  ioricore.essentials.realname:
+    description: Use /realname.
+    default: op
+  ioricore.essentials.tpcancel:
+    description: Use /tpcancel.
+    default: true
+  ioricore.essentials.tppos:
+    description: Use /tppos.
+    default: op
+  ioricore.essentials.me:
+    description: Use /me.
+    default: true
+  ioricore.essentials.ignore:
+    description: Use /ignore.
+    default: true
+  ioricore.essentials.skull:
+    description: Use /skull.
+    default: op
+  ioricore.essentials.clear.others:
+    description: Use /clear on other players.
+    default: op
+  ioricore.essentials.enderchest.others:
+    description: Use /enderchest on other players.
+    default: op
+  ioricore.essentials.feed.others:
+    description: Use /feed on other players.
+    default: op
+  ioricore.essentials.fly.others:
+    description: Use /fly on other players.
+    default: op
+  ioricore.essentials.gamemode.others:
+    description: Use /gamemode on other players.
+    default: op
+  ioricore.essentials.getpos.others:
+    description: Use /getpos on other players.
+    default: op
+  ioricore.essentials.god.others:
+    description: Use /god on other players.
+    default: op
+  ioricore.essentials.heal.others:
+    description: Use /heal on other players.
+    default: op
+  ioricore.essentials.kill.others:
+    description: Use /kill on other players.
+    default: op
+  ioricore.essentials.ping.others:
+    description: Use /ping on other players.
+    default: op
+  ioricore.essentials.spawn.others:
+    description: Use /spawn on other players.
+    default: op
+  ioricore.essentials.speed.others:
+    description: Use /speed on other players.
+    default: op
+  ioricore.essentials.tp.others:
+    description: Use /tp on other players.
+    default: op
+  ioricore.essentials.vanish.others:
+    description: Use /vanish on other players.
+    default: op
+  ioricore.essentials.repair.all:
+    description: Repair every item with /repair all.
+    default: op
+  ioricore.essentials.sethome.unlimited:
+    description: No home limit.
+    default: op
+  # ── Tags (data/tags.yml) ──
+  ioricore.tags.heart:
+    description: Tag heart.
+    default: op
+  ioricore.tags.star:
+    description: Tag star.
+    default: op
+  ioricore.tags.crown:
+    description: Tag crown.
+    default: op
+  ioricore.tags.verified:
+    description: Tag verified.
+    default: op
+  ioricore.tags.dollar:
+    description: Tag dollar.
+    default: op
+  ioricore.tags.fire:
+    description: Tag fire.
+    default: op
+  ioricore.tags.ice:
+    description: Tag ice.
+    default: op
+  ioricore.tags.lightning:
+    description: Tag lightning.
+    default: op
+  ioricore.tags.flower:
+    description: Tag flower.
+    default: op
+  ioricore.tags.moon:
+    description: Tag moon.
+    default: op
+  ioricore.tags.sun:
+    description: Tag sun.
+    default: op
+  ioricore.tags.skull:
+    description: Tag skull.
+    default: op
+  ioricore.tags.sword:
+    description: Tag sword.
+    default: op
+  ioricore.tags.bow:
+    description: Tag bow.
+    default: op
+  ioricore.tags.music:
+    description: Tag music.
+    default: op
+  ioricore.tags.king:
+    description: Tag king.
+    default: op
+  ioricore.tags.queen:
+    description: Tag queen.
+    default: op
+  ioricore.tags.vip:
+    description: Tag vip.
+    default: op
+  ioricore.tags.elite:
+    description: Tag elite.
+    default: op
+  ioricore.tags.ultra:
+    description: Tag ultra.
+    default: op
+  ioricore.tags.christmas:
+    description: Tag christmas.
+    default: op
+  ioricore.tags.halloween:
+    description: Tag halloween.
+    default: op

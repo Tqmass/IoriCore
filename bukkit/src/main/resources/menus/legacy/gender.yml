@@ -1,0 +1,64 @@
+# ***
+# * IoriCore | Menu GENDER (legacy)
+# ***
+
+ID: gender
+TITLE-KEY: GENDER.MENU.TITLE
+ROWS: 3
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  OPEN: UI-CLICK
+  CLICK: UI-CLICK
+  DENY: DENY
+
+FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 7
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 3
+  NAME: " "
+  GLOW: false
+  SLOTS: [0, 8, 26]
+
+ITEMS:
+  MALE:
+    SLOT: 11
+    MATERIAL: INK_SACK
+    DATA: 12
+    NAME-KEY: GENDER.MENU.MALE-NAME
+    LORE-KEY: GENDER.MENU.MALE-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] gender.set male"
+  FEMALE:
+    SLOT: 12
+    MATERIAL: INK_SACK
+    DATA: 13
+    NAME-KEY: GENDER.MENU.FEMALE-NAME
+    LORE-KEY: GENDER.MENU.FEMALE-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] gender.set female"
+  OTHER:
+    SLOT: 13
+    MATERIAL: INK_SACK
+    DATA: 8
+    NAME-KEY: GENDER.MENU.OTHER-NAME
+    LORE-KEY: GENDER.MENU.OTHER-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] gender.set other"
+  CLEAR:
+    SLOT: 15
+    MATERIAL: BARRIER
+    NAME-KEY: GENDER.MENU.CLEAR-NAME
+    LORE-KEY: GENDER.MENU.CLEAR-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] gender.clear"

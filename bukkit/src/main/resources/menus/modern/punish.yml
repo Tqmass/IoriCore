@@ -1,0 +1,100 @@
+# ***
+# * IoriCore | Menu PUNISH
+# ***
+
+ID: punish
+TITLE: "&8Punish &7{target}"
+ROWS: 4
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: GRAY_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: LIGHT_BLUE_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+  SLOTS: [0, 8, 27, 35]
+
+ITEMS:
+  WARN:
+    SLOT: 11
+    MATERIAL: PAPER
+    NAME: "&eWarn"
+    LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Reason templates for &f{target}"
+      - "&8• &eClick to open"
+    ACTIONS:
+      ANY: ["[internal] punish.category warn"]
+  MUTE:
+    SLOT: 12
+    MATERIAL: BOOK
+    NAME: "&6Mute"
+    LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Permanent mute templates"
+      - "&8• &eClick to open"
+    ACTIONS:
+      ANY: ["[internal] punish.category mute"]
+  TEMPMUTE:
+    SLOT: 13
+    MATERIAL: WRITABLE_BOOK
+    NAME: "&bTemp mute"
+    LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Timed mute templates"
+      - "&8• &eClick to open"
+    ACTIONS:
+      ANY: ["[internal] punish.category tempmute"]
+  BAN:
+    SLOT: 20
+    MATERIAL: REDSTONE_BLOCK
+    NAME: "&cBan"
+    LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Permanent ban templates"
+      - "&8• &eClick to open"
+    ACTIONS:
+      ANY: ["[internal] punish.category ban"]
+  TEMPBAN:
+    SLOT: 21
+    MATERIAL: TNT
+    NAME: "&cTemp ban"
+    LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Timed ban templates"
+      - "&8• &eClick to open"
+    ACTIONS:
+      ANY: ["[internal] punish.category tempban"]
+  KICK:
+    SLOT: 22
+    MATERIAL: IRON_BOOTS
+    NAME: "&7Kick"
+    LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Kick templates"
+      - "&8• &eClick to open"
+    ACTIONS:
+      ANY: ["[internal] punish.category kick"]
+  CLOSE:
+    SLOT: 31
+    MATERIAL: BARRIER
+    MATERIAL-FALLBACK: REDSTONE_BLOCK
+    NAME: "&cClose"
+    ACTIONS:
+      ANY: ["[close]"]

@@ -1,0 +1,18 @@
+# *** SAMPLE · join MOTD / welcome (modern) ***
+# ~ Gradient title + mensajes multilínea + sound
+# ~ IoriCore JoinMOTD: messages + PictureLogin-style para 1.16+; legacy 1.8.9 separado
+
+Formats:
+  nonranked:
+    Permission: "none"
+    Relational: false
+    Sounds:
+      Join: "ENTITY_PLAYER_LEVELUP"
+    Actions:
+      Join:
+        - "[MESSAGE]&7 ⚔ ━━━━━━━━━━━━━━━━━━━ • ☄ • ━━━━━━━━━━━━━━━━━━━ ⚔"
+        - "[MESSAGE]&f          Welcome, &#369EF3{PLAYER} &fto &#0D87EARoyalCTW&f!"
+        - "[MESSAGE]&f         Discord: &9discord.gg/servername"
+        - "[MESSAGE]&7 ⚔ ━━━━━━━━━━━━━━━━━━━ • ☄ • ━━━━━━━━━━━━━━━━━━━ ⚔"
+        - "[TITLE]&#0D87EA&lROYALCTW<SEPARATOR>&fThere are &7%server_online% &fplayers!"
+      Quit: []

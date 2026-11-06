@@ -1,0 +1,52 @@
+# *** SAMPLE · chat color menu (legacy 1.8.9 style) ***
+# ~ Inspiración HonlyCraft — no es el schema final IoriCore
+# ~ Ideas: basehead-…, select vs selected + view_requirement, deny_commands, [player]/[close]/[sound]
+
+menu_title: '&9&l » &8Color de Chat'
+open_requirement:
+  requirements:
+    open:
+      type: has permission
+      permission: lang.es
+      deny_commands:
+        - "[openguimenu] chatcolor_en"
+    permission:
+      type: has permission
+      permission: permisos.elite
+      deny_commands:
+        - "[message] &cNecesitas rango &b「Elite」&c!"
+open_commands:
+  - '[sound] CLICK'
+size: 53
+items:
+  DarkRed-select:
+    material: 'basehead-eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjM5Yzg5ZGJjMzYyYWJiMTRmNTJiZTdkZTkzYzM4NTEyNzEwMGZlY2RkM2ZlNjNhYjcxOGI3MTNhYjQ4ZDUwOCJ9fX0='
+    slot: 10
+    display_name: '&5Rojo Oscuro'
+    lore:
+      - ''
+      - '&5 ❙ &7Cambie el color de su chat a un '
+      - '&5 ❙ &7color &4Rojo Oscuro&7.'
+      - ''
+      - '&e ▶ ¡Click para seleccionar!'
+    priority: 2
+    left_click_commands:
+      - '[player] ezcolor dark_red'
+      - '[close]'
+  DarkRed-selected:
+    material: 'basehead-eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjM5Yzg5ZGJjMzYyYWJiMTRmNTJiZTdkZTkzYzM4NTEyNzEwMGZlY2RkM2ZlNjNhYjcxOGI3MTNhYjQ4ZDUwOCJ9fX0='
+    slot: 10
+    display_name: '&5Rojo Oscuro'
+    lore:
+      - ''
+      - '&a ▶ ¡Actualmente seleccionado!'
+    view_requirement:
+      requirements:
+        permiso:
+          type: string equals
+          input: "%ezcolors_color%"
+          output: "&4"
+    priority: 1
+    left_click_commands:
+      - '[message] &aYa tienes este color de chat seleccionado.'
+      - '[close]'

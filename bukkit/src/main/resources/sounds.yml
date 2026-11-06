@@ -1,0 +1,188 @@
+# *************************************
+# *        IoriCore | Sounds          *
+# *************************************
+# ~ Primer NAMES que resuelva gana · VOLUME/PITCH float
+
+SOUNDS:
+  MENU-OPEN:
+    NAMES:
+      - BLOCK_CHEST_OPEN
+      - CHEST_OPEN
+    VOLUME: 0.5
+    PITCH: 1.2
+
+  MENU-CLICK:
+    NAMES:
+      - UI_BUTTON_CLICK
+      - CLICK
+    VOLUME: 0.6
+    PITCH: 1.0
+
+  MENU-BACK:
+    NAMES:
+      - ENTITY_ITEM_PICKUP
+      - ITEM_PICKUP
+    VOLUME: 0.4
+    PITCH: 1.2
+
+  MENU-PAGE:
+    NAMES:
+      - ITEM_BOOK_PAGE_TURN
+      - PAGE_TURN
+    VOLUME: 0.5
+    PITCH: 1.0
+
+  MENU-LOCKED:
+    NAMES:
+      - ENTITY_VILLAGER_NO
+      - VILLAGER_NO
+    VOLUME: 0.8
+    PITCH: 0.8
+
+  MENU-SUCCESS:
+    NAMES:
+      - ENTITY_EXPERIENCE_ORB_PICKUP
+      - ORB_PICKUP
+    VOLUME: 0.7
+    PITCH: 1.2
+
+  MENU-ERROR:
+    NAMES:
+      - BLOCK_NOTE_BLOCK_BASS
+      - NOTE_BASS
+    VOLUME: 1.0
+    PITCH: 0.5
+
+  # ── UI ───────────────────────────────
+  UI-CLICK:
+    NAMES:
+      - UI_BUTTON_CLICK
+      - CLICK
+    VOLUME: 1.0
+    PITCH: 1.0
+
+  PAGE-TURN:
+    NAMES:
+      - ITEM_BOOK_PAGE_TURN
+      - UI_BUTTON_CLICK
+      - CLICK
+    VOLUME: 0.8
+    PITCH: 1.0
+
+  CONFIRM:
+    NAMES:
+      - ENTITY_EXPERIENCE_ORB_PICKUP
+      - ORB_PICKUP
+    VOLUME: 0.8
+    PITCH: 1.2
+
+  DENY:
+    NAMES:
+      - ENTITY_VILLAGER_NO
+      - VILLAGER_NO
+      - NOTE_BASS
+    VOLUME: 1.0
+    PITCH: 0.8
+
+  # ── FEEDBACK ─────────────────────────
+  SUCCESS:
+    NAMES:
+      - ENTITY_PLAYER_LEVELUP
+      - LEVEL_UP
+    VOLUME: 0.7
+    PITCH: 1.2
+
+  ERROR:
+    NAMES:
+      - BLOCK_NOTE_BLOCK_BASS
+      - BLOCK_NOTE_BASS
+      - NOTE_BASS
+    VOLUME: 1.0
+    PITCH: 0.5
+
+  LEVEL-UP:
+    NAMES:
+      - ENTITY_PLAYER_LEVELUP
+      - LEVEL_UP
+    VOLUME: 1.0
+    PITCH: 1.0
+
+  NOTIFICATION:
+    NAMES:
+      - BLOCK_NOTE_BLOCK_CHIME
+      - BLOCK_NOTE_CHIME
+      - NOTE_PLING
+    VOLUME: 0.9
+    PITCH: 1.3
+
+  # ── STAFF / WORLD ────────────────────
+  STAFF-ALERT:
+    NAMES:
+      - BLOCK_NOTE_BLOCK_PLING
+      - BLOCK_NOTE_PLING
+      - NOTE_PLING
+    VOLUME: 1.0
+    PITCH: 1.5
+
+  TELEPORT:
+    NAMES:
+      - ENTITY_ENDERMAN_TELEPORT
+      - ENDERMAN_TELEPORT
+    VOLUME: 1.0
+    PITCH: 1.0
+
+  # ── CUSTOM-JOINS ─────────────────────
+  CUSTOM-JOINS-DONOR:
+    NAMES:
+      - ENTITY_ENDER_DRAGON_GROWL
+      - ENTITY_WITHER_SPAWN
+    VOLUME: 0.85
+    PITCH: 0.75
+
+  # ── JOIN-EFFECTS ─────────────────────
+  JOIN-EFFECTS-FIREWORK:
+    NAMES:
+      - ENTITY_FIREWORK_ROCKET_LAUNCH
+      - ENTITY_FIREWORK_LAUNCH
+      - FIREWORK_LAUNCH
+    VOLUME: 0.7
+    PITCH: 1.1
+
+  JOIN-EFFECTS-ZEUS:
+    NAMES:
+      - ENTITY_LIGHTNING_BOLT_THUNDER
+      - ENTITY_LIGHTNING_THUNDER
+      - AMBIENCE_THUNDER
+    VOLUME: 1.0
+    PITCH: 1.0
+
+  JOIN-EFFECTS-ENDER:
+    NAMES:
+      - ENTITY_ENDERMAN_TELEPORT
+      - ENDERMAN_TELEPORT
+    VOLUME: 1.0
+    PITCH: 0.8
+
+  JOIN-EFFECTS-WOOL:
+    NAMES:
+      - ENTITY_FIREWORK_ROCKET_LAUNCH
+      - ENTITY_FIREWORK_LAUNCH
+      - FIREWORK_LAUNCH
+    VOLUME: 0.45
+    PITCH: 1.4
+
+  JOIN-EFFECTS-TNT:
+    NAMES:
+      - ENTITY_TNT_PRIMED
+      - ENTITY_TNT_PRIMED
+      - FUSE
+    VOLUME: 0.6
+    PITCH: 1.0
+
+  JOIN-EFFECTS-MINING:
+    NAMES:
+      - BLOCK_BEACON_ACTIVATE
+      - BLOCK_NOTE_BLOCK_CHIME
+      - NOTE_PLING
+    VOLUME: 0.7
+    PITCH: 1.2

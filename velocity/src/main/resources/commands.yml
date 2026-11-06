@@ -1,0 +1,162 @@
+# *************************************
+# *        IoriProxy | Commands       *
+# *************************************
+# ~ Labels y aliases. Permisos en permissions.yml.
+
+# ────────────────────────────
+# MAIN COMMAND
+# ────────────────────────────
+ROOT:
+  NAME: ioriproxy
+
+# ────────────────────────────
+# COMMANDS
+# ────────────────────────────
+COMMANDS:
+  # — /send ————————————————————
+  SEND: {}
+
+  # — /goto ————————————————————
+  GOTO: {}
+
+  # — /servers —————————————————
+  # ~ Sin alias "server": pisaría el /server nativo del proxy.
+  SERVERS:
+    ALIASES: []
+
+  # — /find ————————————————————
+  FIND:
+    ALIASES:
+      - whereis
+
+  # — /playtime ————————————————
+  PLAYTIME: {}
+
+  # — /ping ————————————————————
+  PING:
+    ALIASES:
+      - latency
+      - ms
+
+  # — /glist ———————————————————
+  GLIST:
+    ALIASES:
+      - gcount
+
+  # — /announce ————————————————
+  ANNOUNCE:
+    ALIASES:
+      - announcer
+
+  # — /alert ———————————————————
+  # ~ Sin "broadcast"/"bc" por defecto: los usa el /broadcast del Core. Añádelos aquí si los quieres en el proxy.
+  ALERT:
+    ALIASES: []
+
+  # — /seen ————————————————————
+  SEEN:
+    ALIASES:
+      - inspect
+      - info
+
+  # — /alts ————————————————————
+  ALTS:
+    ALIASES:
+      - alt
+      - accounts
+
+  # — /transfer ————————————————
+  TRANSFER:
+    ALIASES:
+      - migrate
+
+  # — /analytics ———————————————
+  ANALYTICS: {}
+
+  # — /report ——————————————————
+  REPORT:
+    ALIASES:
+      - reportar
+
+  # — /reports —————————————————
+  REPORTS:
+    ALIASES:
+      - reportes
+
+  # — /request —————————————————
+  REQUEST:
+    ALIASES:
+      - ayuda
+
+  # — /staffchat ———————————————
+  STAFFCHAT:
+    ALIASES:
+      - sc
+
+  # — /adminchat ———————————————
+  ADMINCHAT:
+    ALIASES:
+      - ac
+
+  # — /stream ——————————————————
+  STREAM:
+    ALIASES:
+      - directo
+
+  # — /youtube —————————————————
+  YOUTUBE:
+    ALIASES:
+      - video
+
+  # — /hub —————————————————————
+  HUB:
+    ALIASES:
+      - lobby
+      - vestibulo
+
+  # — /redistest ———————————————
+  REDISTEST: {}
+
+  # — /maintenance —————————————
+  MAINTENANCE:
+    ALIASES:
+      - mantenimiento
+
+  # — /blacklist ———————————————
+  BLACKLIST: {}
+
+  # — /unblacklist —————————————
+  UNBLACKLIST: {}
+
+  # — /donation ————————————————
+  DONATION:
+    ALIASES:
+      - donacion
+
+  # — /ggwave ——————————————————
+  GGWAVE: {}
+
+  # — /friend ——————————————————
+  FRIEND:
+    ALIASES:
+      - friends
+      - amigos
+      - a
+      - f
+
+  # — /staffauth ———————————————
+  STAFFAUTH:
+    ALIASES:
+      - staff-auth
+      - sauth
+
+  # — /profile —————————————————
+  PROFILE:
+    ALIASES:
+      - perfil
+
+  # — /sync ————————————————————
+  SYNC: {}
+
+  # — /unsync ——————————————————
+  UNSYNC: {}

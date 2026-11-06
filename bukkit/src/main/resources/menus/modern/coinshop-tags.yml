@@ -1,0 +1,45 @@
+# ***
+# * IoriCore | Menu COINSHOP-TAGS
+# ***
+
+ID: coinshop-tags
+TITLE-KEY: COINSHOP.TAGS.TITLE
+ROWS: 6
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  CLICK: UI-CLICK
+
+FILLER:
+  MATERIAL: GRAY_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: LIGHT_BLUE_STAINED_GLASS_PANE
+  DATA: 0
+  NAME: " "
+  GLOW: false
+  SLOTS: [4]
+
+DYNAMIC:
+  SOURCE: coinshop.offers
+  SLOTS: ["10-16", "19-25", "28-34", "37-43"]
+  TEMPLATE:
+    MATERIAL: "{material}"
+    MATERIAL-FALLBACK: NAME_TAG
+    NAME-KEY: COINSHOP.TAGS.ITEM-NAME
+    LORE-KEY: COINSHOP.TAGS.ITEM-LORE
+    ACTIONS:
+      ANY: ["[internal] coinshop.open-confirm {id}"]
+
+ITEMS:
+  BACK:
+    SLOT: 49
+    MATERIAL: ARROW
+    NAME-KEY: COINSHOP.BACK-NAME
+    LORE-KEY: COINSHOP.BACK-LORE
+    ACTIONS:
+      ANY: ["[back]"]

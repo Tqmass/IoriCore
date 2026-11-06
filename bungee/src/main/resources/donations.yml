@@ -1,0 +1,56 @@
+# *************************************
+# *        IoriProxy | Donations      *
+# *************************************
+# ~ Textos chat / bar: messages/{lang}.yml (DONATIONS.*)
+# ~ Discord embed: webhooks/donations.yml
+
+STORE-URL: "https://store.iorilabs.com"
+DEFAULT-SKIN: Steve
+
+# ────────────────────────────
+# GOAL
+# ────────────────────────────
+# ~ META / COLLECTED vienen del webhook de la tienda (BuiltByBit / CraftingStore / Tebex).
+# ~ Si el payload no trae meta, se usa META-FALLBACK solo para la barra.
+GOAL:
+  ENABLED: true
+  META-FALLBACK: 500
+  BAR-LENGTH: 20
+
+# ────────────────────────────
+# STORES (credenciales)
+# ────────────────────────────
+TEBEX:
+  ENABLED: false
+  SECRET: ""
+
+BUILTBYBIT:
+  ENABLED: false
+  SECRET: ""
+
+CRAFTINGSTORE:
+  ENABLED: false
+  SECRET: ""
+
+# ────────────────────────────
+# GGWAVE
+# ────────────────────────────
+GGWAVE:
+  ENABLED: true
+  DURATION-SECONDS: 15
+  MAX-PER-PLAYER: 1
+  MAX-TOTAL: 40
+  INPUTS:
+    - gg
+  RAINBOW: true
+  RAINBOW-ONLY-MESSAGE: true
+
+# ────────────────────────────
+# SOUNDS
+# ────────────────────────────
+SOUNDS:
+  ENABLED: true
+  VOLUME: 1.0
+  PITCH: 1.0
+  LEGACY: random.levelup
+  MODERN: entity.player.levelup

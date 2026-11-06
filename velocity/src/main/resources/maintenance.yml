@@ -1,0 +1,120 @@
+# *************************************
+# *      IoriProxy | Maintenance      *
+# *************************************
+# ~ Feedback de comandos: messages/{lang}.yml
+# ~ Placeholders: <prefix> <scope> <reason> <time> <online> <max>
+
+# ────────────────────────────
+# GENERAL
+# ────────────────────────────
+DEFAULT-REASON: Maintenance in progress
+KICK-NON-WHITELISTED: true
+BYPASS-PERMISSION: ioriproxy.maintenance.bypass
+
+# ────────────────────────────
+# MOTD
+# ────────────────────────────
+# ~ Texto de la lista de servidores con mantenimiento global
+MOTD:
+  OVERRIDE: true
+  SHOW-END-TIMER: true
+  MODERN:
+    - |-
+      <reset>           <gold><bold>IoriLabs</bold></gold> <aqua>〻</aqua> <gray>[1.8 - 1.21]</gray>
+      <reset>            <dark_red>✗</dark_red> <red>¡Estamos en mantenimiento!</red>
+    - |-
+      <reset>           <gold><bold>IoriLabs</bold></gold> <aqua>〻</aqua> <gray>[1.8 - 1.21]</gray>
+      <reset>            <dark_red>✗</dark_red> <red>¡En mantenimiento!, volvemos pronto.</red>
+  LEGACY:
+    - |-
+      &6&lIoriLabs &b〻 &7[1.8 - 1.21]
+      &4✗ &c¡Estamos en mantenimiento!
+    - |-
+      &6&lIoriLabs &b〻 &7[1.8 - 1.21]
+      &4✗ &c¡En mantenimiento!, volvemos pronto.
+  TIMER-MODERN:
+    - |-
+      <reset>           <gold><bold>IoriLabs</bold></gold> <aqua>〻</aqua> <gray>[1.8 - 1.21]</gray>
+      <reset>            <dark_red>✗</dark_red> <red>¡Volvemos en </red><aqua><time></aqua><red>!</red>
+  TIMER-LEGACY:
+    - |-
+      &6&lIoriLabs &b〻 &7[1.8 - 1.21]
+      &4✗ &c¡Volvemos en &b<time>&c!
+
+# ────────────────────────────
+# PLAYER-LIST
+# ────────────────────────────
+# ~ Contador / hover al pasar el ratón en la lista de servidores
+PLAYER-LIST:
+  ENABLED: true
+  COUNT-MESSAGE: "<dark_red>✗ <bold>MANTENIMIENTO</bold>"
+  COUNT-TIMER-MESSAGE: "<dark_red>✗ Volvemos en: <aqua><time>"
+  HOVER:
+    - "<aqua><italic>¡No te quedes sin ver las novedades!"
+    - "          <blue><italic>discord.IoriLabs.net"
+  HOVER-TIMER:
+    - "<red>Servidor en mantenimiento"
+    - "<yellow>Vuelve en <time>"
+  SAMPLE-PLAYERS: []
+
+# ────────────────────────────
+# KICK MESSAGE
+# ────────────────────────────
+# ~ Servidores permitidos aunque haya mantenimiento de modo (ej. Lobby).
+ALLOW-DURING-MAINTENANCE:
+  - lobby
+
+KICK:
+  # ~ Si el mantenimiento no es global - Mueve a todos al Lobby
+  REDIRECT-LOBBY: true
+  DESCRIPTION: |
+    <aqua><bold>IoriLabs</bold></aqua> <gray><bold>NET</bold></gray><white>WORK</white> <aqua>〻</aqua> <dark_red><bold>MANTENIMIENTO</bold></dark_red>
+
+    <aqua><italic>¡Actualmente nos encontramos cerrados!</italic></aqua>
+
+    <yellow><italic>¡Únete a nuestro Discord!</italic></yellow> <dark_gray>|</dark_gray> <blue><italic>discord.IoriLabs.net</italic></blue>
+    <aqua><italic>¡Para ver las nuevas novedades!</italic></aqua>
+  DESCRIPTION-LEGACY: |
+    &b&lIoriLabs &7&lNET&fWORK &b〻 &4&lMANTENIMIENTO
+
+    &b&o¡Actualmente nos encontramos cerrados!
+
+    &e&o¡Únete a nuestro Discord! &8| &9&odiscord.IoriLabs.net
+    &b&o¡Para ver las nuevas novedades!
+
+# ────────────────────────────
+# COUNTDOWN
+# ────────────────────────────
+COUNTDOWN:
+  ENABLED: true
+  INTERVALS-SECONDS:
+    - 60
+    - 30
+    - 15
+    - 10
+    - 5
+    - 4
+    - 3
+    - 2
+    - 1
+  ACTIONBAR: true
+  TITLE: true
+  # Textos en messages/{lang}.yml (legacy & modern). Dejar vacío aquí.
+  CHAT: ""
+  TITLE-MAIN: ""
+  TITLE-SUB: ""
+  STARTED: ""
+  ENDED: ""
+
+# ────────────────────────────
+# MODES
+# ────────────────────────────
+# ~ Vacío = auto desde servidores de Velocity/Bungee (lobby-1 → lobby, ctw-2 → ctw).
+# ~ Solo rellena si quieres agrupación distinta a los nombres del proxy.
+MODES: {}
+
+# ────────────────────────────
+# WHITELIST
+# ────────────────────────────
+# ~ Nombres/UUIDs con acceso durante mantenimiento (/maintenance whitelist)
+WHITELIST: []

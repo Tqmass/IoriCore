@@ -1,0 +1,27 @@
+# *************************************
+# *      IoriCore | Staff mode        *
+# *************************************
+
+FLIGHT: true
+NIGHT-VISION: true
+INVULNERABLE: true
+FREEZE-ACTIONBAR-TICKS: 20
+GAMEMODE: NONE
+RESTORE-LOCATION: true
+VANISH-ON-ENTER: true
+CLICK-COOLDOWN-MS: 150
+REDIS-SYNC: true
+NAMETAG: true
+
+STAFF-COMMAND:
+  DEFAULT: STAFFCHAT
+  MENU-ID: staff-players
+
+FREEZE:
+  REQUIRE-STAFF-MODE: true
+  BLIND: true
+  ICE-HELMET: true
+  ALLOWED-COMMANDS: []
+  ON-DISCONNECT-AUTOBAN: true
+  ON-DISCONNECT-BAN-DURATION: "0"
+  ON-DISCONNECT: []

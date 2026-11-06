@@ -1,0 +1,1454 @@
+# *************************************
+# *     IoriCore | Messages ES        *
+# *************************************
+PREFIX: "&8[&bIoriCore&8]&r "
+# PREFIX global arriba. Por módulo opcional:
+# PUNISHMENTS.PREFIX: "&8(&6&lSANCIONES&8) &8· &r"  # vacío = usa PREFIX global
+# STAFF-MODE.PREFIX / STAFF-AUTH.PREFIX — igual
+
+# — GENERAL —————————————————————
+GENERAL:
+  NO-PERMISSION: "<prefix>&cNo tienes permiso."
+  PLAYER-ONLY: "<prefix>&cSolo jugadores pueden usar este comando."
+  UNKNOWN-COMMAND: "<prefix>&cComando desconocido."
+  FEATURE-DISABLED: "<prefix>&cEsta función está desactivada."
+  RELOAD-SUCCESS: "<prefix>&aConfiguración recargada."
+
+# — WHITELIST ————————————————————
+WHITELIST:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/whitelist &7- &eListar jugadores."
+    - "&8• &f/whitelist list &7- &eListar jugadores."
+    - "&8• &f/whitelist add <jugador> &7- &eAñadir."
+    - "&8• &f/whitelist remove <jugador> &7- &eQuitar."
+    - "&8• &f/whitelist on|off &7- &eActivar / desactivar."
+    - "&7&m------------------------------------------&r"
+  STATUS: "<prefix>&7Whitelist &f<status> &8· &f<count> &7jugadores."
+  LIST: "<prefix>&7Lista: &f<players>"
+  EMPTY: "<prefix>&cLa whitelist está vacía."
+  ENABLED: "<prefix>&aWhitelist activada."
+  DISABLED: "<prefix>&cWhitelist desactivada."
+  ADDED: "<prefix>&aAñadido &f<player> &aa la whitelist."
+  REMOVED: "<prefix>&cEliminado &f<player> &cde la whitelist."
+  ALREADY: "<prefix>&e<player> &7ya está en la whitelist."
+  NOT-LISTED: "<prefix>&e<player> &7no está en la whitelist."
+  INVALID-NAME: "<prefix>&cNombre inválido &f<player>&c."
+
+# — CORE ———————————————————————
+CORE:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/ioricore reload &7- &eRecarga configs, mensajes y módulos."
+    - "&8• &f/ioricore version &7- &eMuestra la versión del plugin y servidor."
+    - "&8• &f/ioricore modules &7- &eLista los módulos y su estado."
+    - "&7&m------------------------------------------&r"
+  RELOADING: "<prefix>&7Recargando IoriCore..."
+  RELOADED: "<prefix>&aRecargado en &f<time>ms &7(&f<modules> &7módulos)."
+  RELOAD-FAILED: "<prefix>&cError al recargar: &f<error>"
+  VERSION:
+    - "&7&m------------------------------------------&r"
+    - "&#5BC0EBIoriCore &fv<version> &7· &fRoyalCTW"
+    - "&8• &7Servidor: &f<server>"
+    - "&8• &7NMS: &f<revision> &8· &7Storage: &f<storage>"
+    - "&7&m------------------------------------------&r"
+  MODULES-HEADER: "<prefix>&7Módulos &8(&a<on>&8/&f<total>&8)"
+  MODULE-LINE: "&8• &f<module> &8- <state>"
+  MODULE-ON: "&aON"
+  MODULE-OFF: "&cOFF"
+
+# — RANKS ———————————————————————
+RANKS:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/ranks &7- &eAbrir lista de rangos."
+    - "&8• &f/rank create <name> [weight] &7- &eCrear un rango."
+    - "&8• &f/rank delete <rank> &7- &eBorrar un rango."
+    - "&8• &f/rank info <rank> &7- &eVer detalles."
+    - "&8• &f/rank setprefix|setsuffix|setcolor|setweight|setdisplay <rank> <valor>"
+    - "&8• &f/rank addperm|delperm <rank> <perm> &7- &eEditar permisos."
+    - "&8• &f/rank addparent|delparent <rank> <parent> &7- &eEditar padres."
+    - "&8• &f/rank flag <rank> <flag> [true|false]"
+    - "&8• &f/grant <player> <rank> [dur|perm] [motivo]"
+    - "&8• &f/ungrant <player> <rank> [motivo]"
+    - "&8• &f/grants <player>"
+    - "&7&m------------------------------------------&r"
+  OK: "<prefix>&aListo."
+  FAILED: "<prefix>&cOperación fallida."
+  UNKNOWN: "<prefix>&cRango desconocido &f<rank>&c."
+  UNKNOWN-PARENT: "<prefix>&cPadre desconocido &f<parent>&c."
+  UNKNOWN-FLAG: "<prefix>&cFlag desconocido &f<flag>&c."
+  INVALID-NAME: "<prefix>&cNombre de rango inválido."
+  INVALID-VALUE: "<prefix>&cValor inválido."
+  INVALID-DURATION: "<prefix>&cDuración inválida &f<duration>&c."
+  ALREADY-EXISTS: "<prefix>&cEso ya existe."
+  NOT-PRESENT: "<prefix>&cNo se encontró esa entrada."
+  CYCLE: "<prefix>&cEse padre crearía un ciclo."
+  DEFAULT-PROTECTED: "<prefix>&cNo puedes borrar el rango por defecto."
+  CREATED: "<prefix>&aRango &f<rank> &acreado &7(peso &f<weight>&7)."
+  DELETED: "<prefix>&cRango &f<rank> &cborrado."
+  CREATE-USAGE: "<prefix>&eUso: &f/rank create <name> [weight]"
+  DELETE-USAGE: "<prefix>&eUso: &f/rank delete <rank>"
+  INFO-USAGE: "<prefix>&eUso: &f/rank info <rank>"
+  SET-USAGE: "<prefix>&eUso: &f/rank <field> <rank> <valor>"
+  SET-OK: "<prefix>&eActualizado &f<field> &ede &f<rank> &e→ &r<value>"
+  ADDPERM-USAGE: "<prefix>&eUso: &f/rank addperm <rank> <permission>"
+  DELPERM-USAGE: "<prefix>&eUso: &f/rank delperm <rank> <permission>"
+  PERM-ADDED: "<prefix>&aAñadido &f<permission> &aa &f<rank>&a."
+  PERM-REMOVED: "<prefix>&cEliminado &f<permission> &cde &f<rank>&c."
+  ADDPARENT-USAGE: "<prefix>&eUso: &f/rank addparent <rank> <parent>"
+  DELPARENT-USAGE: "<prefix>&eUso: &f/rank delparent <rank> <parent>"
+  PARENT-ADDED: "<prefix>&aPadre &f<parent> &aañadido a &f<rank>&a."
+  PARENT-REMOVED: "<prefix>&cPadre &f<parent> &celiminado de &f<rank>&c."
+  FLAG-USAGE: "<prefix>&eUso: &f/rank flag <rank> <flag> [true|false]"
+  FLAG-SET: "<prefix>&eFlag &f<flag> &ede &f<rank> &e→ &f<value>"
+  GRANT-USAGE: "<prefix>&eUso: &f/grant <player> <rank> [dur|perm] [motivo]"
+  UNGRANT-USAGE: "<prefix>&eUso: &f/ungrant <player> <rank> [motivo]"
+  GRANTS-USAGE: "<prefix>&eUso: &f/grants <player>"
+  GRANTS-UNAVAILABLE: "<prefix>&cLos grants requieren SQL (RANKS.STORAGE=SQL)."
+  GRANT-OK: "<prefix>&aOtorgado &f<rank> &aa &f<player> &7(&f<duration>&7) &8· &f<reason>"
+  GRANT-FAILED: "<prefix>&cNo se pudo otorgar &f<rank> &ca &f<player>&c."
+  GRANT-NOTIFY: "<prefix>&aRecibiste el rango &r<rank>&a. &7(&f<reason>&7)"
+  UNGRANT-OK: "<prefix>&cEliminado &f<rank> &cde &f<player> &8· &f<reason>"
+  UNGRANT-NONE: "<prefix>&cNo hay grant activo de &f<rank> &cpara &f<player>&c."
+  GRANTS-HEADER: "<prefix>&eGrants de &f<player> &8(&f<count>&8)"
+  GRANTS-EMPTY: "<prefix>&7Sin grants para &f<player>&7."
+  GRANTS-LINE: "&8• &f<rank> &7[<state>] &8· &7por &f<by> &8· &7expira &f<expires> &8· &f<reason>"
+  PLAYER-NOT-FOUND: "<prefix>&cJugador &f<player> &cno encontrado."
+  INFO:
+    - "&7&m------------------------------------------&r"
+    - "&8• &7Rango: &f<rank> &8(&r<display>&8)"
+    - "&8• &7Peso: &f<weight> &8· &7Tipo: &f<type> &8· &7Scope: &f<scope>"
+    - "&8• &7Prefix: &r<prefix> &8· &7Suffix: &r<suffix>"
+    - "&8• &7Color: &f<color> &8· &7Default: &f<default>"
+    - "&8• &7Flags: &f<flags>"
+    - "&8• &7Padres: &f<parents>"
+    - "&8• &7Permisos: &f<permissions>"
+    - "&7&m------------------------------------------&r"
+  MENU:
+    TITLE: "&8Editor de Rangos"
+    DISPLAY-NAME: "&c<name> &7(<id>)"
+    LORE:
+      - "&4|&f Name: &c<name>"
+      - "&4|&f setName: &c<display>"
+      - "&4|&f Weight: &f<priority>"
+      - "&4|&f Prefix: &r<prefix>"
+      - "&4|&f Suffix: &r<suffix>"
+      - "&4|&f Color: &c<color>"
+      - "&4|&f Bold: <bold>"
+      - "&4|&f Italic: <italic>"
+      - "&4|&f Default: <default>"
+      - "&4|&f Staff: <staff>"
+      - "&4|&f Admin: <admin>"
+      - "&4|&f Op: <op>"
+      - "&4|&f Visible: <visible>"
+      - "&4|&f Padres: &f<parents-count>"
+    PARENT-LINE: "&7 x &r<display>&7, &f#<priority>"
+    PARENT-UNKNOWN: "&7 x &f<name>"
+    CLICK-EDIT: "&eClick para editar rango"
+    BOOL-TRUE: "&aYes"
+    BOOL-FALSE: "&cNo"
+    EDIT-TITLE: "&8Editor · <name>"
+    EDIT-INFO-NAME: "&c<name> &7(<id>)"
+    EDIT-INFO-LORE:
+      - "&4|&f Name: &c<name>"
+      - "&4|&f setName: &c<display>"
+      - "&4|&f Weight: &f<priority>"
+      - "&4|&f Prefix: &r<prefix>"
+      - "&4|&f Suffix: &r<suffix>"
+      - "&4|&f Color: &c<color>"
+      - "&4|&f Bold: <bold>"
+      - "&4|&f Italic: <italic>"
+      - "&4|&f Default: <default>"
+      - "&4|&f Staff: <staff>"
+      - "&4|&f Admin: <admin>"
+      - "&4|&f Op: <op>"
+      - "&4|&f Visible: <visible>"
+    EDIT-NAME-NAME: "&bName: &f<name>"
+    EDIT-NAME-LORE:
+      - "&7Id interno del rango"
+      - "&eClick · anvil renombrar"
+    EDIT-DISPLAY-NAME: "&bsetName: &f<display>"
+    EDIT-DISPLAY-LORE:
+      - "&7Display / setName"
+      - "&eClick · anvil editar"
+    EDIT-WEIGHT-NAME: "&bWeight: &f<priority>"
+    EDIT-WEIGHT-LORE:
+      - "&7Prioridad / weight"
+      - "&eClick · anvil entero"
+    EDIT-PREFIX-NAME: "&bPrefix: &r<prefix>"
+    EDIT-PREFIX-LORE:
+      - "&7Prefix de chat / nametag"
+      - "&eClick · anvil editar"
+    EDIT-SUFFIX-NAME: "&bSuffix: &r<suffix>"
+    EDIT-SUFFIX-LORE:
+      - "&7Suffix de chat / nametag"
+      - "&eClick · anvil editar"
+    EDIT-COLOR-NAME: "&bColor: &c<color>"
+    EDIT-COLOR-LORE:
+      - "&7Ciclar claves ChatColor"
+      - "&eClick · ciclar"
+      - "&eShift-click · anvil"
+    EDIT-BOLD-NAME: "&bBold: <bold>"
+    EDIT-BOLD-LORE:
+      - "&7Alternar bold"
+      - "&eClick para cambiar"
+    EDIT-ITALIC-NAME: "&bItalic: <italic>"
+    EDIT-ITALIC-LORE:
+      - "&7Alternar italic"
+      - "&eClick para cambiar"
+    EDIT-DEFAULT-NAME: "&bDefault: <default>"
+    EDIT-DEFAULT-LORE:
+      - "&7Alternar rango por defecto"
+      - "&eClick para cambiar"
+    EDIT-STAFF-NAME: "&bStaff: <staff>"
+    EDIT-STAFF-LORE:
+      - "&7Alternar flag staff"
+      - "&eClick para cambiar"
+    EDIT-ADMIN-NAME: "&bAdmin: <admin>"
+    EDIT-ADMIN-LORE:
+      - "&7Alternar flag admin"
+      - "&eClick para cambiar"
+    EDIT-OP-NAME: "&bOp: <op>"
+    EDIT-OP-LORE:
+      - "&7Alternar flag op"
+      - "&eClick para cambiar"
+    EDIT-VISIBLE-NAME: "&bVisible: <visible>"
+    EDIT-VISIBLE-LORE:
+      - "&7Visibilidad tab / lista"
+      - "&eClick para cambiar"
+    EDIT-PARENTS-NAME: "&bPadres: &f<parents-count>"
+    EDIT-PARENTS-LORE:
+      - "&7Lista de herencia"
+      - "&eClick para abrir"
+    EDIT-BACK-NAME: "&cVolver"
+    EDIT-BACK-LORE:
+      - "&7Volver a la lista"
+    ANVIL-NAME: "Nombre"
+    ANVIL-DISPLAY: "setName"
+    ANVIL-WEIGHT: "Weight"
+    ANVIL-PREFIX: "Prefix"
+    ANVIL-SUFFIX: "Suffix"
+    ANVIL-COLOR: "Color"
+    ANVIL-PARENT: "Rango padre"
+    ANVIL-UNSUPPORTED: "<prefix>&cAnvil no disponible en esta versión."
+    INVALID-NAME: "<prefix>&cNombre de rango inválido."
+    NAME-TAKEN: "<prefix>&cEse nombre de rango ya existe."
+    INVALID-DISPLAY: "<prefix>&csetName inválido."
+    INVALID-WEIGHT: "<prefix>&cWeight debe ser un entero 0–100000."
+    INVALID-PREFIX: "<prefix>&cPrefix demasiado largo."
+    INVALID-SUFFIX: "<prefix>&cSuffix demasiado largo."
+    INVALID-COLOR: "<prefix>&cClave de color inválida."
+    SET-NAME: "<prefix>&eName de &f<name> &eactualizado."
+    SET-DISPLAY: "<prefix>&esetName de &f<name> &e→ &r<display>"
+    SET-WEIGHT: "<prefix>&eWeight de &f<name> &e→ &f<priority>"
+    SET-PREFIX: "<prefix>&ePrefix de &f<name> &eactualizado."
+    SET-SUFFIX: "<prefix>&eSuffix de &f<name> &eactualizado."
+    SET-COLOR: "<prefix>&eColor de &f<name> &e→ &c<color>"
+    TOGGLE-BOLD: "<prefix>&eBold de &f<name> &e→ <bold>"
+    TOGGLE-ITALIC: "<prefix>&eItalic de &f<name> &e→ <italic>"
+    TOGGLE-STAFF: "<prefix>&eStaff de &f<name> &e→ <staff>"
+    TOGGLE-DEFAULT: "<prefix>&eDefault de &f<name> &e→ <default>"
+    TOGGLE-ADMIN: "<prefix>&eAdmin de &f<name> &e→ <admin>"
+    TOGGLE-OP: "<prefix>&eOp de &f<name> &e→ <op>"
+    FLAGS-NO-PERMISSION: "<prefix>&cNecesitas &fioricore.ranks.edit.flags &cpara cambiar este flag."
+    TOGGLE-VISIBLE: "<prefix>&eVisible de &f<name> &e→ <visible>"
+    PARENTS-TITLE: "&8Padres · <name>"
+    PARENT-ITEM-NAME: "&f<parent>"
+    PARENT-ITEM-LORE:
+      - "&7Display: &r<parent-display>"
+      - "&7Weight: &f<parent-priority>"
+      - "&eClick para quitar"
+    PARENT-ADD-NAME: "&aAñadir padre"
+    PARENT-ADD-LORE:
+      - "&7Añadir herencia"
+      - "&eClick · escribe la key del padre"
+    PARENT-BACK-NAME: "&cVolver"
+    PARENT-BACK-LORE:
+      - "&7Volver al editor"
+
+# — PUNISH (menu) ———————————————
+# ~ /punish menús · punishments.yml (catálogo)
+PUNISH:
+  PLAYER-NOT-FOUND: "<prefix>&cJugador &f<player> &cno encontrado."
+  APPLIED: "<prefix>&aAplicado &f<type> &aa &f<player>&a · &7<reason>"
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/punish <jugador> &7- &eAbrir menú de sanciones."
+    - "&7&m------------------------------------------&r"
+
+# — PUNISHMENTS —————————————————
+# ~ Tema ROJO (negro/blanco/rojo) rewrite · RoyalCTW
+PUNISHMENTS:
+  PREFIX: "&8(&6&lSANCIONES&8) &8· &r"
+  NO-REASON: "No se ha indicado un motivo."
+  PLAYER-NOT-FOUND: "<prefix>&cJugador &f<player> &cno encontrado."
+  PLAYER-OFFLINE: "<prefix>&cJugador &f<player> &cestá offline."
+  DURATION-INVALID: "<prefix>&cDuración inválida. Usa &f1h&c, &f1d&c, &f7d&c…"
+  PUNISHMENT-NOT-FOUND: "<prefix>&cNo hay sanción con id &f<id>&c."
+  NOT-ACTIVE: "<prefix>&cNo hay &f<type> &cactivo para &f<player>&c."
+  ALREADY-ACTIVE: "<prefix>&c<player> ya tiene un &f<type> &cactivo · &8#<id> &8(&f<expires>&8)"
+  PUNISH:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/punish <jugador> &7- &eAbrir menú de sanciones."
+      - "&7&m------------------------------------------&r"
+  EXPIRES-NEVER: "&cPermanente"
+  BROADCAST:
+    - ""
+    - "&c&l⚠ ALERTA DE SANCIÓN"
+    - "&8&m------------------------------------------&r"
+    - "&8• &fJugador: &c<player>"
+    - "&8• &fTipo: &c<type>"
+    - "&8• &fMotivo: &c<reason>"
+    - "&8• &fPor: &c<actor>"
+    - "&8• &fExpira: &c<expires>"
+    - "&8• &fID: &c#<id>"
+    - "&8&m------------------------------------------&r"
+  BAN:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/ban <jugador> [duración] [-s] [razón] &7- &eBanear a un jugador."
+      - "&8• &f/tempban <jugador> <duración> [-s] [razón] &7- &eBan temporal."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&cBaneado &f<player>&c · &8#<id> &8(&f<expires>&8)"
+    SCREEN:
+      - ""
+      - "&c&lRoyalCTW &8· &cAcceso denegado"
+      - "&8&m------------------------------------------&r"
+      - ""
+      - "&8• &fMotivo: &c<reason>"
+      - "&8• &fStaff: &c<actor>"
+      - "&8• &fExpira: &c<expires>"
+      - ""
+      - "&7Apela en &cdiscord.royalctw.com"
+      - ""
+  MUTE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/mute <jugador> [duración] [-s] [razón] &7- &eSilenciar a un jugador."
+      - "&8• &f/tempmute <jugador> <duración> [-s] [razón] &7- &eMute temporal."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&cMuteado &f<player>&c · &8#<id> &8(&f<expires>&8)"
+    NOTIFY:
+      - ""
+      - "&c&lHas sido silenciado"
+      - "&8&m------------------------------------------&r"
+      - ""
+      - "&8• &fMotivo: &c<reason>"
+      - "&8• &fStaff: &c<actor>"
+      - "&8• &fExpira: &c<expires>"
+      - ""
+    BLOCKED: "<prefix>&cEstás silenciado. &8Motivo: &f<reason>"
+  WARN:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/warn <jugador> [-s] [razón] &7- &eAdvertir a un jugador."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&cAdvertido &f<player>&c · &8#<id>"
+    NOTIFY:
+      - ""
+      - "&c&lHas recibido una advertencia"
+      - "&8&m------------------------------------------&r"
+      - ""
+      - "&8• &fMotivo: &c<reason>"
+      - "&8• &fStaff: &c<actor>"
+      - ""
+  KICK:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/kick <jugador> [-s] [razón] &7- &eExpulsar a un jugador."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&cExpulsado &f<player>&c · &8#<id>"
+    SCREEN:
+      - ""
+      - "&c&lRoyalCTW &8· &cExpulsión"
+      - "&8&m------------------------------------------&r"
+      - ""
+      - "&8• &fMotivo: &c<reason>"
+      - "&8• &fStaff: &c<actor>"
+      - ""
+  UNBAN:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/unban <jugador|id> &7- &eRevocar ban activo."
+      - "&8• &f/pardon <jugador|id> &7- &eAlias de unban."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aDesbaneado &f<player>&a · &8#<id>"
+  UNMUTE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/unmute <jugador|id> &7- &eRevocar mute activo."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aDesmuteado &f<player>&a · &8#<id>"
+    NOTIFY:
+      - ""
+      - "&a&l   MUTE REVOCADO"
+      - "&8&m------------------------------------------&r"
+      - ""
+      - "&a   ●&8・&fPor: &a<actor>"
+      - "&a   ●&8・&fSanción: &a#<id>"
+      - "&a"
+  UNWARN:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/unwarn <jugador|id> &7- &eRevocar advertencia activa."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aAdvertencia revocada &f<player>&a · &8#<id>"
+
+# — ACCOUNT-BRAND (staff only) ———
+ACCOUNT-BRAND:
+  # ~ Visible solo staff · {player} {account}
+  STAFF-BRAND: "&8[&bS&8] &f{player} &8» &8[&eCuenta&8] {account}"
+  ACCOUNT-BEDROCK: "&bBedrock"
+  ACCOUNT-PREMIUM: "&aPremium"
+  ACCOUNT-CRACKED: "&cCracked"
+  ACCOUNT-UNKNOWN: "&7Desconocido"
+
+# — STAFF-AUTH ——————————————————
+STAFF-AUTH:
+  MODULE-DISABLED: "<prefix>&cEl módulo de login staff está desactivado."
+  NOT-STAFF: "<prefix>&cNo tienes marca de staff."
+  REGISTER-USAGE: "<prefix>&7Uso: &f/staff register <contraseña>"
+  LOGIN-USAGE: "<prefix>&7Uso: &f/staff login <contraseña>"
+  REGISTERED: "<prefix>&aContraseña staff registrada. Usa &f/staff oauth &apara vincular Discord."
+  ALREADY-REGISTERED: "<prefix>&cYa registraste una contraseña staff."
+  NOT-REGISTERED: "<prefix>&cRegístrate con &f/staff register <contraseña>&c."
+  PASSWORD-TOO-SHORT: "<prefix>&cLa contraseña debe tener al menos &f{min} &ccaracteres."
+  LOGIN-OK: "<prefix>&aSesión staff iniciada."
+  LOGIN-WRONG: "<prefix>&cContraseña incorrecta."
+  LOGIN-LOCKED: "<prefix>&cDemasiados intentos fallidos. Prueba más tarde."
+  LOGGED-OUT: "<prefix>&eSesión staff cerrada."
+  DISCORD-UNAVAILABLE: "<prefix>&cEl vínculo Discord requiere MODULES.DISCORD y bot online."
+  DISCORD-LINKED: "<prefix>&aDiscord ya vinculado para alertas staff."
+  DISCORD-LINK-COMPLETE: "<prefix>&aDiscord vinculado para staff."
+  DISCORD-LINK-FAILED: "<prefix>&cNo se pudo generar el código de vínculo."
+  DISCORD-LINK-USAGE: "<prefix>&7Uso: &f/staff oauth &7(Discord) o &f/staffreg"
+  DISCORD-LINK-CODE:
+    - "&7&m------------------------------------------&r"
+    - "<prefix>&eCódigo de vínculo Discord: &f&l{CODE}"
+    - "&8• &7En Discord: &f/sync code:{CODE}"
+    - "&8• &7Expira en &f{MINUTES} &7minutos."
+    - "&7&m------------------------------------------&r"
+  RESTRICTED:
+    - "&7&m------------------------------------------&r"
+    - "<prefix>&cAprobación staff pendiente &7· espera approve en Discord."
+    - "&7&m------------------------------------------&r"
+  RESTRICTED-LOCAL:
+    - "&7&m------------------------------------------&r"
+    - "<prefix>&cDebes iniciar sesión staff &7· &f/staff login <contraseña>"
+    - "&7&m------------------------------------------&r"
+
+STAFFREG:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/staffreg create <nick> <password> &7- &eAlta admin de staff."
+    - "&8• &f/staffreg link &7- &eVínculo Discord OTC."
+    - "&8• &f/staffreg status <nick> &7- &eEstado de cuenta."
+    - "&7&m------------------------------------------&r"
+  CREATE-USAGE: "<prefix>&7Uso: &f/staffreg create <nick> <password>"
+  STATUS-USAGE: "<prefix>&7Uso: &f/staffreg status <nick>"
+  CREATED: "<prefix>&aStaff &f{player} &acreado &8· &7uuid &f{uuid}"
+  INVALID-NICK: "<prefix>&cNick inválido &7(3-16 alfanumérico)."
+  PASSWORD-TOO-SHORT: "<prefix>&cContraseña temporal demasiado corta."
+  ALREADY-REGISTERED: "<prefix>&cEsa cuenta staff ya existe."
+  NOT-FOUND: "<prefix>&cJugador &f{player} &cno encontrado."
+  ADMIN-NOT-AUTHENTICATED: "<prefix>&cAutentícate con &f/staff login &cantes de crear staff."
+  MUST-CHANGE-PASSWORD: "<prefix>&eDebes cambiar la contraseña temporal antes de continuar."
+  STATUS: "<prefix>&7{player} &8· &7registered=&f{registered} &8· &7logged_in=&f{logged_in}"
+
+STAFFCHAT:
+  FORMAT: "&8[&bSC&8] &f{player} &8» &7{message}"
+  FORMAT-PLAIN: "&b[SC] &f{player} &7({server}) &8» &f{message}"
+  TOGGLE-ON: "<prefix>&aStaff chat activado &7· tus mensajes van al staff."
+  TOGGLE-OFF: "<prefix>&cStaff chat desactivado &7· vuelves al chat público."
+  TOGGLE-HINT: "<prefix>&7Usa &f/staffchat &7(o &f/staffmode chat&7) para alternar staff chat."
+
+STAFF-COMMAND:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/staff &7- &eAlternar staff chat &7(por defecto)."
+    - "&8• &f/staff register <contraseña> &7- &eRegistrar contraseña staff."
+    - "&8• &f/staff login <contraseña> &7- &eIniciar sesión staff."
+    - "&8• &f/staff oauth &7- &eFlujo de vínculo Discord."
+    - "&8• &f/staff logout &7- &eCerrar sesión staff."
+    - "&8• &f/staff chat &7· &fmenu &7· &fmode &7· &ffreeze &7- &eHerramientas staff."
+    - "&8• &f/staff help &7- &eEsta ayuda."
+    - "&7&m------------------------------------------&r"
+
+# — GENDER ——————————————————————
+GENDER:
+  USAGE: "<prefix>&7Uso: &f/gender &7(menú) o &f/gender <m|f|o>"
+  INVALID: "<prefix>&cGénero inválido. Usa &fm&f, &ff&f u &fo&c."
+  FAILED: "<prefix>&cNo se pudo guardar tu género."
+  SET: "<prefix>&aGénero establecido: &f<gender>&a."
+  CLEARED: "<prefix>&eGénero eliminado."
+  MENU:
+    TITLE: "&8Género"
+    MALE-NAME: "&bHombre"
+    MALE-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Actual: &f{current}"
+      - "&8• &eClick para elegir"
+    FEMALE-NAME: "&dMujer"
+    FEMALE-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Actual: &f{current}"
+      - "&8• &eClick para elegir"
+    OTHER-NAME: "&7Otro"
+    OTHER-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Actual: &f{current}"
+      - "&8• &eClick para elegir"
+    CLEAR-NAME: "&cQuitar"
+    CLEAR-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Quitar icono de género"
+      - "&8• &eClick para limpiar"
+
+# — EASTER-EGGS —————————————————
+EASTER-EGGS:
+  FOUND-TITLE: "&a&l¡REGALO ENCONTRADO!"
+  FOUND-SUBTITLE: "&f¡Evento temporal!"
+  ACTIONBAR-PROGRESS: "&a(✔) ¡Click para reclamar! &7(<found>/<total>)"
+  ALREADY-FOUND: "&cYa encontraste este regalo. &7(<found>/<total>)"
+  ALL-FOUND: "&a¡Encontraste todos los regalos!"
+  REWARD-STUB: "<prefix>&eRecompensa stub · egg &f<egg-id>"
+
+# — CHAT-LOGS ———————————————————
+CHAT-LOGS:
+  RANK:
+    OWNER: "Owner"
+    STAFF: "Staff"
+    DONOR: "Donor"
+    PLAYER: "Player"
+
+# — STAFF-MODE ——————————————————
+# ~ Distinto de EssentialsX: perms ioricore.staffmode.*
+STAFF-MODE:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/staffmode &7- &eAlternar modo staff."
+    - "&8• &f/staffmode freeze <jugador> &7- &eCongelar / descongelar."
+    - "&8• &f/staffmode chat &7- &eAlternar staff chat (&f/staffchat&7)."
+    - "&8• &f/staffmode help &7- &eMostrar esta ayuda."
+    - "&7&m------------------------------------------&r"
+  ENABLED: "<prefix>&aModo staff &factivado&a."
+  DISABLED: "<prefix>&cModo staff &fdesactivado&c."
+  PLAYER-NOT-FOUND: "<prefix>&cJugador &f<player> &cno encontrado."
+  VANISH-ON: "<prefix>&aVanish &factivado&a."
+  VANISH-OFF: "<prefix>&cVanish &fdesactivado&c."
+  FREEZE-ON: "<prefix>&bCongelaste a &f<player>&b."
+  FREEZE-OFF: "<prefix>&eDescongelaste a &f<player>&e."
+  FREEZE-TARGET-ON: "<prefix>&cHas sido congelado por el staff."
+  FREEZE-TARGET-OFF: "<prefix>&aYa no estás congelado."
+  FREEZE-ACTIONBAR: "&b&lCONGELADO &8· &fNo te desconectes · espera al staff"
+  INSPECT: "<prefix>&eInspeccionando a &f<player>&e."
+  RANDOM-TP: "<prefix>&eTeletransportado a &f<player>&e."
+  NO-TARGET: "<prefix>&cNo hay jugadores disponibles."
+  GLOW-FALLBACK: "<prefix>&7Glow de Apollo no disponible · usando póción."
+  NAMETAG-PREFIX: "&7[&bStaff Mode&7] &f"
+  FREEZE-BYPASS: "<prefix>&cNo puedes congelar a &f<player>&c."
+  FREEZE-REQUIRE-MODE: "<prefix>&cEntra en modo staff antes de congelar."
+  FREEZE-COMMAND-BLOCKED: "<prefix>&cNo puedes usar comandos mientras estás congelado."
+  FREEZE-CHAT: "&b[Congelado] &f<player>&7: &f<message>"
+  FREEZE-QUIT: "<prefix>&c<player> &fse desconectó estando congelado &7(por <staff>)&f."
+  FREEZE-DISCONNECT: "Desconexión estando congelado (revisión staff)"
+  FREEZE-TITLE: "&b&lCONGELADO"
+  FREEZE-SUBTITLE: "&fNo te desconectes · espera al staff"
+  THRU: "<prefix>&aAtravesaste."
+  THRU-FAIL: "<prefix>&cNo hay espacio caminable delante."
+  INVSEE-TITLE: "&8Inv · &7<player>"
+  INVENTORY-RESTORED: "<prefix>&aSe restauró tu inventario de una sesión anterior de modo staff."
+  PUNISH-TIP:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/ban <player> &7[duración] &f<motivo>"
+    - "&8• &f/mute <player> &7[duración] &f<motivo>"
+    - "&8• &f/warn <player> &f<motivo>"
+    - "&7&m------------------------------------------&r"
+  PUNISH-BAN:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/ban <player> &7[duración] &f<motivo>"
+    - "&8• &f/tempban <player> &7<duración> &f<motivo>"
+    - "&7&m------------------------------------------&r"
+  PUNISH-MUTE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/mute <player> &7[duración] &f<motivo>"
+    - "&8• &f/tempmute <player> &7<duración> &f<motivo>"
+    - "&7&m------------------------------------------&r"
+  PUNISH-WARN:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/warn <player> &f<motivo>"
+    - "&7&m------------------------------------------&r"
+  STAFF-CHAT-TIP:
+    - "&7&m------------------------------------------&r"
+    - "&8• &fStaff chat &7va por el proxy (&e/sc&7)."
+    - "&8• &fHerramientas: &bTP aleatorio · congelar · inspeccionar · jugadores · vanish · thru · salir"
+    - "&7&m------------------------------------------&r"
+  HOTBAR:
+    RANDOM-TP:
+      NAME: "&b&lTP aleatorio"
+      LORE:
+        - "&7Click derecho para ir"
+        - "&7a un jugador aleatorio"
+    FREEZE:
+      NAME: "&b&lCongelar"
+      LORE:
+        - "&7Click derecho a un jugador"
+    INSPECT:
+      NAME: "&e&lInspeccionar"
+      LORE:
+        - "&7Click derecho a un jugador"
+    PLAYERS:
+      NAME: "&3&lJugadores"
+      LORE:
+        - "&7Click derecho para abrir"
+        - "&7la lista de jugadores"
+    VANISH:
+      NAME: "&a&lVisible"
+      NAME-ON: "&c&lVanished"
+      LORE:
+        - "&7Click derecho para ocultarte"
+      LORE-ON:
+        - "&7Click derecho para mostrarte"
+    THRU:
+      NAME: "&6&lThru"
+      LORE:
+        - "&7Click derecho para atravesar"
+        - "&7hasta 5 bloques adelante"
+    STAFF-CHAT:
+      NAME: "&e&lStaff Chat"
+      LORE:
+        - "&7Click derecho · tip /sc (proxy)"
+    EXIT:
+      NAME: "&c&lSalir modo staff"
+      LORE:
+        - "&7Click derecho para salir"
+
+# — SETTINGS ————————————————————
+SETTINGS:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/settings &7- &eAbrir menú de ajustes."
+    - "&7&m------------------------------------------&r"
+  TOGGLED-SOUNDS: "<prefix>&eSonidos → <value>"
+  TOGGLED-PARTICLES: "<prefix>&ePartículas → <value>"
+  TOGGLED-LANG: "<prefix>&eIdioma → &f<lang>"
+  TOGGLED-PREMIUM: "<prefix>&eMostrar premium → <value>"
+  PASSWORD-UNAVAILABLE: "<prefix>&cnLogin no está disponible."
+  PASSWORD-ANVIL-TITLE: "Nueva contraseña"
+  PASSWORD-INVALID: "<prefix>&cLa contraseña debe tener al menos 4 caracteres."
+  PASSWORD-CHANGED: "<prefix>&aContraseña actualizada."
+  PASSWORD-FAILED: "<prefix>&cNo se pudo cambiar la contraseña."
+  PASSWORD-CANCELLED: "<prefix>&eCambio de contraseña cancelado."
+  MENU:
+    TITLE: "&8Ajustes"
+    SOUNDS-NAME: "&bSonidos"
+    SOUNDS-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Actual: {value-sounds}"
+      - "&8• &eClick para abrir"
+    PARTICLES-NAME: "&bPartículas"
+    PARTICLES-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Actual: {value-particles}"
+      - "&8• &eClick para abrir"
+    LANGUAGE-NAME: "&bIdioma"
+    LANGUAGE-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Actual: &f<lang>"
+      - "&8• &eClick para cambiar"
+    PREMIUM-NAME: "&bMostrar premium"
+    PREMIUM-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Actual: {value-premium}"
+      - "&8• &eClick para alternar"
+    PASSWORD-NAME: "&bCambiar contraseña"
+    PASSWORD-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Abre anvil"
+      - "&8• &7Requiere nLogin"
+    BACK-NAME: "&cAtrás"
+    BACK-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &7Volver a ajustes"
+  SOUNDS:
+    TITLE: "&8Sonidos"
+    TOGGLE-NAME: "&bSonidos: <value>"
+    TOGGLE-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &eClick para alternar"
+  PARTICLES:
+    TITLE: "&8Partículas"
+    TOGGLE-NAME: "&bPartículas: <value>"
+    TOGGLE-LORE:
+      - ""
+      - "&7&m-----&r"
+      - "&8• &eClick para alternar"
+  LANG:
+    TITLE: "&8Idioma"
+    EN-NAME: "&fEnglish"
+    EN-LORE:
+      - "&eClick para seleccionar"
+    ES-NAME: "&fEspañol"
+    ES-LORE:
+      - "&eClick para seleccionar"
+
+# — JOIN-EFFECTS ————————————————
+#  Placeholder's ↓
+#   · {effect} {id} {status} {locked}
+JOIN-EFFECTS:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/joineffects &7- &eAbrir el menú de efectos de entrada."
+    - "&8• &f/joineffects select <id> &7- &eElegir efecto de entrada."
+    - "&8• &f/joineffects clear &7- &eDesactivar tu efecto."
+    - "&7&m------------------------------------------&r"
+  SELECTED: "<prefix>&aEfecto de entrada: &f<effect>&a."
+  CLEARED: "<prefix>&eEfecto de entrada desactivado."
+  NONE-ACTIVE: "<prefix>&cNo tienes ningún efecto activo."
+  UNKNOWN: "<prefix>&cEfecto desconocido &f<id>&c."
+  NO-PERMISSION: "<prefix>&cNo puedes usar ese efecto."
+  SELECT-FAILED: "<prefix>&cNo se pudo seleccionar ese efecto."
+  STATUS:
+    SELECTED: "&aSeleccionado"
+    AVAILABLE: "&7Clic para elegir"
+    UNLOCKED: "&aDesbloqueado"
+    LOCKED: "&cBloqueado"
+    NONE: "&7Ninguno"
+    ACTIVE: "&a<effect>"
+  NAMES:
+    FIREWORK: "Fuegos artificiales"
+    ZEUS: "Zeus"
+    ZEUS-FIREWORKS: "Zeus + fuegos"
+    ENDER-TELEPORT: "Teletransporte Ender"
+    WOOL-VOLCANO: "Volcán de lanas"
+    TNT-VOLCANO: "Volcán de TNT"
+    MINING: "Millonario"
+  MENU:
+    TITLE: "&8Efectos de entrada"
+    EFFECT-NAME: "&b<effect>"
+    EFFECT-LORE:
+      - "&7Estado: <status>"
+      - "&7Acceso: <locked>"
+      - "&8Id: <id>"
+    CLEAR-NAME: "&cDesactivar efecto"
+    CLEAR-LORE:
+      - "&7Actual: <status>"
+      - "&7Clic para quitar tu efecto de entrada."
+
+# — JOIN-MOTD ———————————————————
+JOIN-MOTD:
+  LEGACY:
+    - ""
+    - "&b&lLobby &f• &7(<server>)"
+    - "&7Elige una modalidad en el menú"
+    - "&7o usa &f/server &7para teletransportarte."
+    - "&9discord.gg/royalctw"
+    - ""
+  MODERN:
+    - ""
+    - "&b&lLobby &f• &7(<server>)"
+    - "&7¡Bienvenido, &f<player>&7!"
+    - "&8• &fOnline &8» &a<online> &8· &fBedrock &8» <bedrock>"
+    - "&7Elige una modalidad en el menú o &f/server&7."
+    - "&9discord.gg/royalctw"
+    - ""
+  PICTURE:
+    - "&b&lRoyalCTW"
+    - "&7Lobby · <server>"
+    - ""
+    - "&fTienda &8» &bstore.royalctw.net"
+    - "&fDiscord &8» &9discord.gg/royalctw"
+    - ""
+    - "&7¡Hola, &f<player>&7!"
+    - "&a♥ &fGracias por jugar"
+  HEAD-NAME: "&bRoyalCTW · <player>"
+  HEAD-LORE:
+    - "&7Cabeza de bienvenida"
+    - "&8<url>"
+
+# — WHITELIST ————————————————————
+WHITELIST:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/whitelist &7- &eListar jugadores en whitelist."
+    - "&8• &f/whitelist list &7- &eListar jugadores en whitelist."
+    - "&8• &f/whitelist add <jugador> &7- &eAñadir jugador."
+    - "&8• &f/whitelist remove <jugador> &7- &eQuitar jugador."
+    - "&8• &f/whitelist on|off &7- &eActivar/desactivar whitelist del servidor."
+    - "&7&m------------------------------------------&r"
+  HEADER: "<prefix>&bWhitelist &7(&f<count>&7) · &7estado: &f<state>"
+  ENTRY: "&8• &f<player>"
+  FOOTER: "&7&m------------------------------------------&r"
+  EMPTY: "<prefix>&7No hay jugadores en la whitelist."
+  ON: "<prefix>&aWhitelist del servidor &eactivada&a."
+  OFF: "<prefix>&cWhitelist del servidor &edesactivada&c."
+  ADDED: "<prefix>&a<player> &aañadido a la whitelist."
+  REMOVED: "<prefix>&c<player> &celiminado de la whitelist."
+  ALREADY: "<prefix>&e<player> &eya está en la whitelist."
+  NOT-FOUND: "<prefix>&c<player> &cno está en la whitelist."
+  INVALID-NAME: "<prefix>&cNombre inválido: &f<player>"
+
+# — ESSENTIALS ——————————————————
+ESSENTIALS:
+  PLAYER-NOT-FOUND: "<prefix>&cJugador &f<player> &cno encontrado."
+  HEAL:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/heal [jugador] &7- &eRestaurar vida y hambre."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aCuraste a &f<player>&a."
+    TARGET: "<prefix>&aHas sido curado."
+  FEED:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/feed [jugador] &7- &eLlenar hambre."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aAlimentaste a &f<player>&a."
+    TARGET: "<prefix>&aHas sido alimentado."
+  FLY:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/fly [jugador] &7- &eAlternar vuelo."
+      - "&7&m------------------------------------------&r"
+    ENABLED: "<prefix>&aVuelo activado para &f<player>&a."
+    DISABLED: "<prefix>&cVuelo desactivado para &f<player>&c."
+    TARGET-ENABLED: "<prefix>&aVuelo activado."
+    TARGET-DISABLED: "<prefix>&cVuelo desactivado."
+  GOD:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/god [jugador] &7- &eAlternar modo dios."
+      - "&7&m------------------------------------------&r"
+    ENABLED: "<prefix>&aModo dios activado para &f<player>&a."
+    DISABLED: "<prefix>&cModo dios desactivado para &f<player>&c."
+    TARGET-ENABLED: "<prefix>&aModo dios activado."
+    TARGET-DISABLED: "<prefix>&cModo dios desactivado."
+  GAMEMODE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/gamemode <modo> [jugador] &7- &eCambiar gamemode."
+      - "&8• &f/gms|/gmc|/gma|/gmsp [jugador]"
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aGamemode de &f<player> &a→ &f<mode>&a."
+    TARGET: "<prefix>&aTu gamemode ahora es &f<mode>&a."
+    INVALID: "<prefix>&cGamemode inválido &f<mode>&c."
+  SPEED:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/speed <0-10> [jugador] &7- &eCambiar velocidad."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aVelocidad de &f<player> &a→ &f<speed>&a."
+    INVALID: "<prefix>&cVelocidad inválida &f<speed>&c. Usa 0-10."
+  KILL:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/kill [jugador] &7- &eMatar a un jugador."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aMataste a &f<player>&a."
+  WEATHER:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/weather <sun|rain|thunder> &7- &eCambiar clima."
+      - "&7&m------------------------------------------&r"
+    SUN: "<prefix>&aClima &fsoleado &aen &f<world>&a."
+    RAIN: "<prefix>&aClima &flluvia &aen &f<world>&a."
+    THUNDER: "<prefix>&aClima &ftormenta &aen &f<world>&a."
+    INVALID: "<prefix>&cClima inválido &f<weather>&c."
+  TIME:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/time <day|night|ticks> &7- &eCambiar hora."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aHora &f<time> &aen &f<world>&a."
+    INVALID: "<prefix>&cHora inválida &f<time>&c."
+  TOP:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/top &7- &eIr al bloque más alto."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTeletransportado arriba."
+  WORLD:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/world <nombre> &7- &eIr al spawn de un mundo."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTeletransportado al mundo &f<world>&a."
+    NOT-FOUND: "<prefix>&cMundo &f<world> &cno encontrado."
+  TP:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tp <jugador> &7- &eIr a un jugador."
+      - "&8• &f/tp <origen> <destino> &7- &eTeletransportar jugadores."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTeletransportado a &f<player>&a."
+    OTHERS: "<prefix>&aTeletransportaste a &f<from> &ahacia &f<to>&a."
+  TPHERE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tphere <jugador> &7- &eTraer a un jugador."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTrajiste a &f<player>&a."
+  BACK:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/back &7- &eVolver a la ubicación anterior."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aHas vuelto."
+    NONE: "<prefix>&cNo hay ubicación anterior."
+  NICK:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/nick <nombre|off> &7- &ePoner o quitar nick."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aNick establecido a &f<nick>&a."
+    RESET: "<prefix>&aNick restablecido."
+    INVALID: "<prefix>&cNick inválido."
+  REPAIR:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/repair [all] &7- &eReparar ítem(s)."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aÍtem reparado."
+    ALL: "<prefix>&aReparados &f<count> &aítems."
+    NONE: "<prefix>&cNada que reparar."
+  ENDERCHEST:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/enderchest [jugador] &7- &eAbrir ender chest."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aEnder chest de &f<player>&a."
+  SPAWN:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/spawn [jugador] &7- &eIr al spawn."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTeletransportaste a &f<player> &aal spawn."
+    NOT-SET: "<prefix>&cEl spawn no está definido."
+  SETSPAWN:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/setspawn &7- &eDefinir el spawn."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aSpawn definido."
+  HOME:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/home [nombre] &7- &eIr a un home."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTeletransportado al home &f<home>&a."
+    NOT-FOUND: "<prefix>&cHome &f<home> &cno encontrado."
+    LIMIT: "<prefix>&cLímite de homes (&f<max>&c)."
+  SETHOME:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/sethome [nombre] &7- &eCrear un home."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aHome &f<home> &adefinido."
+  DELHOME:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/delhome <nombre> &7- &eBorrar un home."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aHome &f<home> &aborrado."
+  HOMES:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/homes &7- &eListar tus homes."
+      - "&7&m------------------------------------------&r"
+    LIST: "<prefix>&aHomes: &f<homes>"
+    EMPTY: "<prefix>&cNo tienes homes."
+  WARP:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/warp [nombre] &7- &eIr a un warp o listarlos."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aWarp a &f<warp>&a."
+    LIST: "<prefix>&aWarps: &f<warps>"
+    EMPTY: "<prefix>&cNo hay warps."
+    NOT-FOUND: "<prefix>&cWarp &f<warp> &cno encontrado."
+  SETWARP:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/setwarp <nombre> &7- &eCrear un warp."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aWarp &f<warp> &adefinido."
+  DELWARP:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/delwarp <nombre> &7- &eBorrar un warp."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aWarp &f<warp> &aborrado."
+  TPA:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tpa <jugador> &7- &ePedir teletransporte."
+      - "&7&m------------------------------------------&r"
+    SENT: "<prefix>&aPetición enviada a &f<player>&a."
+    RECEIVED: "<prefix>&e<player> &7quiere teletransportarse a ti. &a/tpaccept &7o &c/tpdeny"
+    SELF: "<prefix>&cNo puedes teletransportarte a ti mismo."
+    NONE: "<prefix>&cNo tienes peticiones pendientes."
+    OFFLINE: "<prefix>&cEse jugador está offline."
+  TPAHERE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tpahere <jugador> &7- &ePedir que venga a ti."
+      - "&7&m------------------------------------------&r"
+    SENT: "<prefix>&aPetición tpahere enviada a &f<player>&a."
+    RECEIVED: "<prefix>&e<player> &7quiere que vayas a él. &a/tpaccept &7o &c/tpdeny"
+  TPACCEPT:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tpaccept &7- &eAceptar petición de TP."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aAceptaste la petición de &f<player>&a."
+    NOTIFY: "<prefix>&a<player> &aaceptó tu petición."
+  TPDENY:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tpdeny &7- &eRechazar petición de TP."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&cPetición rechazada."
+    NOTIFY: "<prefix>&c<player> &crechazó tu petición."
+  MSG:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/msg <jugador> <mensaje> &7- &eMensaje privado."
+      - "&7&m------------------------------------------&r"
+    TO: "&8[&bTú &7→ &f<player>&8] &f<message>"
+    FROM: "&8[&f<player> &7→ &bTú&8] &f<message>"
+  REPLY:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/reply <mensaje> &7- &eResponder al último mensaje."
+      - "&7&m------------------------------------------&r"
+    NONE: "<prefix>&cNadie a quien responder."
+    OFFLINE: "<prefix>&cEse jugador está offline."
+  VANISH:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/vanish [jugador] &7- &eAlternar vanish."
+      - "&7&m------------------------------------------&r"
+    ENABLED: "<prefix>&aVanish activado para &f<player>&a."
+    DISABLED: "<prefix>&cVanish desactivado para &f<player>&c."
+    TARGET-ENABLED: "<prefix>&aAhora estás en vanish."
+    TARGET-DISABLED: "<prefix>&cYa no estás en vanish."
+  INVSEE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/invsee <jugador> &7- &eVer inventario."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aViendo inventario de &f<player>&a."
+    SELF: "<prefix>&cNo puedes usar invsee en ti mismo."
+  CLEAR:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/clear [jugador] &7- &eVaciar inventario."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aInventario de &f<player> &avaciado."
+    TARGET: "<prefix>&cTu inventario fue vaciado."
+  BROADCAST:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/broadcast <mensaje> &7- &eAnunciar a todos."
+      - "&7&m------------------------------------------&r"
+    FORMAT: "&8[&c&lBC&8] &f<message>"
+    TOO-LONG: "<prefix>&cEl mensaje es demasiado largo."
+  HEALALL:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/healall &7- &eCurar a todos los online."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aCurados &f<count> &ajugadores."
+  TPALL:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tpall &7- &eTeletransporta jugadores visibles hacia ti."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTeletransportados &f<count> &ajugadores hacia ti."
+  GIVE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/give <jugador> <item> [cantidad]"
+      - "&8• &f/i <item> [cantidad] &7- &eDarte un ítem."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aDiste &f<amount>x <item> &aa &f<player>&a."
+    INVALID: "<prefix>&cÍtem desconocido &f<item>&c."
+    INVALID-AMOUNT: "<prefix>&cCantidad inválida &f<amount>&c."
+  GETPOS:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/getpos [jugador] &7- &eVer coordenadas."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&a<player> &7@ &f<world> &7(&f<x>&7, &f<y>&7, &f<z>&7) yaw=&f<yaw> &7pitch=&f<pitch>"
+  DISPOSAL:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/disposal &7- &eAbrir cofre de basura."
+      - "&7&m------------------------------------------&r"
+    TITLE: "&8Basura"
+    OPEN: "<prefix>&aDisposal abierto. Lo que dejes dentro se elimina."
+  KIT:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/kit [nombre] &7- &eReclamar un kit o listar kits."
+      - "&7&m------------------------------------------&r"
+    LIST: "<prefix>&aKits: &f<kits>"
+    EMPTY: "<prefix>&cNo hay kits disponibles."
+    NOT-FOUND: "<prefix>&cKit &f<kit> &cno encontrado."
+    SUCCESS: "<prefix>&aReclamaste el kit &f<kit>&a."
+    FAILED: "<prefix>&cNo se pudo reclamar el kit &f<kit>&c."
+    COOLDOWN: "<prefix>&cKit &f<kit> &cen cooldown: &f<time>&c."
+  CREATEKIT:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/createkit <nombre> &7- &eGuardar tu inventario como kit."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aKit &f<kit> &acreado."
+    EXISTS: "<prefix>&cEl kit &f<kit> &cya existe."
+    EMPTY: "<prefix>&cInventario vacío — no se puede crear el kit."
+  DELETEKIT:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/deletekit <nombre> &7- &eEliminar un kit."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aKit &f<kit> &aeliminado."
+    NOT-FOUND: "<prefix>&cKit &f<kit> &cno encontrado."
+  WORKBENCH:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/workbench &7- &eAbrir mesa de crafteo."
+      - "&7&m------------------------------------------&r"
+    OPEN: "<prefix>&aMesa de crafteo abierta."
+  HAT:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/hat &7- &ePoner el ítem en la mano como casco."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aSombrero equipado."
+    EMPTY: "<prefix>&cSostén un ítem para usarlo como sombrero."
+  NEAR:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/near [radio] &7- &eListar jugadores cercanos."
+      - "&7&m------------------------------------------&r"
+    LIST: "<prefix>&aCerca (&f<radius>m&a): &f<players>"
+    EMPTY: "<prefix>&cNadie dentro de &f<radius>m&c."
+    INVALID: "<prefix>&cRadio inválido &f<radius>&c."
+  PING:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/ping [jugador] &7- &eMostrar ping."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&a<player> &7ping: &f<ping>ms"
+  REALNAME:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/realname <nick> &7- &eResolver un nickname."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aEl nick &f<nick> &aes de &f<player>&a."
+    NOT-FOUND: "<prefix>&cNadie con nickname &f<nick>&c."
+  TPCANCEL:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tpcancel &7- &eCancelar tu petición de teletransporte."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aPetición de teletransporte cancelada."
+    NONE: "<prefix>&cNo tienes petición saliente."
+    NOTIFY: "<prefix>&e<player> &7canceló su petición de teletransporte."
+  TPPOS:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/tppos <x> <y> <z> [mundo] [yaw] [pitch]"
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aTeletransportado a &f<x> <y> <z> &7(&f<world>&7)."
+    INVALID: "<prefix>&cCoordenadas inválidas."
+  ME:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/me <acción> &7- &eAnunciar una acción."
+      - "&7&m------------------------------------------&r"
+    FORMAT: "&d* &f<player> &d<message>"
+    TOO-LONG: "<prefix>&cLa acción es demasiado larga."
+  IGNORE:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/ignore <jugador> &7- &eAlternar ignore de mensajes privados."
+      - "&7&m------------------------------------------&r"
+    ADDED: "<prefix>&aAhora ignoras a &f<player>&a."
+    REMOVED: "<prefix>&aYa no ignoras a &f<player>&a."
+    SELF: "<prefix>&cNo puedes ignorarte a ti mismo."
+    BLOCKED: "<prefix>&c<player> te está ignorando."
+  SKULL:
+    USAGE:
+      - "&7&m------------------------------------------&r"
+      - "&8• &f/skull [jugador] &7- &eObtener una cabeza."
+      - "&7&m------------------------------------------&r"
+    SUCCESS: "<prefix>&aRecibiste la cabeza de &f<player>&a."
+    INVALID: "<prefix>&cNombre inválido &f<player>&c."
+    FAILED: "<prefix>&cNo se pudo crear la cabeza."
+
+# — SCOREBOARD ——————————————————
+SCOREBOARD:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/scoreboard &7- &eAlternar tu sidebar."
+    - "&8• &f/scoreboard style <id> &7- &eCambiar layout (lobby, compact)."
+    - "&7&m------------------------------------------&r"
+  TOGGLE-ON: "<prefix>&aScoreboard activado."
+  TOGGLE-OFF: "<prefix>&cScoreboard desactivado."
+  STYLE-USAGE: "<prefix>&eUsa &f/scoreboard style <id>&e. Estilos: &f<styles>"
+  STYLE-UNKNOWN: "<prefix>&cEstilo desconocido. Disponibles: &f<styles>"
+  STYLE-SET: "<prefix>&aEstilo de scoreboard: &f<style>&a."
+
+# — ECONOMY —————————————————————
+ECONOMY:
+  PRIMARY-NAME:
+    EN: Royales
+    ES: Royales
+  CREDITS-NAME:
+    EN: Credits
+    ES: Créditos
+  GEMS-NAME:
+    EN: Gems
+    ES: Gemas
+  PLAYER-NOT-FOUND: "<prefix>&cJugador &f<player> &cno encontrado."
+  INVALID-AMOUNT: "<prefix>&cCantidad inválida."
+  INSUFFICIENT: "<prefix>&cFondos insuficientes. &7Saldo: &f<balance>"
+  BALANCE: "<prefix>&7Saldo de &e<player>&7: &a<balance>"
+  BALANCE-USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/balance &7- &eVer tu saldo."
+    - "&8• &f/balance <jugador> &7- &eVer el saldo de otro."
+    - "&7&m------------------------------------------&r"
+  PAY-USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/pay <jugador> <cantidad> &7- &eEnviar dinero."
+    - "&7&m------------------------------------------&r"
+  PAY-SELF: "<prefix>&cNo puedes pagarte a ti mismo."
+  PAY-FAILED: "<prefix>&cEl pago falló."
+  PAY-SENT: "<prefix>&aEnviaste &f<amount> &aa &f<player>&a."
+  PAY-RECEIVED: "<prefix>&aRecibiste &f<amount> &ade &f<player>&a."
+  ECO-USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/eco give <jugador> <cantidad> &7- &eDar dinero."
+    - "&8• &f/eco take <jugador> <cantidad> &7- &eQuitar dinero."
+    - "&8• &f/eco set <jugador> <cantidad> &7- &eFijar saldo."
+    - "&7&m------------------------------------------&r"
+  ECO-FAILED: "<prefix>&cLa acción de economía falló."
+  ECO-GIVE: "<prefix>&aDiste &f<amount> &aa &f<player>&a."
+  ECO-GIVE-TARGET: "<prefix>&aRecibiste &f<amount>&a."
+  ECO-TAKE: "<prefix>&aQuitaste &f<amount> &aa &f<player>&a."
+  ECO-TAKE-TARGET: "<prefix>&cTe quitaron &f<amount> &cdel saldo."
+  ECO-SET: "<prefix>&aSaldo de &f<player> &afijado en &f<amount>&a."
+  ECO-SET-TARGET: "<prefix>&aTu saldo fue fijado en &f<amount>&a."
+
+# — TAGS ————————————————————————
+TAGS:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/tag &7- &eListar tags."
+    - "&8• &f/tag equip <id> &7- &eEquipar un tag."
+    - "&8• &f/tag unequip &7- &eQuitar tu tag."
+    - "&7&m------------------------------------------&r"
+  NONE: "<prefix>&cNo tienes tags disponibles."
+  LIST-HEADER: "<prefix>&eTags disponibles:"
+  LIST-LINE: "&8• &f<id> &7- &r<display>"
+  LIST-LINE-ACTIVE: "&8• &a<id> &7- &r<display> &a(equipado)"
+  EQUIPPED: "<prefix>&7Equipado: &r<display> &8(&f<id>&8)"
+  EQUIPPED-NONE: "<prefix>&7Ningún tag equipado."
+  EQUIPPED-SET: "<prefix>&aTag equipado &r<display> &8(&f<id>&8)&a."
+  UNEQUIPPED: "<prefix>&aTag quitado."
+  UNKNOWN: "<prefix>&cTag desconocido &f<id>&c."
+  EQUIP-FAILED: "<prefix>&cNo se pudo equipar ese tag."
+  MENU:
+    TITLE: "&8Tags"
+    ITEM-NAME: "&r<display> &8(&f<id>&8)"
+    ITEM-LORE:
+      - "<status>"
+      - "&7Vista previa: &r<preview>"
+    STATUS-EQUIPPED: "&aEquipado"
+    STATUS-CLICK: "&eClic para equipar"
+    BACK-NAME: "&cCerrar"
+    BACK-LORE:
+      - "&7Cierra el menú."
+
+# — COINSHOP ————————————————————
+COINSHOP:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/coinshop &7- &eAbrir la tienda de coins RoyalCTW."
+    - "&7&m------------------------------------------&r"
+  PURCHASED: "<prefix>&aCompraste &r<display> &apor &f<price>&a."
+  ALREADY-OWNED: "<prefix>&eYa tienes &r<display>&e."
+  INSUFFICIENT: "<prefix>&cCoins insuficientes. &7Necesitas &f<price> &7· saldo &f<balance>"
+  UNKNOWN-OFFER: "<prefix>&cOferta desconocida &f<id>&c."
+  UNAVAILABLE: "<prefix>&cTienda no disponible (economía/tags desactivados)."
+  FAILED: "<prefix>&cLa compra falló."
+  COSMETIC-UNAVAILABLE: "<prefix>&cLos cosméticos aún no están disponibles &7(&f<target>&7). &cNo se cobraron coins."
+  TAG-HINT: "<prefix>&7Equípalo con &e/tag equip <target>&7."
+  BACK-NAME: "&cVolver"
+  BACK-LORE:
+    - "&7Volver a la tienda."
+  MENU:
+    TITLE: "&8Tienda"
+    TAGS-NAME: "&bTags"
+    TAGS-LORE:
+      - "&7Compra tags de chat con coins."
+      - "&7Saldo: &a<balance>"
+    COSMETICS-NAME: "&dCosmetics"
+    COSMETICS-LORE:
+      - "&7Stubs cosméticos (preview)."
+      - "&7Saldo: &a<balance>"
+    BALANCE-NAME: "&eSaldo"
+    BALANCE-LORE:
+      - "&7Tienes &a<balance> &7coins."
+    CLOSE-NAME: "&cCerrar"
+    CLOSE-LORE:
+      - "&7Cerrar este menú."
+  TAGS:
+    TITLE: "&8Tags"
+    ITEM-NAME: "&r<display>"
+    ITEM-LORE:
+      - "&7Id: &f<target>"
+      - "&7Preview: &r<preview>"
+      - "&7Precio: &a<price>"
+      - "<status>"
+      - "<stub_line>"
+    STUB-LORE:
+      - "&8(stub)"
+    OWNED-LINE: "&aYa tuyo"
+    BUY-LINE: "&eClic para comprar"
+  COSMETICS:
+    TITLE: "&8Cosmetics"
+    ITEM-NAME: "&d<target>"
+    ITEM-LORE:
+      - "&7Id: &f<target>"
+      - "&7Precio: &a<price>"
+      - "<status>"
+      - "<stub_line>"
+    STUB-LORE:
+      - "&8Próximamente · solo ownership"
+    OWNED-LINE: "&aYa tuyo"
+    BUY-LINE: "&eClic para comprar"
+  CONFIRM:
+    TITLE: "&8Confirmar"
+    INFO-NAME: "&r<display>"
+    INFO-LORE:
+      - "&7Tipo: &f<type>"
+      - "&7Precio: &a<price>"
+      - "&7Saldo: &f<balance>"
+    CONFIRM-NAME: "&aConfirmar"
+    CONFIRM-LORE:
+      - "&7Gastar &a<price> &7coins."
+    CANCEL-NAME: "&cCancelar"
+    CANCEL-LORE:
+      - "&7Volver."
+
+# — CHAT-GAMES ——————————————————
+CHAT-GAMES:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/chatgames &7- &eVer ayuda."
+    - "&8• &f/chatgames start [tipo] &7- &eForzar ronda (admin)."
+    - "&8• &f/chatgames skip &7- &eTerminar la ronda actual."
+    - "&7Tipos: &ftrivia reaction unscramble math algebra"
+    - "&7&m------------------------------------------&r"
+  START:
+    - "&7&m------------------------------------------&r"
+    - "&b&lChatGames &8» &f¡La primera respuesta correcta gana!"
+    - "&e<question>"
+    - "&7&m------------------------------------------&r"
+  START-TRIVIA:
+    - "&7&m------------------------------------------&r"
+    - "&b&lChatGames &8» &eTrivia"
+    - "&e<question>"
+    - "&7&m------------------------------------------&r"
+  START-REACTION:
+    - "&7&m------------------------------------------&r"
+    - "&b&lChatGames &8» &eReaction · escribe exactamente:"
+    - "&f<question>"
+    - "&7&m------------------------------------------&r"
+  START-UNSCRAMBLE:
+    - "&7&m------------------------------------------&r"
+    - "&b&lChatGames &8» &eUnscramble · ordena las letras:"
+    - "&f<question>"
+    - "&7&m------------------------------------------&r"
+  START-MATH:
+    - "&7&m------------------------------------------&r"
+    - "&b&lChatGames &8» &eMath · ¿cuánto es?"
+    - "&f<question>"
+    - "&7&m------------------------------------------&r"
+  START-ALGEBRA:
+    - "&7&m------------------------------------------&r"
+    - "&b&lChatGames &8» &eÁlgebra · resuelve &fx&e:"
+    - "&f<question>"
+    - "&7&m------------------------------------------&r"
+  WIN:
+    - "&7&m------------------------------------------&r"
+    - "&a&lGanador &8» &f<player> &7respondió &a<answer>&7!"
+    - "&7Recompensa: &a<money> &7coins"
+    - "&7&m------------------------------------------&r"
+  WIN-NO-REWARD:
+    - "&7&m------------------------------------------&r"
+    - "&a&lGanador &8» &f<player> &7respondió &a<answer>&7!"
+    - "&7&m------------------------------------------&r"
+  TIMEOUT:
+    - "&7&m------------------------------------------&r"
+    - "&cNadie respondió a tiempo."
+    - "&7La respuesta era: &f<answer>"
+    - "&7&m------------------------------------------&r"
+  COOLDOWN: "<prefix>&cCooldown de ganador · espera &f<seconds>s&c."
+  START-FORCED: "<prefix>&aRonda de ChatGames forzada."
+  START-FAILED: "<prefix>&cNo se pudo iniciar (ronda activa, sin jugadores o pool vacío)."
+  UNKNOWN-TYPE: "<prefix>&cTipo desconocido &f<type>&c."
+  SKIPPED: "<prefix>&eRonda de ChatGames terminada."
+
+# — BOSSBAR-TIPS ————————————————
+BOSSBAR-TIPS:
+  TITLE: "&bRoyalCTW"
+  FALLBACK: "&7¡Bienvenido a &bRoyalCTW&7!"
+  LINES:
+    - "&bRoyalCTW &8» &fJuega limpio · diviértete"
+    - "&bTip &8» &fUsa &e/settings &fpara preferencias"
+    - "&bTip &8» &fVisita &e/coinshop &fpara tags"
+    - "&bStore &8» &fApoya la network · ¡gracias!"
+
+# — DISCORD ————————————————————————
+#  Placeholder's ↓
+#   · {CODE} {MINUTES} {SECONDS} {PLAYER} {DISCORD}
+DISCORD:
+  DISABLED: "<prefix>&cLa vinculación Discord está desactivada en este servidor."
+  UNAVAILABLE: "<prefix>&cEl sync de Discord no está disponible ahora."
+  COOLDOWN: "<prefix>&cEspera &f{SECONDS}s &cantes de pedir otro código."
+  SYNC-USAGE:
+    - "&8• &f/sync &7- &eGenera un código de un solo uso para Discord."
+  UNSYNC-USAGE:
+    - "&8• &f/unsync &7- &eDesvincula tu cuenta de Discord."
+  SYNC-CODE:
+    - "<prefix>&aTu código Discord: &f{CODE}&a."
+    - "<prefix>&7Caduca en &f{MINUTES}&7 min. Usa &f/sync {CODE}&7 en Discord."
+  ALREADY-LINKED: "<prefix>&cTu cuenta ya está vinculada a Discord."
+  NOT-LINKED: "<prefix>&cTu cuenta de Minecraft no está vinculada a Discord."
+  LINKED: "<prefix>&aVinculado a Discord &f{DISCORD}&a."
+  UNLINKED: "<prefix>&aCuenta de Discord desvinculada."
+  INVALID-CODE: "<prefix>&cCódigo de sync inválido o caducado."
+
+# — MENU-API ———————————————————————
+MENU-API:
+  BACK: "&cVolver"
+  CLOSE: "&cCerrar"
+  CONFIRM: "&a&lConfirmar"
+  CANCEL: "&c&lCancelar"

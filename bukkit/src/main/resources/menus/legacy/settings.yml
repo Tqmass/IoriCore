@@ -1,0 +1,70 @@
+# ***
+# * IoriCore | Menu SETTINGS
+# ***
+# ~ Legacy (protocol ≤340 / 1.8–1.12)
+
+ID: settings
+TITLE-KEY: SETTINGS.MENU.TITLE
+ROWS: 3
+TYPE: CHEST
+BORDER: true
+
+SOUND:
+  OPEN: UI-CLICK
+  CLICK: UI-CLICK
+  DENY: DENY
+
+FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 7
+  NAME: " "
+  GLOW: false
+
+ACCENT-FILLER:
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 3
+  NAME: " "
+  GLOW: false
+  SLOTS: [0, 8, 26]
+
+ITEMS:
+  SOUNDS:
+    SLOT: 11
+    MATERIAL: NOTE_BLOCK
+    NAME-KEY: SETTINGS.MENU.SOUNDS-NAME
+    LORE-KEY: SETTINGS.MENU.SOUNDS-LORE
+    ACTIONS:
+      ANY:
+        - "[open] settings-sounds"
+  PARTICLES:
+    SLOT: 12
+    MATERIAL: BLAZE_POWDER
+    NAME-KEY: SETTINGS.MENU.PARTICLES-NAME
+    LORE-KEY: SETTINGS.MENU.PARTICLES-LORE
+    ACTIONS:
+      ANY:
+        - "[open] settings-particles"
+  LANGUAGE:
+    SLOT: 13
+    MATERIAL: BOOK
+    NAME-KEY: SETTINGS.MENU.LANGUAGE-NAME
+    LORE-KEY: SETTINGS.MENU.LANGUAGE-LORE
+    ACTIONS:
+      ANY:
+        - "[open] settings-lang"
+  PREMIUM:
+    SLOT: 14
+    MATERIAL: GOLD_INGOT
+    NAME-KEY: SETTINGS.MENU.PREMIUM-NAME
+    LORE-KEY: SETTINGS.MENU.PREMIUM-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] settings.toggle-premium"
+  PASSWORD:
+    SLOT: 15
+    MATERIAL: IRON_DOOR
+    NAME-KEY: SETTINGS.MENU.PASSWORD-NAME
+    LORE-KEY: SETTINGS.MENU.PASSWORD-LORE
+    ACTIONS:
+      ANY:
+        - "[internal] settings.password"

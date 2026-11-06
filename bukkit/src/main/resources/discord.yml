@@ -1,0 +1,68 @@
+# *************************************
+# * RoyalCTW | Discord (Core stub)    *
+# *************************************
+# ~ JDA vive SOLO en el proxy. Core publica por Redis (velocity discord.yml → BRIDGE).
+# ~ MODULES.DISCORD false aquí; no arrancar bot ni poner TOKEN en backends.
+
+ENABLED: false
+TOKEN: ""
+GUILD-ID: ""
+SLASH-COMMANDS: false
+
+# ~ Core no arranca JDA: publica a BRIDGE.CHANNEL-IN; el proxy responde en CHANNEL-OUT.
+BRIDGE:
+  ENABLED: true
+  CHANNEL-IN: "royalctw:discord:in"
+  CHANNEL-OUT: "royalctw:discord:out"
+  SIGN-EVENTS: true
+  SECRET-ENV: "ROYALCTW_BRIDGE_SECRET"
+
+SYNC:
+  CODE-TTL-SECONDS: 300
+  COOLDOWN-SECONDS: 30
+  REDEEM-COOLDOWN-SECONDS: 5
+
+COMMANDS:
+  CHANNEL-ID: ""
+  ROLE-IDS: []
+
+BOTS:
+  PRIMARY:
+    ENABLED: false
+    TOKEN: ""
+    GUILD-ID: ""
+
+CHANNELS:
+  STAFF-AUTH: ""
+  SECURITY: ""
+  STAFF-CHAT: ""
+  PUNISHMENTS: ""
+  STATUS: ""
+  WELCOME: ""
+  GOODBYE: ""
+  BOOST: ""
+  STORE: ""
+
+REPLIES:
+  SYNC-OK: ""
+  SYNC-INVALID: ""
+  SYNC-ALREADY: ""
+  SYNC-UNAVAILABLE: ""
+  SYNC-RATE: ""
+  STAFF-AUTH-APPROVED: ""
+  STAFF-AUTH-DENIED: ""
+  STAFF-AUTH-SELF: ""
+  STAFF-AUTH-INVALID: ""
+  STAFF-AUTH-ROLE: ""
+  BOT-DISABLED: "Bot disabled."
+
+EMBEDS:
+  STAFF-AUTH:
+    COLOR: "#5865F2"
+    AUTHOR-NAME: ""
+    AUTHOR-ICON-URL: ""
+    TITLE: ""
+    DESCRIPTION: ""
+    FOOTER: ""
+    THUMBNAIL-URL: ""
+    TIMESTAMP: false

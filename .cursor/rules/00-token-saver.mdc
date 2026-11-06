@@ -1,0 +1,13 @@
+---
+description: Reduce context waste; keep answers and diffs tight.
+alwaysApply: true
+---
+
+# Token saver
+
+- Responde en español, corto y accionable.
+- No repitas el enunciado ni pegues bloques enormes de código existentes.
+- Diffs mínimos: no reformatees archivos ajenos a la tarea.
+- No crees docs/skills/rules nuevas salvo que se pidan.
+- Antes de inventar una API de Velocity/Bungee/Spigot, verifica en JD/docs oficiales.
+- Si falta una ruta/URL/licencia, dilo en una línea y sigue con lo verificable.

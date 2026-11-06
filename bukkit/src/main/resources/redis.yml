@@ -1,0 +1,28 @@
+# *************************************
+# *         IoriCore | Redis          *
+# *************************************
+# ~ Pub/sub bus with proxy (sanciones, staff sync…)
+
+# ────────────────────────────
+# CONNECTION
+# ────────────────────────────
+ENABLED: false
+HOST: 127.0.0.1
+PORT: 6379
+DATABASE: 0
+TIMEOUT-MS: 2000
+SSL: false
+
+# ────────────────────────────
+# NAMESPACE
+# ────────────────────────────
+KEY-PREFIX: ioriproxy
+CHANNEL: ioriproxy
+
+# ────────────────────────────
+# AUTHENTICATION
+# ────────────────────────────
+AUTHENTICATION:
+  ENABLED: false
+  USERNAME: ""
+  PASSWORD: ""
