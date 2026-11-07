@@ -17,28 +17,18 @@ public final class MaintenanceWhitelistStore {
     @Getter
     private final YamlConfig yaml;
 
-    private final MaintenanceConfig maintenanceConfig;
     private final ProxyLogger logger;
 
     public MaintenanceWhitelistStore(ProxyPlatform platform, ProxyLogger logger, MaintenanceConfig maintenanceConfig) {
         this.logger = logger;
-        this.maintenanceConfig = maintenanceConfig;
         this.yaml = new YamlConfig(platform, logger, DATA_FILE);
     }
 
-    public List<String> loadAndMigrate() {
+    public List<String> load() {
         yaml.load();
-        List<String> entries = new ArrayList<>(yaml.getStringList("entries"));
-        if (!entries.isEmpty()) return entries;
-
-        List<String> legacy = maintenanceConfig.legacyWhitelist();
-        if (legacy.isEmpty()) return Collections.emptyList();
-
-        entries = new ArrayList<>(legacy);
-        save(entries);
-        maintenanceConfig.yaml().saveTopLevelList("WHITELIST", List.of());
-        logger.info("Maintenance whitelist migrated from maintenance.yml → " + DATA_FILE);
-        return entries;
+        List<String> entries = yaml.getStringList("ENTRIES");
+        if (entries == null || entries.isEmpty()) return Collections.emptyList();
+        return new ArrayList<>(entries);
     }
 
     public void save(Collection<String> entries) {

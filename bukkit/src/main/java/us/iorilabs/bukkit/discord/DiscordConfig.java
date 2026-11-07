@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.experimental.Accessors;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 @Getter
 @Accessors(fluent = true)
@@ -33,6 +34,22 @@ public final class DiscordConfig {
     private final Map<String, BotEntry> bots;
     private final Map<String, EmbedTemplate> embeds;
     private final Map<String, String> replies;
+
+    public static DiscordConfig fromRedisBridge(FileConfiguration redis) {
+        YamlConfiguration view = new YamlConfiguration();
+        if (redis != null) {
+            view.set("ENABLED", false);
+            view.set("BRIDGE.ENABLED", redis.getBoolean("DISCORD-BRIDGE.ENABLED", true));
+            view.set("BRIDGE.CHANNEL-IN", redis.getString("DISCORD-BRIDGE.CHANNEL-IN", "royalctw:discord:in"));
+            view.set("BRIDGE.CHANNEL-OUT", redis.getString("DISCORD-BRIDGE.CHANNEL-OUT", "royalctw:discord:out"));
+            view.set("BRIDGE.SIGN-EVENTS", redis.getBoolean("DISCORD-BRIDGE.SIGN-EVENTS", true));
+            view.set("BRIDGE.SECRET-ENV", redis.getString("DISCORD-BRIDGE.SECRET-ENV", "ROYALCTW_BRIDGE_SECRET"));
+            view.set("SYNC.CODE-TTL-SECONDS", redis.getInt("DISCORD-BRIDGE.CODE-TTL-SECONDS", 300));
+            view.set("SYNC.COOLDOWN-SECONDS", redis.getInt("DISCORD-BRIDGE.COOLDOWN-SECONDS", 30));
+            view.set("SYNC.REDEEM-COOLDOWN-SECONDS", redis.getInt("DISCORD-BRIDGE.REDEEM-COOLDOWN-SECONDS", 5));
+        }
+        return new DiscordConfig(view);
+    }
 
     public DiscordConfig(FileConfiguration yaml) {
         this.enabled = yaml != null && yaml.getBoolean("ENABLED", false);

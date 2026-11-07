@@ -1,5 +1,6 @@
 package us.iorilabs.bukkit.modules.staffmode;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -30,8 +31,11 @@ import us.iorilabs.bukkit.IoriCorePlugin;
 import us.iorilabs.bukkit.language.CoreLanguage;
 import us.iorilabs.bukkit.menu.api.yaml.YamlMenuDefinition;
 import us.iorilabs.bukkit.menu.api.yaml.YamlMenuService;
+import us.iorilabs.bukkit.modules.CoreModule;
 import us.iorilabs.bukkit.modules.core.CoreFeaturesModule;
 import us.iorilabs.bukkit.modules.core.vanish.VanishService;
+import us.iorilabs.bukkit.modules.lobby.GroupsService;
+import us.iorilabs.bukkit.modules.lobby.LobbyModule;
 import us.iorilabs.bukkit.modules.staffmode.freeze.FreezeService;
 import us.iorilabs.bukkit.modules.staffmode.inventory.StaffInventoryStore;
 import us.iorilabs.bukkit.modules.staffmode.inventory.StaffSnapshot;
@@ -276,6 +280,7 @@ public final class StaffModeService {
         applyNametag(player, false);
         applyInvulnerability(player, false);
         if (!quitting) vanish().setVanished(player, snapshot != null && snapshot.vanished());
+        if (!quitting) refreshGroupGlow(player);
 
         if (snapshot != null) {
             snapshot.restore(player, config.getBoolean("RESTORE-LOCATION", true));
@@ -356,21 +361,69 @@ public final class StaffModeService {
     }
 
     private boolean staffNametagEnabled() {
-        return config.getBoolean("NAMETAG", true) && apollo.available();
+        return config.getBoolean("NAMETAG", true);
+    }
+
+    private boolean lunarNametagEnabled() {
+        return apollo.available() && config.getBoolean("APOLLO.LUNAR-NAMETAG.ENABLED", true);
     }
 
     private void applyNametag(Player player, boolean enable) {
-        if (enable && !staffNametagEnabled()) return;
         if (enable) {
-            String prefix = language.raw("STAFF-MODE.NAMETAG-PREFIX");
-            player.setDisplayName(prefix + player.getName());
-            player.setPlayerListName(truncate(prefix + player.getName(), 16));
-            syncStaffTeamAll(player, truncate(prefix, 16));
+            if (staffNametagEnabled()) {
+                String prefix = language.raw("STAFF-MODE.NAMETAG-PREFIX");
+                player.setDisplayName(prefix + player.getName());
+                player.setPlayerListName(truncate(prefix + player.getName(), 16));
+                syncStaffTeamAll(player, truncate(prefix, 16));
+            }
+            applyLunarNametag(player, true);
             return;
         }
+        applyLunarNametag(player, false);
         removeFromTeams(player);
         player.setDisplayName(player.getName());
         restoreListName(player);
+    }
+
+    private void applyLunarNametag(Player player, boolean enable) {
+        if (!apollo.available()) return;
+        if (!enable) {
+            apollo.resetNametag(player.getUniqueId());
+            return;
+        }
+        if (!lunarNametagEnabled()) return;
+        List<String> templates = config.getStringList("APOLLO.LUNAR-NAMETAG.LINES");
+        if (templates.isEmpty()) return;
+        List<String> lines = new ArrayList<>(templates.size());
+        for (String template : templates) {
+            if (template == null) continue;
+            lines.add(template.replace("{PLAYER}", player.getName()).replace("{GROUP}", staffGroupKey(player)));
+        }
+        if (lines.isEmpty()) return;
+        String visibility = config.getString("APOLLO.LUNAR-NAMETAG.VISIBILITY", "NONE");
+        apollo.overrideNametag(player.getUniqueId(), lines, visibility);
+    }
+
+    private String staffGroupKey(Player player) {
+        GroupsService groups = lobbyGroups();
+        if (groups == null || player == null) return "";
+        String group = groups.resolveGroup(player);
+        if (group == null || GroupsService.DEFAULT.equals(group)) return "";
+        return group.toUpperCase(Locale.ROOT);
+    }
+
+    private GroupsService lobbyGroups() {
+        if (plugin.modules() == null) return null;
+        CoreModule module = plugin.modules().get(ModuleId.LOBBY);
+        if (!(module instanceof LobbyModule lobby) || !lobby.enabled()) return null;
+        return lobby.groups();
+    }
+
+    private void refreshGroupGlow(Player player) {
+        GroupsService groups = lobbyGroups();
+        if (groups == null || !groups.enabled() || !groups.apolloEnabled()) return;
+        apollo.resetNametag(player.getUniqueId());
+        groups.applyGroupGlow(player, apollo);
     }
 
     private void syncStaffTeamAll(Player staff, String prefix) {
@@ -436,7 +489,8 @@ public final class StaffModeService {
     private void applyGlow(Player player, boolean enable) {
         if (apollo.available()) {
             if (enable) {
-                apollo.overrideGlow(player.getUniqueId(), Integer.valueOf(0x55FFFF));
+                Integer rgb = staffGlowRgb();
+                if (rgb != null) apollo.overrideGlow(player.getUniqueId(), rgb);
                 apollo.setNumbersDisabled(player.getUniqueId(), true);
             } else {
                 apollo.resetGlow(player.getUniqueId());
@@ -461,6 +515,19 @@ public final class StaffModeService {
         String plain = ChatColor.stripColor(player.getDisplayName());
         if (plain == null || plain.isEmpty()) plain = player.getName();
         player.setPlayerListName(truncate(plain, 16));
+    }
+
+    private Integer staffGlowRgb() {
+        String raw = config.getString("APOLLO.GLOW-COLOR", "#55FFFF");
+        if (raw == null || raw.isBlank()) return 0x55FFFF;
+        String value = raw.trim();
+        if (value.startsWith("#")) value = value.substring(1);
+        if (value.length() != 6) return 0x55FFFF;
+        try {
+            return Integer.parseInt(value, 16);
+        } catch (NumberFormatException ignored) {
+            return 0x55FFFF;
+        }
     }
 
     private static String truncate(String value, int max) {

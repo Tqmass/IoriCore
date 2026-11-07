@@ -150,10 +150,6 @@ public final class MaintenanceConfig {
         return yaml.getString("countdown.ended", "").stripTrailing();
     }
 
-    public List<String> legacyWhitelist() {
-        return yaml.getStringList("whitelist");
-    }
-
     public Map<String, List<String>> modes() {
         Map<String, Object> section = yaml.getSection("modes");
         Map<String, List<String>> modes = new LinkedHashMap<>();

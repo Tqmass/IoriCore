@@ -34,17 +34,12 @@ import us.iorilabs.bukkit.storage.StoragePaths;
 public final class CoinshopService {
 
     private final IoriCorePlugin plugin;
-    private final File playersFolder;
     private final Map<String, CoinshopOffer> offers = new LinkedHashMap<>();
     private final Map<UUID, Set<String>> ownedTags = new ConcurrentHashMap<>();
     private final Map<UUID, Set<String>> ownedCosmetics = new ConcurrentHashMap<>();
 
     public CoinshopService(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        File legacyPlayers = new File(plugin.getDataFolder(), "coinshop/players");
-        this.playersFolder = StoragePaths.storage(plugin, "coinshop", "players");
-        StoragePaths.migrateIfPresent(legacyPlayers, playersFolder);
-        if (!playersFolder.exists()) playersFolder.mkdirs();
     }
 
     public void load() {
@@ -77,7 +72,7 @@ public final class CoinshopService {
     }
 
     private void loadOffersFromTagsYaml() {
-        File file = StoragePaths.storage(plugin, "tags.yml");
+        File file = StoragePaths.data(plugin, "tags.yml");
         if (!file.exists()) return;
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection root = yaml.getConfigurationSection("TAGS");
@@ -191,7 +186,7 @@ public final class CoinshopService {
     }
 
     private List<String> loadOwned(UUID uuid, String key) {
-        File file = fileFor(uuid);
+        File file = unlocksFile(uuid);
         if (!file.exists()) return Collections.emptyList();
 
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(file);
@@ -208,9 +203,11 @@ public final class CoinshopService {
 
     private void saveOwned(UUID uuid) {
         if (uuid == null) return;
-        if (!playersFolder.exists()) playersFolder.mkdirs();
 
-        File file = fileFor(uuid);
+        File file = unlocksFile(uuid);
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists()) parent.mkdirs();
+
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         yaml.set("tags", new ArrayList<>(owned(uuid, ownedTags)));
         yaml.set("cosmetics", new ArrayList<>(owned(uuid, ownedCosmetics)));
@@ -221,16 +218,7 @@ public final class CoinshopService {
         }
     }
 
-    private File fileFor(UUID uuid) {
-        return new File(playersFolder, uuid.toString() + ".yml");
-    }
-
-    private static CoinshopOfferType parseType(String raw) {
-        if (raw == null || raw.trim().isEmpty()) return null;
-        try {
-            return CoinshopOfferType.valueOf(raw.trim().toUpperCase(Locale.ROOT));
-        } catch (IllegalArgumentException ex) {
-            return null;
-        }
+    private File unlocksFile(UUID uuid) {
+        return StoragePaths.playerDataFile(plugin, uuid, "unlocks.yml");
     }
 }

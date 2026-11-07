@@ -1,16 +1,10 @@
 package us.iorilabs.bukkit.punishment;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
@@ -21,8 +15,6 @@ import us.iorilabs.bukkit.IoriCorePlugin;
 @Getter
 @Accessors(fluent = true)
 public final class PunishReasonService {
-
-    private static final int CATALOG_VERSION = 1;
 
     private final IoriCorePlugin plugin;
     private final PunishmentConfig config;
@@ -56,12 +48,9 @@ public final class PunishReasonService {
             config == null || config.reasonsPackFile() == null || config.reasonsPackFile().isBlank()
                 ? "punishments.yml"
                 : config.reasonsPackFile().trim();
-        if ("punish-reasons.yml".equalsIgnoreCase(pack)) pack = "punishments.yml";
+        if (!"punishments.yml".equalsIgnoreCase(pack)) pack = "punishments.yml";
 
         File rootFile = new File(plugin.getDataFolder(), pack);
-        File dataLegacy = new File(plugin.getDataFolder(), "data/punish-reasons.yml");
-        us.iorilabs.bukkit.storage.StoragePaths.migrateIfPresent(dataLegacy, rootFile);
-
         if (!rootFile.exists()) {
             if (plugin.getResource(pack) != null) {
                 us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, pack);
@@ -70,39 +59,7 @@ public final class PunishReasonService {
                 rootFile = new File(plugin.getDataFolder(), "punishments.yml");
             }
         }
-
-        ensureCatalogVersion(rootFile, plugin.getLogger());
         return rootFile;
-    }
-
-    private static void ensureCatalogVersion(File rootFile, Logger logger) {
-        if (rootFile == null || !rootFile.exists()) return;
-
-        FileConfiguration yaml = YamlConfiguration.loadConfiguration(rootFile);
-        if (yaml.contains("CONFIG-VERSION") && yaml.getInt("CONFIG-VERSION", 0) >= CATALOG_VERSION) return;
-
-        String stamp = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.ROOT).format(new Date());
-        File backup = new File(rootFile.getParentFile(), rootFile.getName() + ".bak-" + stamp);
-        try {
-            Files.copy(rootFile.toPath(), backup.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (Exception ex) {
-            if (logger != null) {
-                logger.log(Level.WARNING, "Punish reasons · backup failed · " + rootFile.getName(), ex);
-            }
-            return;
-        }
-
-        yaml.set("CONFIG-VERSION", CATALOG_VERSION);
-        try {
-            yaml.save(rootFile);
-            if (logger != null) {
-                logger.info("Punish reasons · CONFIG-VERSION=" + CATALOG_VERSION + " · " + rootFile.getName());
-            }
-        } catch (Exception ex) {
-            if (logger != null) {
-                logger.log(Level.WARNING, "Punish reasons · migrate save failed · " + rootFile.getName(), ex);
-            }
-        }
     }
 
     public List<PunishReason> byType(String type) {

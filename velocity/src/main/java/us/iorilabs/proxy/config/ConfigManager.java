@@ -106,10 +106,6 @@ public final class ConfigManager {
 
         YamlConfig settingsYaml = require("settings.yml");
         YamlConfig discordYaml = require("discord.yml");
-        if (SettingsDiscordMigration.run(settingsYaml, discordYaml, logger)) {
-            settingsYaml.load();
-            discordYaml.load();
-        }
 
         settings = new SettingsConfig(settingsYaml, discordYaml);
         redis = new RedisConfig(require("redis.yml"));

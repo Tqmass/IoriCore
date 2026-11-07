@@ -122,13 +122,10 @@ public final class IoriCorePlugin extends JavaPlugin {
             "redis.yml",
             "permissions.yml",
             "sounds.yml",
-            "discord.yml",
             "groups.yml",
             "hotbar.yml",
             "tab.yml"
         );
-        us.iorilabs.bukkit.storage.StoragePaths.migrateLegacyRoots(this);
-
         settings = loadYaml("settings.yml");
         commands = loadYaml("commands.yml");
         permissions = loadYaml("permissions.yml");

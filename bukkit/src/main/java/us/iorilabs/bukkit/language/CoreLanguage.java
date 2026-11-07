@@ -24,7 +24,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import us.iorilabs.bukkit.commands.BukkitCommandSource;
-import us.iorilabs.bukkit.storage.StoragePaths;
 import us.iorilabs.bukkit.util.ColorUtil;
 import us.iorilabs.proxy.commands.CommandSource;
 
@@ -555,34 +554,11 @@ public final class CoreLanguage {
     }
 
     private void saveDefaults() {
-        migrateMessageFiles();
         for (String lang : LANGS) {
             saveIfMissing(modernMessagesPath(lang));
             saveIfMissing(legacyMessagesPath(lang));
         }
         saveIfMissing("chat-formats.yml");
-    }
-
-    private void migrateMessageFiles() {
-        File data = plugin.getDataFolder();
-        for (String lang : LANGS) {
-            StoragePaths.migrateIfPresent(
-                new File(data, "messages-" + lang + ".yml"),
-                new File(data, modernMessagesPath(lang))
-            );
-            StoragePaths.migrateIfPresent(
-                new File(data, "messages-" + lang + "-legacy.yml"),
-                new File(data, legacyMessagesPath(lang))
-            );
-            StoragePaths.migrateIfPresent(
-                new File(data, "messages/messages-" + lang + ".yml"),
-                new File(data, modernMessagesPath(lang))
-            );
-            StoragePaths.migrateIfPresent(
-                new File(data, "messages/messages-" + lang + "-legacy.yml"),
-                new File(data, legacyMessagesPath(lang))
-            );
-        }
     }
 
     private static String modernMessagesPath(String code) {

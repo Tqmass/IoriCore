@@ -61,9 +61,7 @@ public final class ChatGamesService {
     public ChatGamesService(IoriCorePlugin plugin) {
         this.plugin = plugin;
         this.language = plugin.language();
-        File legacy = new File(plugin.getDataFolder(), "data/chatgames.yml");
-        this.configFile = StoragePaths.storage(plugin, "chatgames.yml");
-        StoragePaths.migrateIfPresent(legacy, configFile);
+        this.configFile = StoragePaths.data(plugin, "chatgames.yml");
     }
 
     public void load() {

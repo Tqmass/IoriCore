@@ -6,7 +6,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.List;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import us.iorilabs.bukkit.IoriCorePlugin;
@@ -23,7 +22,6 @@ public final class PunishmentConfig {
 
     public static PunishmentConfig load(IoriCorePlugin plugin) {
         File onDisk = new File(plugin.getDataFolder(), "punishment.yml");
-        migrateFromStaffMode(plugin, onDisk);
         if (!onDisk.exists()) {
             us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "punishment.yml");
         }
@@ -79,43 +77,5 @@ public final class PunishmentConfig {
     public String getString(String path, String def) {
         if (file != null && file.contains(path)) return file.getString(path, def);
         return def;
-    }
-
-    private static void migrateFromStaffMode(IoriCorePlugin plugin, File punishmentFile) {
-        if (punishmentFile.exists()) return;
-
-        File staffMode = new File(plugin.getDataFolder(), "staff-mode.yml");
-        if (!staffMode.exists()) return;
-
-        FileConfiguration staff = YamlConfiguration.loadConfiguration(staffMode);
-        ConfigurationSection punish = staff.getConfigurationSection("PUNISH");
-        if (punish == null || !punishHasCommands(punish)) return;
-
-        YamlConfiguration out = new YamlConfiguration();
-        out.set("MENUS.MAIN", "punish");
-        out.set("MENUS.REASONS", "punish-reasons");
-        out.set("REASONS-PACK", "punishments.yml");
-        for (String key : punish.getKeys(false)) {
-            ConfigurationSection section = punish.getConfigurationSection(key);
-            if (section == null) continue;
-            out.set("STAFF-INSPECT." + key + ".CONSOLE", section.getStringList("CONSOLE"));
-            out.set("STAFF-INSPECT." + key + ".PLAYER", section.getStringList("PLAYER"));
-        }
-
-        File parent = punishmentFile.getParentFile();
-        if (parent != null && !parent.exists()) parent.mkdirs();
-        try {
-            out.save(punishmentFile);
-        } catch (Exception ignored) {}
-    }
-
-    private static boolean punishHasCommands(ConfigurationSection punish) {
-        for (String key : punish.getKeys(false)) {
-            ConfigurationSection section = punish.getConfigurationSection(key);
-            if (section == null) continue;
-            if (!section.getStringList("CONSOLE").isEmpty()) return true;
-            if (!section.getStringList("PLAYER").isEmpty()) return true;
-        }
-        return false;
     }
 }

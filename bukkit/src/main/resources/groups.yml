@@ -6,6 +6,7 @@
 # RANK PREFIX AND SUFFIX
 # ────────────────────────────
 # ~ Tab list + nametag (scoreboard team)
+# ~ Lunar multiline staff: staff-mode.yml (STAFF-MODE)
 # ~ __DEFAULT__ = everyone without another group
 GROUPS:
   ENABLED: true
@@ -27,11 +28,6 @@ GROUPS:
       GLOW:
         ENABLED: true
         COLOR: "DARK_RED"
-      LUNAR-NAMETAG:
-        ENABLED: true
-        LINES:
-          - "&7&o[Staff Team]"
-          - "&4&lOWNER &c{PLAYER}"
 
     admin:
       PRIORITY: 2
@@ -43,12 +39,6 @@ GROUPS:
       GLOW:
         ENABLED: true
         COLOR: "RED"
-      LUNAR-NAMETAG:
-        ENABLED: true
-        LINES:
-          - "&c&lADMIN"
-          - "&c{PLAYER}"
-          - "&7&o[Staff Team]"
 
     mod:
       PRIORITY: 3
@@ -60,12 +50,6 @@ GROUPS:
       GLOW:
         ENABLED: true
         COLOR: "DARK_GREEN"
-      LUNAR-NAMETAG:
-        ENABLED: true
-        LINES:
-          - "&2&lMOD"
-          - "&a{PLAYER}"
-          - "&7&o[Staff Team]"
 
     vip:
       PRIORITY: 4
@@ -77,12 +61,6 @@ GROUPS:
       GLOW:
         ENABLED: true
         COLOR: "GOLD"
-      LUNAR-NAMETAG:
-        ENABLED: true
-        LINES:
-          - "&6&lVIP"
-          - "&e{PLAYER}"
-          - "&7&o[VIP]"
 
     __DEFAULT__:
       PRIORITY: 99
@@ -93,7 +71,3 @@ GROUPS:
       GLOW:
         ENABLED: false
         COLOR: "GRAY"
-      LUNAR-NAMETAG:
-        ENABLED: false
-        LINES:
-          - "&7{PLAYER}"

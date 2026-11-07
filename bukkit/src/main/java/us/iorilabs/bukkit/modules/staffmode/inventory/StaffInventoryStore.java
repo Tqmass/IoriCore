@@ -38,9 +38,7 @@ public final class StaffInventoryStore {
 
     public StaffInventoryStore(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        File legacy = new File(plugin.getDataFolder(), "data/staffmode");
-        this.folder = StoragePaths.storage(plugin, "staffmode");
-        StoragePaths.migrateIfPresent(legacy, folder);
+        this.folder = StoragePaths.data(plugin, "staffmode");
     }
 
     public void save(UUID id, StaffSnapshot snapshot) {

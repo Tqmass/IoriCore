@@ -11,20 +11,20 @@ import us.iorilabs.staffreg.crypto.BridgeEventSigner;
 public final class StaffRegRedisPublisher {
 
     private final IoriCorePlugin plugin;
-    private final FileConfiguration discordConfig;
+    private final FileConfiguration redisConfig;
 
-    public StaffRegRedisPublisher(IoriCorePlugin plugin, FileConfiguration discordConfig) {
+    public StaffRegRedisPublisher(IoriCorePlugin plugin, FileConfiguration redisConfig) {
         this.plugin = plugin;
-        this.discordConfig = discordConfig;
+        this.redisConfig = redisConfig;
     }
 
     public void publish(DiscordMessageRequest request, boolean direct) {
         if (plugin.redis() == null || !plugin.redis().enabled()) return;
-        if (discordConfig == null) return;
+        if (redisConfig == null) return;
 
-        String channelIn = discordConfig.getString("BRIDGE.CHANNEL-IN", "royalctw:discord:in");
-        boolean sign = discordConfig.getBoolean("BRIDGE.SIGN-EVENTS", true);
-        String secretEnv = discordConfig.getString("BRIDGE.SECRET-ENV", "ROYALCTW_BRIDGE_SECRET");
+        String channelIn = redisConfig.getString("DISCORD-BRIDGE.CHANNEL-IN", "royalctw:discord:in");
+        boolean sign = redisConfig.getBoolean("DISCORD-BRIDGE.SIGN-EVENTS", true);
+        String secretEnv = redisConfig.getString("DISCORD-BRIDGE.SECRET-ENV", "ROYALCTW_BRIDGE_SECRET");
         String secret = secretEnv == null || secretEnv.isBlank() ? "" : System.getenv(secretEnv);
         if (secret == null) secret = "";
 

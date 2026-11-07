@@ -72,10 +72,7 @@ public final class ChatLogService {
         maxLines = Math.max(100, settings.getInt("CHAT-LOGS.MAX-LINES", 100_000));
         purgeDays = Math.max(0, settings.getInt("CHAT-LOGS.PURGE-DAYS", 60));
 
-        File legacyChat = new File(plugin.getDataFolder(), "chat");
         logsRoot = StoragePaths.logs(plugin);
-        StoragePaths.migrateIfPresent(legacyChat, logsRoot);
-        flattenLegacyPlayerFolders(new File(logsRoot, "players"));
         ensureDirs();
 
         executor.execute(this::purge);

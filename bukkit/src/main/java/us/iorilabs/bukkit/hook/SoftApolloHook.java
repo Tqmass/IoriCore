@@ -3,19 +3,25 @@ package us.iorilabs.bukkit.hook;
 import java.awt.Color;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import us.iorilabs.api.hook.ApolloHook;
 
 public final class SoftApolloHook implements ApolloHook {
 
     private final boolean present;
     private Object glowModule;
+    private Object nametagModule;
     private Object recipientsEveryone;
     private Object modSettingModule;
     private Object numbersOption;
+    private Object legacySerializer;
 
     public SoftApolloHook(Logger logger, boolean moduleEnabled) {
         if (!moduleEnabled) {
@@ -29,6 +35,7 @@ public final class SoftApolloHook implements ApolloHook {
         if (present) {
             logger.fine("Apollo detected (soft-hook)");
             tryLoadGlow();
+            tryLoadNametag();
             tryLoadNumbers();
         }
     }
@@ -46,6 +53,29 @@ public final class SoftApolloHook implements ApolloHook {
         } catch (ReflectiveOperationException ignored) {
             glowModule = null;
             recipientsEveryone = null;
+        }
+    }
+
+    private void tryLoadNametag() {
+        try {
+            Class<?> apolloClass = Class.forName("com.lunarclient.apollo.Apollo");
+            Object moduleManager = apolloClass.getMethod("getModuleManager").invoke(null);
+            Class<?> nametagClass = Class.forName("com.lunarclient.apollo.module.nametag.NametagModule");
+            Method getModule = moduleManager.getClass().getMethod("getModule", Class.class);
+            nametagModule = getModule.invoke(moduleManager, nametagClass);
+
+            Class<?> serializerClass = Class.forName(
+                "net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer"
+            );
+            legacySerializer = serializerClass.getMethod("legacySection").invoke(null);
+
+            if (recipientsEveryone == null) {
+                Class<?> recipientsClass = Class.forName("com.lunarclient.apollo.recipients.Recipients");
+                recipientsEveryone = recipientsClass.getMethod("ofEveryone").invoke(null);
+            }
+        } catch (ReflectiveOperationException ignored) {
+            nametagModule = null;
+            legacySerializer = null;
         }
     }
 
@@ -121,6 +151,59 @@ public final class SoftApolloHook implements ApolloHook {
                 .getClass()
                 .getMethod("resetGlow", Class.forName("com.lunarclient.apollo.recipients.Recipients"), UUID.class)
                 .invoke(glowModule, recipientsEveryone, targetId);
+        } catch (ReflectiveOperationException ignored) {}
+    }
+
+    @Override
+    public void overrideNametag(UUID targetId, List<String> legacyLines, String visibilityOverride) {
+        if (
+            targetId == null ||
+            legacyLines == null ||
+            legacyLines.isEmpty() ||
+            nametagModule == null ||
+            recipientsEveryone == null ||
+            legacySerializer == null
+        ) return;
+        try {
+            Method deserialize = legacySerializer.getClass().getMethod("deserialize", String.class);
+            List<Object> components = new ArrayList<>(legacyLines.size());
+            for (String line : legacyLines) {
+                if (line == null) continue;
+                String colored = ChatColor.translateAlternateColorCodes('&', line);
+                components.add(deserialize.invoke(legacySerializer, colored));
+            }
+            if (components.isEmpty()) return;
+
+            Class<?> nametagClass = Class.forName("com.lunarclient.apollo.module.nametag.Nametag");
+            Object builder = nametagClass.getMethod("builder").invoke(null);
+            builder.getClass().getMethod("lines", List.class).invoke(builder, components);
+
+            Class<?> visibilityClass = Class.forName("com.lunarclient.apollo.module.nametag.NametagVisibilityOverride");
+            String visKey = visibilityOverride == null ? "NONE" : visibilityOverride.trim().toUpperCase(Locale.ROOT);
+            Object visibility = Enum.valueOf(visibilityClass.asSubclass(Enum.class), visKey);
+            builder.getClass().getMethod("visibilityOverride", visibilityClass).invoke(builder, visibility);
+
+            Object nametag = builder.getClass().getMethod("build").invoke(builder);
+            nametagModule
+                .getClass()
+                .getMethod(
+                    "overrideNametag",
+                    Class.forName("com.lunarclient.apollo.recipients.Recipients"),
+                    UUID.class,
+                    nametagClass
+                )
+                .invoke(nametagModule, recipientsEveryone, targetId, nametag);
+        } catch (ReflectiveOperationException ignored) {}
+    }
+
+    @Override
+    public void resetNametag(UUID targetId) {
+        if (targetId == null || nametagModule == null || recipientsEveryone == null) return;
+        try {
+            nametagModule
+                .getClass()
+                .getMethod("resetNametag", Class.forName("com.lunarclient.apollo.recipients.Recipients"), UUID.class)
+                .invoke(nametagModule, recipientsEveryone, targetId);
         } catch (ReflectiveOperationException ignored) {}
     }
 

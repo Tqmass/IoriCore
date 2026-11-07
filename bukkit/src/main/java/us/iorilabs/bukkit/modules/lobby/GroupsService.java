@@ -12,7 +12,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import us.iorilabs.api.hook.ApolloHook;
+import us.iorilabs.api.modules.ModuleId;
 import us.iorilabs.bukkit.IoriCorePlugin;
+import us.iorilabs.bukkit.modules.CoreModule;
+import us.iorilabs.bukkit.modules.staffmode.StaffModeModule;
+import us.iorilabs.bukkit.modules.staffmode.StaffModeService;
 import us.iorilabs.bukkit.ranks.RankDisplay;
 import us.iorilabs.bukkit.util.DisplayYaml;
 
@@ -101,6 +105,7 @@ public final class GroupsService {
 
     public void applyGroupGlow(Player player, ApolloHook apollo) {
         if (player == null || apollo == null) return;
+        if (staffModeActive(player)) return;
         String group = resolveGroup(player);
         boolean on = config.getBoolean(rankPath(group) + ".GLOW.ENABLED", false);
         if (!on) {
@@ -114,6 +119,14 @@ public final class GroupsService {
             return;
         }
         apollo.overrideGlow(player.getUniqueId(), color.getRGB() & 0xFFFFFF);
+    }
+
+    private boolean staffModeActive(Player player) {
+        if (plugin.modules() == null || player == null) return false;
+        CoreModule module = plugin.modules().get(ModuleId.STAFF_MODE);
+        if (!(module instanceof StaffModeModule staff) || !staff.enabled()) return false;
+        StaffModeService service = staff.service();
+        return service != null && service.enabled(player.getUniqueId());
     }
 
     private String matchVaultPrimary(Player player) {

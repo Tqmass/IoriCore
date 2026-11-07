@@ -13,6 +13,20 @@ CLICK-COOLDOWN-MS: 150
 REDIS-SYNC: true
 NAMETAG: true
 
+# ────────────────────────────
+# APOLLO (Lunar Client)
+# ────────────────────────────
+# ~ Multiline nametag + glow solo con /staff activo
+APOLLO:
+  GLOW-COLOR: "#55FFFF"
+  LUNAR-NAMETAG:
+    ENABLED: true
+    VISIBILITY: "NONE"
+    LINES:
+      - "&c&lADMIN"
+      - "&c{PLAYER}"
+      - "&7&o[Staff Team]"
+
 STAFF-COMMAND:
   DEFAULT: STAFFCHAT
   MENU-ID: staff-players

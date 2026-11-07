@@ -15,13 +15,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import us.iorilabs.api.modules.ModuleId;
 import us.iorilabs.bukkit.IoriCorePlugin;
-import us.iorilabs.bukkit.discord.DiscordBotService;
 import us.iorilabs.bukkit.discord.DiscordModule;
-import us.iorilabs.bukkit.discord.StaffAuthDiscordBridge;
+import us.iorilabs.bukkit.discord.StaffRegRedisPublisher;
 import us.iorilabs.bukkit.discord.link.DiscordLinkService;
 import us.iorilabs.bukkit.language.CoreLanguage;
 import us.iorilabs.bukkit.modules.ModuleToggle;
 import us.iorilabs.bukkit.security.PasswordHasher;
+import us.iorilabs.staffreg.DiscordEmbedDto;
+import us.iorilabs.staffreg.DiscordMessageRequest;
 import us.iorilabs.staffreg.crypto.StaffPasswordHasher;
 
 public final class StaffRegService {
@@ -259,16 +260,25 @@ public final class StaffRegService {
         }
 
         DiscordModule discord = discord();
-        if (discord != null && discord.bot() != null && discord.bot().ready()) {
+        if (discord != null && discord.bridgeReady()) {
             notifyLinkedDm(discord, online, discordId);
         }
     }
 
     private void notifyLinkedDm(DiscordModule discord, Player player, String discordId) {
-        StaffAuthDiscordBridge bridge = discord.staffAuth();
-        if (bridge == null) return;
+        StaffRegRedisPublisher publisher = discord.redisPublisher();
+        if (publisher == null || discordId == null || discordId.isBlank()) return;
         String playerName = player == null ? "?" : player.getName();
-        bridge.sendRegistrationAck(discordId, playerName);
+        publisher.publish(
+            new DiscordMessageRequest()
+                .discordUserId(discordId)
+                .embed(
+                    new DiscordEmbedDto()
+                        .templateKey("staff-reg")
+                        .placeholders(Map.of("player", playerName, "discord_id", discordId))
+                ),
+            true
+        );
     }
 
     private void sendCode(Player player, String code) {
@@ -291,10 +301,9 @@ public final class StaffRegService {
     }
 
     private boolean discordReady(DiscordModule discord) {
-        if (discord == null || !plugin.settings().getBoolean("MODULES.DISCORD", false)) return false;
-        DiscordBotService bot = discord.bot();
+        if (discord == null || !discord.bridgeReady()) return false;
         DiscordLinkService links = discord.links();
-        return bot != null && bot.ready() && links != null && links.available();
+        return links != null && links.available();
     }
 
     private DiscordModule discord() {

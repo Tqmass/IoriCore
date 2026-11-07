@@ -26,3 +26,18 @@ AUTHENTICATION:
   ENABLED: false
   USERNAME: ""
   PASSWORD: ""
+
+# ────────────────────────────
+# DISCORD-BRIDGE
+# ────────────────────────────
+# ~ JDA solo en proxy; Core publica por Redis (sin discord.yml).
+
+DISCORD-BRIDGE:
+  ENABLED: true
+  CHANNEL-IN: "royalctw:discord:in"
+  CHANNEL-OUT: "royalctw:discord:out"
+  SIGN-EVENTS: true
+  SECRET-ENV: "ROYALCTW_BRIDGE_SECRET"
+  CODE-TTL-SECONDS: 300
+  COOLDOWN-SECONDS: 30
+  REDEEM-COOLDOWN-SECONDS: 5

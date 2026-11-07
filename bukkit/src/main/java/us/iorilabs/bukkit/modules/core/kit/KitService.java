@@ -34,8 +34,8 @@ public final class KitService {
 
     public KitService(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        this.kitsFolder = StoragePaths.core(plugin, "kits");
-        this.cooldownFile = StoragePaths.core(plugin, "kits", "cooldowns.yml");
+        this.kitsFolder = StoragePaths.data(plugin, "kits");
+        this.cooldownFile = StoragePaths.data(plugin, "kits", "cooldowns.yml");
         load();
         loadCooldowns();
     }

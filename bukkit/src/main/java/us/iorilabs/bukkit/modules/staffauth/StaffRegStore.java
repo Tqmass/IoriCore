@@ -28,9 +28,7 @@ final class StaffRegStore {
     private final File folder;
 
     StaffRegStore(IoriCorePlugin plugin) {
-        this.folder = StoragePaths.storage(plugin, "staffreg");
-        StoragePaths.migrateIfPresent(new File(plugin.getDataFolder(), "data/staffreg"), folder);
-        if (!folder.exists()) folder.mkdirs();
+        this.folder = StoragePaths.data(plugin, "staffreg");
     }
 
     void savePending(UUID uuid, String code, long expiresAt) {

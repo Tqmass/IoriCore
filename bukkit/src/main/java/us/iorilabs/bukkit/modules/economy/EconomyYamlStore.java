@@ -16,9 +16,7 @@ public final class EconomyYamlStore {
     private final boolean persist;
 
     public EconomyYamlStore(File dataFolder, Logger logger, boolean persist) {
-        File legacy = new File(dataFolder, "essentials/economy");
         this.folder = new File(dataFolder, "data/economy");
-        StoragePaths.migrateIfPresent(legacy, folder);
         this.logger = logger;
         this.persist = persist;
         if (persist && !folder.exists()) folder.mkdirs();

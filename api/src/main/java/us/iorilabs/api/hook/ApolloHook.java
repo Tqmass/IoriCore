@@ -1,5 +1,6 @@
 package us.iorilabs.api.hook;
 
+import java.util.List;
 import java.util.UUID;
 
 public interface ApolloHook {
@@ -10,4 +11,8 @@ public interface ApolloHook {
     void resetGlow(UUID targetId);
 
     void setNumbersDisabled(UUID viewerId, boolean disabled);
+
+    void overrideNametag(UUID targetId, List<String> legacyLines, String visibilityOverride);
+
+    void resetNametag(UUID targetId);
 }

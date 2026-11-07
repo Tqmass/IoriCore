@@ -18,18 +18,16 @@ import us.iorilabs.bukkit.modules.CoreModule;
 @Accessors(fluent = true)
 public final class DiscordModule implements CoreModule {
 
-    private static final String FILE = "discord.yml";
-
     private final IoriCorePlugin plugin;
     private final boolean enabledFlag;
-    private DiscordBotService bot;
     private DiscordConfig config;
     private DiscordLinkService links;
-    private StaffAuthDiscordBridge staffAuth;
+    private StaffRegRedisPublisher redisPublisher;
 
     public DiscordModule(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        this.enabledFlag = plugin.settings().getBoolean("MODULES.DISCORD", false);
+        FileConfiguration redis = loadRedisYaml(plugin);
+        this.enabledFlag = redis.getBoolean("DISCORD-BRIDGE.ENABLED", true);
     }
 
     @Override
@@ -44,8 +42,10 @@ public final class DiscordModule implements CoreModule {
 
     @Override
     public void enable() {
-        us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, FILE);
-        config = new DiscordConfig(loadYaml());
+        FileConfiguration redis = loadRedisYaml(plugin);
+        config = DiscordConfig.fromRedisBridge(redis);
+        if (!config.bridgeEnabled()) return;
+
         DiscordLinkSql sql = new DiscordLinkSql(plugin.storage(), plugin.coreLogger());
         links = new DiscordLinkService(
             plugin,
@@ -54,10 +54,7 @@ public final class DiscordModule implements CoreModule {
             config.cooldownSeconds(),
             config.redeemCooldownSeconds()
         );
-        bot = new DiscordBotService(plugin, config);
-        staffAuth = new StaffAuthDiscordBridge(plugin, bot, links);
-        bot.bind(links, staffAuth);
-        bot.start();
+        redisPublisher = new StaffRegRedisPublisher(plugin, redis);
 
         BukkitCommandBridge.register(plugin, new SyncCommand(plugin, links));
         BukkitCommandBridge.register(plugin, new UnsyncCommand(plugin, links));
@@ -65,11 +62,7 @@ public final class DiscordModule implements CoreModule {
 
     @Override
     public void disable() {
-        if (bot != null) {
-            bot.stop();
-            bot = null;
-        }
-        staffAuth = null;
+        redisPublisher = null;
         links = null;
         config = null;
     }
@@ -78,24 +71,18 @@ public final class DiscordModule implements CoreModule {
     public void reload() {
         if (!enabledFlag) return;
 
-        us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, FILE);
-        config = new DiscordConfig(loadYaml());
+        FileConfiguration redis = loadRedisYaml(plugin);
+        config = DiscordConfig.fromRedisBridge(redis);
         if (links != null) {
             links.reload(config.codeTtlSeconds(), config.cooldownSeconds(), config.redeemCooldownSeconds());
         }
-        if (bot == null) {
-            bot = new DiscordBotService(plugin, config);
-            if (links != null) {
-                staffAuth = new StaffAuthDiscordBridge(plugin, bot, links);
-                bot.bind(links, staffAuth);
-            }
-            bot.start();
-            return;
-        }
-        bot.reload(config);
     }
 
-    private FileConfiguration loadYaml() {
-        return YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), FILE));
+    public boolean bridgeReady() {
+        return config != null && config.bridgeEnabled() && plugin.redis() != null && plugin.redis().enabled();
+    }
+
+    private static FileConfiguration loadRedisYaml(IoriCorePlugin plugin) {
+        return YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder(), "redis.yml"));
     }
 }

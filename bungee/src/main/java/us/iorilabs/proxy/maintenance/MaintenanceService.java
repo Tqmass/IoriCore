@@ -57,7 +57,7 @@ public final class MaintenanceService {
         this.logger = logger;
         this.proxyId = proxyId;
         this.whitelistStore = new MaintenanceWhitelistStore(platform, logger, config);
-        whitelist.addAll(normalizeAll(whitelistStore.loadAndMigrate()));
+        whitelist.addAll(normalizeAll(whitelistStore.load()));
         redis.subscribe(ProxyEventType.MAINTENANCE_UPDATE.id(), this::onRemoteState);
         redis.subscribe(ProxyEventType.MAINTENANCE_WHITELIST.id(), this::onRemoteWhitelist);
         loadFromRedis();

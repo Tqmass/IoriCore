@@ -1,6 +1,7 @@
 # ***
 # * IoriCore | Menu PUNISH-REASONS (submenu, legacy)
 # ***
+# ~ UI layout; motivos en punishments.yml
 
 ID: punish-reasons
 PARENT: punish
