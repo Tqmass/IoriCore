@@ -440,6 +440,8 @@ STAFF-AUTH:
     - "&7&m------------------------------------------&r"
 
 STAFFREG:
+  STEP-UP-REQUIRED: "<prefix>&cAcción sensible &7· aprueba el step-up en Discord (o /staff login)."
+  RESTRICTED: "<prefix>&cSesión staff restringida &7· completa auth primero."
   USAGE:
     - "&7&m------------------------------------------&r"
     - "&8• &f/staffreg create <nick> <password> &7- &eAlta admin de staff."

@@ -450,10 +450,6 @@ public final class StaffRegService {
         for (String blocked : config.stepUpCommands()) {
             if (root.equalsIgnoreCase(blocked)) return true;
         }
-        for (String perm : config.stepUpPermissions()) {
-            if ("*".equals(perm) && player.hasPermission("*")) return true;
-            if (player.hasPermission(perm)) return true;
-        }
         return false;
     }
 

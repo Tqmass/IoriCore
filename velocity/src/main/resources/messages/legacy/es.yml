@@ -207,6 +207,10 @@ STAFF:
   LIST-ENTRY-RANK: "&7 * &f<rank>&r &b<player> &7@ &f<server>"
   LIST-FOOTER: "&7&m------------------------------------------&r"
 
+STAFFREG:
+  STEP-UP-REQUIRED: "<prefix>&cAcción sensible &7· aprueba el step-up en Discord (o /staff login)."
+  RESTRICTED: "<prefix>&cSesión staff restringida &7· completa auth primero."
+
 STAFFCHAT:
   FORMAT: "&8[&bSC&8] &f<player> &8» &7<message>"
   FORMAT-DISCORD: "&8[&dSC&8] &5DISCORD &e<player> &8» &f<message>"

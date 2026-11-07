@@ -2,7 +2,7 @@
 # *        IoriCore | Menu: Games     *
 # *************************************
 
-TITLE: "&8Salas de CTW &l❒"
+TITLE: "&8Modalidades &l❒"
 SIZE: 54
 
 FILLER:
@@ -34,10 +34,10 @@ ITEMS:
       - "&7&m-----------------------"
       - "&eNombre&7: &f%player%"
       - "&7&m-----------------------"
-      - "&ePuntos&7: &f%score% &e✻"
+      - "&7Red &8· &fRoyalCTW"
       - "&7&m-----------------------"
     ACTION: COMMAND
-    COMMAND: "stats"
+    COMMAND: "settings"
 
   close:
     SLOTS: 49
@@ -51,15 +51,14 @@ SERVERS:
   SLOTS:
     - "10-15"
     - "19-25"
-  MATERIAL: WOOL
-  DATA-ONLINE: 13
-  DATA-OFFLINE: 14
-  NAME: "&e&lSala &f#%number% &8[&f&l●&8]"
+  MATERIAL: COMPASS
+  DATA: 0
+  NAME: "&e&l%server% &8[&f&l●&8]"
   LORE:
     - "&7&m-----------------------"
     - "&eEstado&7: &f%status%"
-    - "&eMapa&7: &f%mapName%"
+    - "&eModalidad&7: &f%mapName%"
     - "&eJugadores&7: &f%onlinePlayers%&7/&f%maxPlayers%"
     - "&7&m-----------------------"
-  STATUS-ONLINE: "&aEncendido &8(&a✓&8)"
-  STATUS-OFFLINE: "&cApagado &8(&c✗&8)"
+  STATUS-ONLINE: "&aOnline &8(&a✓&8)"
+  STATUS-OFFLINE: "&7En mantenimiento &8(&7○&8)"

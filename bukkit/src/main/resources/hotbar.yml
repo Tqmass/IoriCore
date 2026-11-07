@@ -49,7 +49,7 @@ STATS:
   AMOUNT: 1
   NAME: "&8[&f&l●&8] &cTus estadísticas &7&o(Clic derecho)"
   LORE: []
-  COMMAND: "stats"
+  COMMAND: "settings"
   SLOT: 7
 
 SERVERS:
