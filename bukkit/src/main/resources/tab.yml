@@ -6,6 +6,11 @@
 # GENERAL SETTINGS
 # ────────────────────────────
 UPDATE-TICKS: 40
+# ~ HIDE-NPCS: oculta prefijos en tab/nametag (siguen en mundo)
+HIDE-NPCS: true
+NPC-NAME-PREFIXES:
+  - "[NPC]"
+  - "[ZNPC]"
 
 # ────────────────────────────
 # PLACEHOLDERS

@@ -1,17 +1,6 @@
 # *************************************
 # *  RoyalCTW | Discord (JDA Proxy)   *
 # *************************************
-# ~ Bot JDA ÚNICO en el PROXY (owner de red: staff-auth DM + /sync + botones). TOKEN solo aquí — nunca hardcode.
-# ~ Core/backends NO arrancan JDA: publican eventos por Redis (sección BRIDGE) y el proxy los envía a Discord.
-# ~ JDA en proxy: discord.yml ENABLED + BOTS.PRIMARY (o BOT) + TOKEN. Core/backends sin JDA.
-# ~ Fail soft sin TOKEN: el staff-auth cae a modo PASSWORD (el step-up sigue activo con contraseña).
-# ~ No arrancar dos JDA con el mismo TOKEN. Rollback = DISCORD-BOT al Core y apagarlo en el proxy.
-# ~ BOTS.PRIMARY puede sobrescribir TOKEN/GUILD-ID raíz.
-# ~ Extra BOTS (ALERTS, …): se arrancan si ENABLED + TOKEN; sin extras → PRIMARY-only.
-# ~ Placeholders embeds: %player% %uuid% %ip% %country% %region% %city% %previous_country% %previous_region%
-# ~                      %discord% %actor% %server% %fails% %duration% %token% %skin_url%
-# ~ Skin/IP no son comandos in-game: van en embeds (AUTHOR-ICON / THUMBNAIL / fields %ip% %skin_url%)
-# ~ La IP nunca se guarda en claro: solo HMAC en storage; en embeds siempre enmascarada.
 
 # ────────────────────────────
 # CONNECTION
@@ -20,23 +9,161 @@ ENABLED: false
 TOKEN: ""
 GUILD-ID: ""
 SLASH-COMMANDS: true
-# ~ Intents JDA: welcome/goodbye/boost + staff-auth usan GUILD_MEMBERS (activar en Discord Developer Portal).
+PREFIX-COMMANDS: true
+PREFIX: "!"
+SEND-WEBHOOK-EVENTS: true
 BUTTON-SECRET-ENV: "ROYALCTW_BRIDGE_SECRET"
 
 # ────────────────────────────
-# STAFF-AUTH (geo / token staff — movido desde settings.yml)
+# BRIDGE
 # ────────────────────────────
-STAFF-AUTH:
-  STAFF-PERMISSION: ioriproxy.staff
-  MASK-IP: true
-  GEO-LOOKUP: true
-  GEO-URL: "http://ip-api.com/json/%ip%?fields=status,country,countryCode"
-  TOKEN-TTL-SECONDS: 900
-  GRACE-SECONDS: 2
-  WEBHOOK-ENABLE: true
+BRIDGE:
+  ENABLED: true
+  CHANNEL-IN: "royalctw:discord:in"
+  CHANNEL-OUT: "royalctw:discord:out"
+  SIGN-EVENTS: true
+  SECRET-ENV: "ROYALCTW_BRIDGE_SECRET"
+  QUEUE-MAX: 500
+  DROP-AFTER-SECONDS: 120
 
 # ────────────────────────────
-# STAFF-CHAT (webhook por mensaje — MC → Discord)
+# SYNC
+# ────────────────────────────
+SYNC:
+  CODE-TTL-SECONDS: 300
+  COOLDOWN-SECONDS: 30
+  REDEEM-COOLDOWN-SECONDS: 5
+
+# ────────────────────────────
+# STAFF-AUTH
+# ────────────────────────────
+STAFF-AUTH:
+  GEO:
+    STAFF-PERMISSION: ioriproxy.staff
+    MASK-IP: true
+    GEO-LOOKUP: true
+    GEO-URL: "http://ip-api.com/json/%ip%?fields=status,country,countryCode"
+    TOKEN-TTL-SECONDS: 900
+    GRACE-SECONDS: 2
+    WEBHOOK-ENABLE: true
+  FLOW:
+    ENABLED: true
+    NOTIFY:
+      CHANNEL-ID: ""
+    DM:
+      ENABLED: true
+    OVERRIDE:
+      ROLE-IDS: []
+      MC-PERMISSION: "ioriproxy.staffauth.override"
+      LOG-CHANNEL-ID: ""
+  ACCOUNT:
+    CREATE:
+      PERMISSION: "royalctw.staffreg.create"
+      REQUIRE-STEP-UP: true
+      LOG-PASSWORD: false
+    PASSWORD:
+      ENABLED: true
+      ALGORITHM: "ARGON2ID"
+      MIN-LENGTH: 12
+      MUST-CHANGE-ON-FIRST-LOGIN: true
+    REQUIRE-DISCORD-LINK: true
+    ONE-DISCORD-PER-ACCOUNT: true
+    ADMIN-ASSIGN:
+      ENABLED: true
+      ACCEPT-ID: true
+      ACCEPT-USERNAME: true
+      REQUIRE-OWNER-CONFIRM: true
+      CONFIRM-TTL-SECONDS: 300
+    UNLINKED:
+      NOTICE-ON-JOIN: true
+      REMINDER-SECONDS: 120
+      ALLOW-PASSWORD-LOGIN: true
+      STEP-UP-FALLBACK: "PASSWORD"
+
+# ────────────────────────────
+# AUTH
+# ────────────────────────────
+AUTH:
+  MODES: [DISCORD, PASSWORD]
+  TRUST:
+    EXPIRE-DAYS: 0
+    STORE: [IP, COUNTRY, REGION, CITY]
+  CHANGE-DETECTION:
+    COUNTRY: true
+    REGION: true
+    CITY: false
+    VPN-PROXY: true
+  ON-CHANGE:
+    STRIP-PERMISSIONS: true
+    KEEP-RANK-TAG: true
+    BLOCK-STAFF-COMMANDS: true
+    CHALLENGE-TTL-SECONDS: 120
+    KICK-AFTER-SECONDS: 0
+    ALLOW-PASSWORD-FALLBACK: true
+  ENFORCE-OP-AND-WILDCARD: true
+
+# ────────────────────────────
+# FAILS
+# ────────────────────────────
+FAILS:
+  MAX-FAILS: 3
+  WINDOW-SECONDS: 900
+  ACTION: "BAN"
+  BAN-DURATION: "24h"
+  REVOKE-SESSIONS: true
+  ALERT-DISCORD: true
+  UNBAN-BUTTON: true
+
+# ────────────────────────────
+# STEP-UP
+# ────────────────────────────
+STEP-UP:
+  ENABLED: true
+  TTL-SECONDS: 300
+  METHOD: "DISCORD"
+  CONSOLE: true
+  PERMANENT-BAN: true
+  COMMANDS:
+    - "op"
+    - "deop"
+    - "lp"
+    - "luckperms"
+    - "stop"
+    - "restart"
+    - "reload"
+    - "staffreg"
+  PERMISSION-NODES:
+    - "*"
+    - "minecraft.command.op"
+
+# ────────────────────────────
+# CHANNELS
+# ────────────────────────────
+CHANNELS:
+  STAFF-AUTH: ""
+  SECURITY: ""
+  STAFF-CHAT: ""
+  PUNISHMENTS: ""
+  STATUS: ""
+  WELCOME: ""
+  GOODBYE: ""
+  BOOST: ""
+
+# ────────────────────────────
+# COMMANDS
+# ────────────────────────────
+COMMANDS:
+  CHANNEL-ID: ""
+  ROLE-IDS: []
+  BAN: true
+  TEMPBAN: true
+  MUTE: true
+  TEMPMUTE: true
+  WARN: true
+  KICK: true
+
+# ────────────────────────────
+# STAFF-CHAT
 # ────────────────────────────
 STAFF-CHAT:
   ENABLED: true
@@ -48,7 +175,7 @@ STAFF-CHAT:
   FORMAT: "**[%server%]** %message%"
 
 # ────────────────────────────
-# WELCOME / GOODBYE / BOOST (solo Discord — GuildMember*, no Minecraft)
+# WELCOME / GOODBYE / BOOST
 # ────────────────────────────
 WELCOME:
   ENABLED: true
@@ -63,21 +190,14 @@ BOOST:
   CHANNEL-ID: ""
 
 # ────────────────────────────
-# STORE (embed donaciones — gated por MODULES.DONATIONS en settings.yml)
-# ────────────────────────────
-STORE:
-  ENABLED: true
-  CHANNEL-ID: ""
-
-# ────────────────────────────
-# STATUS (/status <server> slash — sin timer de proxy; sin STATUS-START/STOP)
+# STATUS
 # ────────────────────────────
 STATUS:
   ENABLED: true
   CHANNEL-ID: ""
 
 # ────────────────────────────
-# PUNISHMENTS (canal por tipo; vacío = DEFAULT-CHANNEL-ID)
+# PUNISHMENTS
 # ────────────────────────────
 PUNISHMENTS:
   ENABLED: true
@@ -96,233 +216,8 @@ PUNISHMENTS:
     CHANNEL-ID: ""
 
 # ────────────────────────────
-# STAFF-AUTH-FLOW (aviso canal informativo + MD con botones firmados; override visible)
+# BUTTONS
 # ────────────────────────────
-# ~ DM: Approve/Deny con customId HMAC (un solo uso consume token vía StaffAuthService).
-# ~ Canal NOTIFY: solo embed informativo (sin botón approve).
-# ~ Botón legacy staffauth:approve (canal) sigue registrado para compat — migrar a MD.
-STAFF-AUTH-FLOW:
-  ENABLED: true
-  NOTIFY:
-    CHANNEL-ID: ""
-  DM:
-    ENABLED: true
-  OVERRIDE:
-    ROLE-IDS: []
-    MC-PERMISSION: "ioriproxy.staffauth.override"
-    LOG-CHANNEL-ID: ""
-
-# ────────────────────────────
-# BOT (JDA embeds / canales — ENABLED + TOKEN activan; ver BOTS.PRIMARY)
-# ────────────────────────────
-BOT:
-  ENABLED: false
-  TOKEN: ""
-  GUILD-ID: ""
-  PREFIX: "!"
-  SEND-WEBHOOK-EVENTS: true
-  SLASH-COMMANDS: true
-  PREFIX-COMMANDS: true
-  CHANNELS:
-    STAFF-CHAT: ""
-    PUNISHMENTS: ""
-    WELCOME: ""
-    GOODBYE: ""
-    BOOST: ""
-    STORE: ""
-    STATUS: ""
-    STAFF-AUTH: ""
-  COMMANDS:
-    CHANNEL-ID: ""
-    ROLE-IDS: []
-    BAN: true
-    TEMPBAN: true
-    MUTE: true
-    TEMPMUTE: true
-    WARN: true
-    KICK: true
-
-# ────────────────────────────
-# BRIDGE (Core/backends → JDA del proxy)
-# ────────────────────────────
-# ~ Reutiliza la conexión REDIS del proxy; aquí solo canales y límites.
-# ~ Todo lo que antes enviaba Core a Discord (staff-auth, punishments, store, status…) viaja por aquí.
-BRIDGE:
-  ENABLED: true
-  # ~ backends → proxy (embeds, logs, peticiones de reto)
-  CHANNEL-IN: "royalctw:discord:in"
-  # ~ proxy → backends (resultado de botones, sync OK, desbloqueos)
-  CHANNEL-OUT: "royalctw:discord:out"
-  # ~ Eventos firmados con HMAC; secreto SOLO por variable de entorno.
-  SIGN-EVENTS: true
-  SECRET-ENV: "ROYALCTW_BRIDGE_SECRET"
-  # ~ Si JDA cae: se encola; al superar QUEUE-MAX se descarta lo más viejo.
-  QUEUE-MAX: 500
-  DROP-AFTER-SECONDS: 120
-
-# ────────────────────────────
-# SYNC (OTC in-game → slash /sync)
-# ────────────────────────────
-SYNC:
-  # ~ Código alfanumérico ≥10; TTL por defecto 5 minutos. Un solo uso, guardado como hash.
-  CODE-TTL-SECONDS: 300
-  COOLDOWN-SECONDS: 30
-  # ~ Rate-limit de /sync redeem por Discord ID.
-  REDEEM-COOLDOWN-SECONDS: 5
-
-# ────────────────────────────
-# STAFFREG (alta por admin + vínculo obligatorio)
-# ────────────────────────────
-# ~ Un admin autenticado registra al staff: /staffreg create <nick> <password>.
-# ~ Se guarda: nick, uuid, hash de contraseña, y en el primer login IP(HMAC)/país/región/ciudad.
-# ~ Después se vincula Discord: OTC con /sync (SYNC) o asignación por admin (ADMIN-ASSIGN).
-STAFFREG:
-  CREATE:
-    PERMISSION: "royalctw.staffreg.create"
-    # ~ El admin que crea debe estar autenticado y pasar STEP-UP.
-    REQUIRE-STEP-UP: true
-    # ~ Nunca se muestra la contraseña en logs, Discord ni embeds.
-    LOG-PASSWORD: false
-  PASSWORD:
-    ENABLED: true
-    ALGORITHM: "ARGON2ID"
-    MIN-LENGTH: 12
-    # ~ La contraseña puesta por el admin es temporal: el staff debe cambiarla en su primer login.
-    MUST-CHANGE-ON-FIRST-LOGIN: true
-  # ~ Vínculo con Discord obligatorio. Sin vincular: aviso + modo PASSWORD (ver UNLINKED).
-  REQUIRE-DISCORD-LINK: true
-  ONE-DISCORD-PER-ACCOUNT: true
-  # ~ Asignar Discord desde un admin (ID numérico o @usuario único). El dueño confirma por botón en MD.
-  ADMIN-ASSIGN:
-    ENABLED: true
-    ACCEPT-ID: true
-    ACCEPT-USERNAME: true
-    REQUIRE-OWNER-CONFIRM: true
-    CONFIRM-TTL-SECONDS: 300
-  # ~ Staff sin Discord vinculado
-  UNLINKED:
-    NOTICE-ON-JOIN: true
-    REMINDER-SECONDS: 120
-    ALLOW-PASSWORD-LOGIN: true
-    # ~ Sin Discord el step-up se pide con contraseña.
-    STEP-UP-FALLBACK: "PASSWORD"
-
-# ────────────────────────────
-# AUTH (login, confianza, cambio de lugar)
-# ────────────────────────────
-# ~ MODES: DISCORD = botón por MD · PASSWORD = /staff login <pass>. Funciona sin Discord.
-# ~ Solo se pide login la primera vez; se guarda IP(HMAC), país, región y ciudad.
-# ~ Mientras no cambie el país/lugar, no se vuelve a pedir.
-AUTH:
-  MODES: [DISCORD, PASSWORD]
-  TRUST:
-    # ~ 0 = no caduca nunca (solo se invalida por cambio de lugar, bloqueo o revocación). Recomendado 30 si quieres caducidad.
-    EXPIRE-DAYS: 0
-    STORE: [IP, COUNTRY, REGION, CITY]
-  CHANGE-DETECTION:
-    COUNTRY: true
-    REGION: true
-    # ~ Ciudad/pueblo: la geo por IP móvil falla mucho; activa solo si aceptas más falsos positivos.
-    CITY: false
-    # ~ VPN/proxy/hosting detectado = tratar como cambio de lugar.
-    VPN-PROXY: true
-  ON-CHANGE:
-    # ~ Se quitan TODOS los permisos hasta aprobar; se conserva solo el rango (tag).
-    STRIP-PERMISSIONS: true
-    KEEP-RANK-TAG: true
-    BLOCK-STAFF-COMMANDS: true
-    CHALLENGE-TTL-SECONDS: 120
-    # ~ 0 = no expulsar mientras espera.
-    KICK-AFTER-SECONDS: 0
-    # ~ Sin Discord vinculado o MD cerrado: permitir aprobar con contraseña.
-    ALLOW-PASSWORD-FALLBACK: true
-  # ~ Nadie con OP o permiso * entra sin estar vinculado/autenticado: se le retiran hasta autenticar.
-  ENFORCE-OP-AND-WILDCARD: true
-
-# ────────────────────────────
-# FAILS (anti fuerza bruta)
-# ────────────────────────────
-FAILS:
-  MAX-FAILS: 3
-  WINDOW-SECONDS: 900
-  # ~ BAN = baneo por seguridad + revocar sesiones + aviso a CHANNELS.SECURITY.
-  ACTION: "BAN"
-  # ~ Formato 30m / 24h / 7d / PERMANENT.
-  BAN-DURATION: "24h"
-  REVOKE-SESSIONS: true
-  ALERT-DISCORD: true
-  # ~ Botón Unban en el aviso (solo roles de COMMANDS.ROLE-IDS; nunca el propio afectado).
-  UNBAN-BUTTON: true
-
-# ────────────────────────────
-# STEP-UP (aprobación fresca para acciones peligrosas)
-# ────────────────────────────
-# ~ SIEMPRE activo. No desactivar en producción.
-STEP-UP:
-  ENABLED: true
-  TTL-SECONDS: 300
-  # ~ DISCORD = botón por MD · PASSWORD = contraseña. Sin Discord vinculado usa STAFFREG.UNLINKED.STEP-UP-FALLBACK.
-  METHOD: "DISCORD"
-  CONSOLE: true
-  PERMANENT-BAN: true
-  COMMANDS:
-    - "op"
-    - "deop"
-    - "lp"
-    - "luckperms"
-    - "stop"
-    - "restart"
-    - "reload"
-    - "staffreg"
-  PERMISSION-NODES:
-    - "*"
-    - "minecraft.command.op"
-
-# ────────────────────────────
-# COMMANDS (staff role gate — staff-auth buttons)
-# ────────────────────────────
-# ~ ROLE-IDS vacío = MODERATE_MEMBERS / BAN_MEMBERS. CHANNEL-ID vacío = cualquier canal.
-COMMANDS:
-  CHANNEL-ID: ""
-  ROLE-IDS: []
-
-# ────────────────────────────
-# BOTS
-# ────────────────────────────
-# ~ PRIMARY: slash/staff-auth. Si ENABLED+TOKEN → usa ese token; si no → TOKEN raíz.
-# ~ Otras claves (ALERTS, …): JDA extra solo si ENABLED + TOKEN no vacío. Sin ellas = PRIMARY-only.
-BOTS:
-  PRIMARY:
-    ENABLED: false
-    TOKEN: ""
-    GUILD-ID: ""
-  # ALERTS:
-  #   ENABLED: false
-  #   TOKEN: ""
-  #   GUILD-ID: ""
-
-# ────────────────────────────
-# CHANNELS (snowflake IDs)
-# ────────────────────────────
-# ~ STAFF-AUTH = fallback admin si el staff no tiene Discord vinculado (nunca self-approve).
-# ~ SECURITY = alertas de bloqueo, "No fui yo" y baneos por fallos.
-CHANNELS:
-  STAFF-AUTH: ""
-  SECURITY: ""
-  STAFF-CHAT: ""
-  PUNISHMENTS: ""
-  STATUS: ""
-  WELCOME: ""
-  GOODBYE: ""
-  BOOST: ""
-  STORE: ""
-
-# ────────────────────────────
-# BUTTONS (staff-auth / step-up / vínculo)
-# ────────────────────────────
-# ~ STYLE: PRIMARY | SECONDARY | SUCCESS | DANGER
-# ~ El customId va firmado (HMAC) con acción + token del reto; un solo uso; caduca con el TTL del reto.
-# ~ Solo puede pulsar el Discord vinculado de esa cuenta. En el canal fallback, un admin (nunca el propio staff).
 BUTTONS:
   SIGN-CUSTOM-ID: true
   DISABLE-AFTER-USE: true
@@ -349,7 +244,7 @@ BUTTONS:
     STYLE: "SECONDARY"
 
 # ────────────────────────────
-# REPLIES (ephemeral Discord)
+# REPLIES
 # ────────────────────────────
 REPLIES:
   SYNC-OK: "✅ Linked to **%player%**."
@@ -412,38 +307,38 @@ EMBEDS:
 
   STAFF-REG:
     COLOR: "#3498DB"
-    AUTHOR-NAME: "RoyalCTW | Staffreg"
+    AUTHOR-NAME: "RoyalCTW | Staff"
     TITLE: "Staff Discord linked"
     DESCRIPTION: |
       ✅ **%player%** vinculó su Discord (%discord%).
 
       El login solo se pedirá de nuevo si cambia el país o el lugar.
-    FOOTER: "staffreg"
+    FOOTER: "staff-auth"
     THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
     TIMESTAMP: true
 
   STAFF-CREATED:
     COLOR: "#2ECC71"
-    AUTHOR-NAME: "RoyalCTW | Staffreg"
+    AUTHOR-NAME: "RoyalCTW | Staff"
     TITLE: "Staff registrado"
     DESCRIPTION: |
       🆕 **%actor%** registró a **%player%**.
 
       🆔 **UUID:** %uuid%
       🔗 **Discord:** pendiente de vincular
-    FOOTER: "staffreg"
+    FOOTER: "staff-auth"
     THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
     TIMESTAMP: true
 
   LINK-CONFIRM:
     COLOR: "#3498DB"
-    AUTHOR-NAME: "RoyalCTW | Staffreg"
+    AUTHOR-NAME: "RoyalCTW | Staff"
     TITLE: "¿Confirmas este vínculo?"
     DESCRIPTION: |
       🔗 **%actor%** quiere vincular tu Discord a la cuenta **%player%**.
 
       Si eres tú, pulsa **Confirmar vínculo**. Si no, ignora este mensaje.
-    FOOTER: "staffreg"
+    FOOTER: "staff-auth"
     THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
     TIMESTAMP: true
 
@@ -530,18 +425,6 @@ EMBEDS:
     FOOTER: "RoyalCTW · Discord"
     TIMESTAMP: true
 
-  STORE:
-    COLOR: "#F73939"
-    AUTHOR-NAME: "RoyalCTW · Store"
-    TITLE: "Nueva donación"
-    DESCRIPTION: |
-      👤 **Comprador:** %player%
-      📦 **Paquete:** `%package%`
-      💰 **Precio:** %price%
-    FOOTER: "RoyalCTW"
-    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
-    TIMESTAMP: true
-
   STATUS:
     COLOR: "#5865F2"
     AUTHOR-NAME: "RoyalCTW"
@@ -568,3 +451,57 @@ EMBEDS:
     FOOTER: "RoyalCTW"
     THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
     TIMESTAMP: true
+
+# ────────────────────────────
+# COMMUNITY
+# ────────────────────────────
+PANELS:
+  ENABLED: false
+  support:
+    CHANNEL-ID: ""
+    EMBED:
+      COLOR: "#5865F2"
+      TITLE: "Soporte"
+      DESCRIPTION: "Abre un ticket o usa el menú rápido."
+    COMPONENTS:
+      - TYPE: BUTTON
+        ID: open
+        LABEL: "Abrir ticket"
+        STYLE: PRIMARY
+        ACTION: "OPEN_TICKET_MENU"
+      - TYPE: STRING_SELECT
+        ID: quick
+        PLACEHOLDER: "Acceso rápido"
+        OPTIONS:
+          - { LABEL: "Vincular cuenta", VALUE: link, ACTION: "LINK_ACCOUNT" }
+          - { LABEL: "Reglas", VALUE: rules, ACTION: "REPLY:RULES" }
+
+TICKETS:
+  ENABLED: false
+  SETTINGS:
+    MAX-OPEN-PER-USER: 1
+    COOLDOWN-SECONDS: 120
+    CLOSE-CONFIRMATION: true
+    DELETE-AFTER-SECONDS: 60
+    LOG-CHANNEL-ID: ""
+  CATEGORIES:
+    general:
+      NAME: "Soporte"
+      EMOJI: "📩"
+      DESCRIPTION: "Incidencias generales"
+      DISCORD-CATEGORY-ID: ""
+      STAFF-ROLE-IDS: []
+      NAME-FORMAT: "ticket-%number%"
+      MODAL:
+        ENABLED: false
+        LABEL: "Motivo"
+        PLACEHOLDER: "Describe brevemente…"
+        MIN-LENGTH: 8
+        MAX-LENGTH: 256
+
+GIVEAWAYS:
+  ENABLED: false
+  SETTINGS:
+    MIN-UPDATE-INTERVAL-SECONDS: 30
+    REQUIRE-LINKED-MC: true
+    DEFAULT-ROLE-REQUIREMENTS: []

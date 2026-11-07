@@ -14,6 +14,8 @@ import us.iorilabs.proxy.utilities.ColorUtil;
 
 public final class RootCommand extends CommandParent {
 
+    private static final String HELP_FRAME_BAR = "&7&m------------------------------------------&r";
+
     private final IoriProxy proxy;
 
     public RootCommand(IoriProxy proxy) {
@@ -76,10 +78,7 @@ public final class RootCommand extends CommandParent {
 
         int total = pages.size();
         int page = Math.max(1, Math.min(requestedPage, total));
-        String bar = proxy.language().raw("general.help_bar");
-        if (bar.equals("general.help_bar")) {
-            bar = "&7&m------------------------------------------&r";
-        }
+        String bar = HELP_FRAME_BAR;
         String title = proxy.language().raw("general.help_title");
         if (title.equals("general.help_title")) {
             title = "&b&lProxy &8» &7Comandos";

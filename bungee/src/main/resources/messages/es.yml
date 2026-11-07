@@ -1,8 +1,8 @@
 # *************************************
-# *   IoriProxy | Messages Modern ES  *
-# *   1.16+                  *
+# *   RoyalCTW | Messages Modern ES   *
+# *   1.16+                           *
 # *************************************
-PREFIX: "&8(&bProxy&8) &8&l• &r"
+PREFIX: "<#7A8A9A>(</#7A8A9A><#00B0E5>Proxy</#00B0E5><#7A8A9A>) <dark_gray>• </dark_gray>"
 
 # ── GENERAL ──
 GENERAL:
@@ -16,9 +16,8 @@ GENERAL:
   REDIS-NOT-CONNECTED: "<prefix>&cRedis no está conectado."
   REDIS-TEST-OK: "<prefix>&aPING=&f<ping> &8| &7evento (&f<event_id>&7)"
   UNKNOWN-COMMAND: "<prefix>&cComando desconocido."
-  COMMAND-BLOCKED: "&cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error."
-  HELP-BAR: "&7&m------------------------------------------&r"
-  HELP-TITLE: "&b&lProxy &8» &7Comandos"
+  COMMAND-BLOCKED: "&cLo siento, pero no tienes permiso para ejecutar este comando. Contacta con los administradores del servidor si crees que es un error."
+  HELP-TITLE: "<gradient:#00B0E5:#00E7F4><bold>Proxy</bold></gradient> <dark_gray>»</dark_gray> <gray>Comandos</gray>"
   PAGE-LABEL: "&7Página &f<page>&7/&f<pages>"
   HELP-PAGE-LABEL: "&8[◀] &7Página &f<page>&7/&f<pages> &8[▶]"
   HELP-PREV-HOVER: "Página anterior"
@@ -118,7 +117,7 @@ TRANSFER:
   SERVERS-STATUS-OFFLINE: "&cApagado"
   SERVERS-FOOTER: "&7&m------------------------------------------&r"
 
-# — LOBBY ———————————————————————
+# ── LOBBY ──
 LOBBY:
   SENDING: "<prefix>&7Enviándote al lobby..."
   NO-LOBBY: "<prefix>&cNo hay lobbies disponibles."
@@ -130,7 +129,7 @@ LOBBY:
   TITLE-LOBBY: "&b&lRoyalCTW"
   SUBTITLE-LOBBY: "&a¡Bienvenido!"
 
-# — MAINTENANCE —————————————————
+# ── MAINTENANCE ──
 MAINTENANCE:
   NONE: "<prefix>&aNo hay mantenimientos activos."
   STATUS-ENTRY: "&7 * &b<scope>&7: &f<reason>"
@@ -178,7 +177,7 @@ MAINTENANCE:
     STARTED: "<prefix>&cEl mantenimiento está activo<where>&c."
     ENDED: "<prefix>&aMantenimiento finalizado<where>&a."
 
-# — BLACKLIST ———————————————————
+# ── BLACKLIST ──
 BLACKLIST:
   USAGE: "&8• &f/blacklist <jugador> [-s] [motivo]"
   UN-USAGE: "&8• &f/unblacklist <jugador> [-s] [motivo]"
@@ -190,7 +189,7 @@ BLACKLIST:
     - "&7Estás en la blacklist de la network."
     - "&7&m------------------------------------------&r"
 
-# — PUNISHMENTS —————————————————
+# ── PUNISHMENTS ──
 PUNISHMENTS:
   BAN:
     DENY:
@@ -202,22 +201,22 @@ PUNISHMENTS:
     NO-REASON: "Sin motivo"
     PERMANENT: "Permanente"
 
-# — MOTD ————————————————————————
+# ── MOTD ──
 MOTD:
   DEFAULT:
     - |-
-      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
-      &fNUEVO &8▾ &bCAPTURE THE WOOL
+      <gradient:#00B0E5:#00E7F4><bold>RoyalCTW</bold></gradient> <gray>Network</gray> <#00B0E5>ゝ</#00B0E5> <white>[1.8 - 1.21]</white>
+      <white>NUEVO</white> <dark_gray>▾</dark_gray> <#00B0E5>CAPTURE THE WOOL</#00B0E5>
   MAINTENANCE:
     - |-
-      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
-      &4✗ &c¡Estamos en mantenimiento!
+      <gradient:#00B0E5:#00E7F4><bold>RoyalCTW</bold></gradient> <gray>Network</gray> <#00B0E5>ゝ</#00B0E5> <white>[1.8 - 1.21]</white>
+      <red>✗</red> <red>¡Estamos en mantenimiento!</red>
   LEGACY:
     - |-
-      &b&lIORIPROXY &7NETWORK
+      <gradient:#00B0E5:#00E7F4><bold>RoyalCTW</bold></gradient> <gray>Network</gray>
       &7Bienvenido
 
-# — STAFF-AUTH ——————————————————
+# ── STAFF-AUTH ──
 STAFF-AUTH:
   USAGE: "&8• &f/staffauth approve <token> &7- &eAprobar login staff tras cambio IP/geo."
   PENDING:
@@ -233,7 +232,7 @@ STAFF-AUTH:
   INVALID-TOKEN: "<prefix>&cFormato de token inválido."
   SELF-APPROVE: "<prefix>&cNo puedes aprobar tu propia sesión de staff."
 
-# — STAFF ———————————————————————
+# ── STAFF ──
 STAFF:
   USAGE:
     - "&7&m------------------------------------------&r"
@@ -247,7 +246,7 @@ STAFF:
   LIST-ENTRY-RANK: "&7 * &f<rank>&r &b<player> &7@ &f<server>"
   LIST-FOOTER: "&7&m------------------------------------------&r"
 
-# — STAFFCHAT ———————————————————
+# ── STAFFCHAT ──
 STAFFCHAT:
   FORMAT: "&b[SC] <rank> &c<player> &7(<server>) &8» &f<message>"
   FORMAT-PLAIN: "&b[SC] &c<player> &7(<server>) &8» &f<message>"
@@ -256,7 +255,7 @@ STAFFCHAT:
   TOGGLE-OFF: "<prefix>&cStaffChat desactivado."
   USAGE: "&8• &f/sc &7- &eToggle. &8• &f/sc <msg> &7- &eEnviar."
 
-# — ADMINCHAT ———————————————————
+# ── ADMINCHAT ──
 ADMINCHAT:
   FORMAT: "&c[AC] <rank> &c<player> &7(<server>) &8» &f<message>"
   FORMAT-PLAIN: "&c[AC] &c<player> &7(<server>) &8» &f<message>"
@@ -266,7 +265,7 @@ ADMINCHAT:
   REQUEST-ALERT: "&c[AC] &eSolicitud &8• &f<player> &7(<server>) &8» &f<message>"
   REQUEST-SENT: "<prefix>&aTu solicitud fue enviada al staff."
 
-# — STREAM ——————————————————————
+# ── STREAM ──
 STREAM:
   USAGE: "&8• &f/stream <url> &7- &eAnunciar un directo. &8(/video)"
   INVALID-URL: "<prefix>&cURL no permitida. Solo &fYouTube&c, &fTwitch &co &fKick&c."
@@ -299,9 +298,7 @@ STREAM:
     - ""
   CLICK-HOVER: "&7Clic para abrir"
 
-# — ANNOUNCEMENTS ———————————————
-# ~ Por modalidad (lobby-1 → LOBBY). Si el modo no existe → DEFAULT.
-# ~ Legacy 1.8–1.12: messages/legacy/{lang}.yml (misma estructura).
+# ── ANNOUNCEMENTS ──
 ANNOUNCEMENTS:
   DEFAULT:
     - |
@@ -334,7 +331,7 @@ ANNOUNCEMENTS:
       <center>&fApoya la network en la tienda.</center>
       <center>&6https://tienda.ioriproxy.net</center>
 
-# — REPORT ——————————————————————
+# ── REPORT ──
 REPORT:
   USAGE: "&8• &f/report <jugador> <motivo...> &7- &eReportar a un jugador."
   TOGGLE-USAGE: "&8• &f/report toggle title &7- &eActivar/desactivar título de reportes."
@@ -364,12 +361,12 @@ REPORT:
     - "&8• &f/reports resolve <id> &7- &eResolver."
     - "&7&m------------------------------------------&r"
   RESOLVE-USAGE: "&8• &f/reports resolve <id>"
-  TITLE-MAIN: "&6&l&nNEW REPORT"
-  TITLE-SUB: "&f<target> has been reported for &d<reason> &fon &d<server>"
+  TITLE-MAIN: "<gradient:#FFAA00:#FF5555><bold>NUEVO REPORTE</bold></gradient>"
+  TITLE-SUB: "<white><target></white> <gray>reportado por</gray> <light_purple><reason></light_purple> <gray>en</gray> <light_purple><server></light_purple>"
   TITLE-MUTED: "<prefix>&7Títulos de reportes &cdesactivados&7."
   TITLE-UNMUTED: "<prefix>&7Títulos de reportes &aactivados&7."
 
-# — HELPOP ——————————————————————
+# ── HELPOP ──
 HELPOP:
   USAGE: "&8• &f/request <mensaje> &7- &eSolicitar un staff en la network."
   SENT: "<prefix>&aSolicitud &f#<id> &aenviada al staff."
@@ -388,7 +385,7 @@ HELPOP:
   MOVE-BUTTON: "&b[MOVE]"
   MOVE-HOVER: "&7Ir al jugador"
 
-# — PLAYTIME ————————————————————
+# ── PLAYTIME ──
 PLAYTIME:
   USAGE: "&8• &f/playtime [jugador]"
   RESULT-HEADER:
@@ -402,7 +399,7 @@ PLAYTIME:
   RESULT-FOOTER:
     - "&7&m------------------------------------------&r"
 
-# — ANALYTICS ———————————————————
+# ── ANALYTICS ──
 ANALYTICS:
   SUMMARY:
     - "&7&m------------------------------------------&r"
@@ -424,13 +421,13 @@ ANALYTICS:
   VERSIONS-BREAKDOWN: "&bResumen por brand"
   VERSIONS-BUCKET: "&8  · &f<brand>&7: &f<count>"
 
-# — PING ————————————————————————
+# ── PING ──
 PING:
   USAGE: "&8• &f/ping [jugador]"
   RESULT: "<prefix>&7× &b<player>&7: &f<ping>ms"
   REMOTE: "<prefix>&7× &b<player> &7@ &f<server>"
 
-# — FRIENDS —————————————————————
+# ── FRIENDS ──
 FRIENDS:
   USAGE: "&8• &f/friend help"
   HELP:
@@ -508,7 +505,7 @@ FRIENDS:
   BROADCAST-FORMAT-IN: "&8[&6BC&8] &e<player> &8» &6<message>"
   MSG-SPY: "&8[&cSPY&8] &7<from> &8→ &7<to>&8: &f<message>"
 
-# — DONATIONS ———————————————————
+# ── DONATIONS ──
 DONATIONS:
   GGWAVE-STARTED: "<prefix>&aOla GG iniciada."
   TEST-USAGE: "&8• &f/donation test <jugador> <paquete> <precio>"
@@ -527,7 +524,7 @@ DONATIONS:
     - '<yellow>Escribe en chat <white>"GG"</white> para celebrar</yellow>'
   BROADCAST:
     - "&7&m------------------------------------------&r"
-    - "&b&lIoriLabs &7• &aNueva Compra"
+    - "<gradient:#00B0E5:#00E7F4><bold>RoyalCTW</bold></gradient> <gray>•</gray> <green>Nueva compra</green>"
     - "&7 * &aModalidad&7: &f<mode>"
     - "&7 * &aComprador&7: &f<player>"
     - "&7 * &aPaquete&7: &f<package>"
@@ -537,7 +534,7 @@ DONATIONS:
     - "&7Escribe &aGG &7en el chat para celebrar."
     - "&7&m------------------------------------------&r"
 
-# — ANNOUNCE ————————————————————
+# ── ANNOUNCE ──
 ANNOUNCE:
   USAGE: "&8• &f/announce [servidor|all] <título> | <subtítulo>"
   SENT: "<prefix>&aAnuncio enviado a &f<target> &7(&f<count> &7jugadores)."
@@ -546,7 +543,7 @@ ANNOUNCE:
   TITLE-LEGACY: "&6&l<text>"
   SUBTITLE-LEGACY: "&f<text>"
 
-# — ALERT ———————————————————————
+# ── ALERT ──
 ALERT:
   USAGE: "&8• &f/alert <mensaje>"
   SENT: "<prefix>&aAlerta enviada a &f<count> &ajugadores."
@@ -561,7 +558,7 @@ ALERT:
     - "&f<message>"
     - "&7&m------------------------------------------&r"
 
-# — GLIST ———————————————————————
+# ── GLIST ──
 GLIST:
   HEADER:
     - "&7&m------------------------------------------&r"
@@ -570,7 +567,7 @@ GLIST:
   FOOTER:
     - "&7&m------------------------------------------&r"
 
-# — SEEN ————————————————————————
+# ── SEEN ──
 SEEN:
   USAGE: "&8• &f/seen <jugador> &7- &eInfo del jugador. &8(/inspect /info)"
   HEADER:
@@ -594,7 +591,7 @@ SEEN:
   FOOTER:
     - "&7&m------------------------------------------&r"
 
-# — ALTS ————————————————————————
+# ── ALTS ──
 ALTS:
   USAGE: "&8• &f/alts <jugador> &7- &eVer multicuentas vinculadas por IP."
   HEADER:
@@ -608,13 +605,13 @@ ALTS:
   FOOTER:
     - "&7&m------------------------------------------&r"
 
-# — ACCOUNT-TRANSFER ————————————
+# ── ACCOUNT-TRANSFER ──
 ACCOUNT-TRANSFER:
   USAGE: "&8• &f/transfer <origen> <destino> &7- &eMigrar amigos, playtime, whitelist e IPs."
   SELF: "<prefix>&cNo puedes transferir una cuenta a sí misma."
   SUCCESS: "<prefix>&aTransferido &f<from> &a→ &f<to>&a."
 
-# — PROFILE —————————————————————
+# ── PROFILE ──
 PROFILE:
   USAGE: "&8• &f/profile [jugador] &7- &eVer perfil de red."
   LINES:
@@ -636,7 +633,7 @@ PROFILE:
   NOW: "&aAhora"
   RANK-NONE: "&7Default"
 
-# — SYNC ————————————————————————
+# ── SYNC ──
 SYNC:
   CODE:
     - "<prefix>&aTu código de sync Discord: &f<code>&a."

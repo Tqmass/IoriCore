@@ -12,12 +12,12 @@ public final class SettingsConfig {
 
     public SettingsConfig(YamlConfig yaml, YamlConfig discordYaml) {
         this.yaml = yaml;
-        YamlConfig primary = discordYaml.section("BOTS").section("PRIMARY");
-        YamlConfig loose = discordYaml.section("BOT");
-        boolean primaryOn = primary.getBoolean("ENABLED", false) && !primary.getString("TOKEN", "").isBlank();
-        boolean looseOn = loose.getBoolean("ENABLED", false) && !loose.getString("TOKEN", "").isBlank();
         boolean rootOn = discordYaml.getBoolean("ENABLED", false) && !discordYaml.getString("TOKEN", "").isBlank();
-        this.discordBotEnabled = primaryOn || looseOn || rootOn;
+        YamlConfig primary = discordYaml.section("BOTS").section("PRIMARY");
+        boolean primaryOn = primary.getBoolean("ENABLED", false) && !primary.getString("TOKEN", "").isBlank();
+        YamlConfig loose = discordYaml.section("BOT");
+        boolean looseOn = loose.getBoolean("ENABLED", false) && !loose.getString("TOKEN", "").isBlank();
+        this.discordBotEnabled = rootOn || primaryOn || looseOn;
     }
 
     public void validate(ConfigValidation validation) {

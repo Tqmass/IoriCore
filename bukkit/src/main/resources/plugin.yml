@@ -63,7 +63,7 @@ commands:
     description: Open punish menu for a player.
     permission: ioricore.punish.menu
   staff:
-    description: Staff chat, mode, and login (register/login/oauth).
+    description: Staff hub (auth, mode) — staff chat is /staffchat.
     permission: ioricore.staff
   staffreg:
     description: Legacy alias for Discord staff link (/staff oauth).
@@ -297,6 +297,12 @@ commands:
     description: Economy admin.
     aliases: [economy]
     permission: ioricore.economy.eco
+  glow:
+    description: Open Lunar glow color menu.
+    permission: ioricore.glow
+  games:
+    description: Open lobby games menu.
+    permission: ioricore.games
   tag:
     description: List and equip chat tags.
     aliases: [tags]

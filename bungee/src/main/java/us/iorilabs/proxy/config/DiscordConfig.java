@@ -37,6 +37,7 @@ public final class DiscordConfig {
 
     public DiscordConfig(
         YamlConfig discordYaml,
+        YamlConfig donationsYaml,
         boolean donationsModule,
         boolean punishmentsModule,
         boolean staffAuthModule
@@ -44,35 +45,38 @@ public final class DiscordConfig {
         YamlConfig primary = discordYaml.section("BOTS").section("PRIMARY");
         YamlConfig loose = discordYaml.section("BOT");
 
-        boolean primaryEnabled = primary.getBoolean("ENABLED", false);
-        String primaryToken = primary.getString("TOKEN", "").trim();
-        String primaryGuild = primary.getString("GUILD-ID", "").trim();
-
         boolean rootEnabled = discordYaml.getBoolean("ENABLED", false);
         String rootToken = discordYaml.getString("TOKEN", "").trim();
         String rootGuild = discordYaml.getString("GUILD-ID", "").trim();
 
+        boolean primaryEnabled = primary.getBoolean("ENABLED", false);
+        String primaryToken = primary.getString("TOKEN", "").trim();
+        String primaryGuild = primary.getString("GUILD-ID", "").trim();
+
         boolean looseEnabled = loose.getBoolean("ENABLED", false);
 
-        this.enabled = primaryEnabled || looseEnabled || rootEnabled;
-        if (!primaryToken.isBlank()) {
-            this.token = primaryToken;
-        } else if (!rootToken.isBlank()) {
+        this.enabled = rootEnabled || primaryEnabled || looseEnabled;
+        if (!rootToken.isBlank()) {
             this.token = rootToken;
+        } else if (!primaryToken.isBlank()) {
+            this.token = primaryToken;
         } else {
             this.token = loose.getString("TOKEN", "").trim();
         }
 
-        if (!primaryGuild.isBlank()) {
-            this.guildId = primaryGuild;
-        } else if (!rootGuild.isBlank()) {
+        if (!rootGuild.isBlank()) {
             this.guildId = rootGuild;
+        } else if (!primaryGuild.isBlank()) {
+            this.guildId = primaryGuild;
         } else {
             this.guildId = loose.getString("GUILD-ID", "").trim();
         }
 
-        this.prefix = loose.getString("PREFIX", "!").trim();
-        this.sendWebhookEvents = loose.getBoolean("SEND-WEBHOOK-EVENTS", true);
+        this.prefix = discordYaml.getString("PREFIX", loose.getString("PREFIX", "!")).trim();
+        this.sendWebhookEvents = discordYaml.getBoolean(
+            "SEND-WEBHOOK-EVENTS",
+            loose.getBoolean("SEND-WEBHOOK-EVENTS", true)
+        );
 
         boolean slash = discordYaml.getBoolean("SLASH-COMMANDS", true);
         if (loose.contains("SLASH-COMMANDS")) {
@@ -80,9 +84,8 @@ public final class DiscordConfig {
         }
 
         this.slashCommands = slash;
-        this.prefixCommands = loose.getBoolean("PREFIX-COMMANDS", true);
+        this.prefixCommands = discordYaml.getBoolean("PREFIX-COMMANDS", loose.getBoolean("PREFIX-COMMANDS", true));
 
-        YamlConfig looseChannels = loose.section("CHANNELS");
         YamlConfig topChannels = discordYaml.section("CHANNELS");
         Map<String, String> channelMap = new LinkedHashMap<>();
         for (String key : List.of(
@@ -91,14 +94,11 @@ public final class DiscordConfig {
             "welcome",
             "goodbye",
             "boost",
-            "store",
             "status",
-            "staff-auth"
+            "staff-auth",
+            "security"
         )) {
-            String fromLoose = looseChannels.getString(key, "").trim();
-            String fromTop = topChannels.getString(key, "").trim();
-            String val = !fromLoose.isBlank() ? fromLoose : fromTop;
-            channelMap.put(key, val);
+            channelMap.put(key, topChannels.getString(key, "").trim());
         }
         YamlConfig staffChatYaml = discordYaml.section("STAFF-CHAT");
         if (!staffChatYaml.getString("CHANNEL-ID", "").trim().isBlank()) {
@@ -116,10 +116,12 @@ public final class DiscordConfig {
         if (!boostYaml.getString("CHANNEL-ID", "").trim().isBlank()) {
             channelMap.put("boost", boostYaml.getString("CHANNEL-ID", "").trim());
         }
-        YamlConfig storeYaml = discordYaml.section("STORE");
-        if (!storeYaml.getString("CHANNEL-ID", "").trim().isBlank()) {
-            channelMap.put("store", storeYaml.getString("CHANNEL-ID", "").trim());
+        YamlConfig donationsDiscord = donationsYaml == null ? null : donationsYaml.section("DISCORD");
+        String storeChannel = donationsDiscord == null ? "" : donationsDiscord.getString("CHANNEL-ID", "").trim();
+        if (storeChannel.isBlank()) {
+            storeChannel = discordYaml.section("STORE").getString("CHANNEL-ID", "").trim();
         }
+        if (!storeChannel.isBlank()) channelMap.put("store", storeChannel);
         YamlConfig statusYaml = discordYaml.section("STATUS");
         if (!statusYaml.getString("CHANNEL-ID", "").trim().isBlank()) {
             channelMap.put("status", statusYaml.getString("CHANNEL-ID", "").trim());
@@ -128,20 +130,20 @@ public final class DiscordConfig {
         if (!punishYaml.getString("DEFAULT-CHANNEL-ID", "").trim().isBlank()) {
             channelMap.put("punishments", punishYaml.getString("DEFAULT-CHANNEL-ID", "").trim());
         }
-        YamlConfig staffAuthFlowYaml = discordYaml.section("STAFF-AUTH-FLOW");
-        if (!staffAuthFlowYaml.section("NOTIFY").getString("CHANNEL-ID", "").trim().isBlank()) {
-            channelMap.put("staff-auth", staffAuthFlowYaml.section("NOTIFY").getString("CHANNEL-ID", "").trim());
-        }
+        YamlConfig staffAuthFlowYaml = resolveStaffAuthFlow(discordYaml);
+        String staffAuthChannel = staffAuthFlowYaml.section("NOTIFY").getString("CHANNEL-ID", "").trim();
+        if (staffAuthChannel.isBlank()) staffAuthChannel = topChannels.getString("staff-auth", "").trim();
+        if (!staffAuthChannel.isBlank()) channelMap.put("staff-auth", staffAuthChannel);
         this.channels = Map.copyOf(channelMap);
 
         YamlConfig cmdsLoose = loose.section("COMMANDS");
         YamlConfig cmdsTop = discordYaml.section("COMMANDS");
-        String cmdChan = cmdsLoose.getString("channel-id", "").trim();
-        if (cmdChan.isBlank()) cmdChan = cmdsTop.getString("CHANNEL-ID", "").trim();
+        String cmdChan = cmdsTop.getString("CHANNEL-ID", "").trim();
+        if (cmdChan.isBlank()) cmdChan = cmdsLoose.getString("CHANNEL-ID", "").trim();
         this.commandsChannelId = cmdChan;
 
-        List<String> roles = cmdsLoose.getStringList("role-ids");
-        if (roles.isEmpty()) roles = cmdsTop.getStringList("ROLE-IDS");
+        List<String> roles = cmdsTop.getStringList("ROLE-IDS");
+        if (roles.isEmpty()) roles = cmdsLoose.getStringList("ROLE-IDS");
         this.commandRoleIds = List.copyOf(roles);
 
         Map<String, Boolean> toggles = new LinkedHashMap<>();
@@ -151,7 +153,7 @@ public final class DiscordConfig {
             toggles.put(key, cmdsLoose.getBoolean(key, def));
         }
         this.commandToggles = Map.copyOf(toggles);
-        this.embeds = loadEmbeds(discordYaml.section("EMBEDS"), discordYaml.section("PUNISHMENTS"));
+        this.embeds = loadEmbeds(discordYaml.section("EMBEDS"), discordYaml.section("PUNISHMENTS"), donationsYaml);
         YamlConfig bridgeYaml = discordYaml.section("BRIDGE");
         this.bridge = new BridgeConfig(
             bridgeYaml.getBoolean("ENABLED", true),
@@ -177,7 +179,11 @@ public final class DiscordConfig {
         this.goodbye = new SimpleDiscordEvent(goodbyeYaml.getBoolean("ENABLED", true));
         this.boost = new SimpleDiscordEvent(boostYaml.getBoolean("ENABLED", true));
 
-        this.store = new StoreBlock(storeYaml.getBoolean("ENABLED", true), donationsModule);
+        boolean storeEnabled = donationsDiscord != null && donationsDiscord.getBoolean("ENABLED", true);
+        if (donationsDiscord == null || !donationsDiscord.contains("ENABLED")) {
+            storeEnabled = discordYaml.section("STORE").getBoolean("ENABLED", true);
+        }
+        this.store = new StoreBlock(storeEnabled, donationsModule);
 
         this.status = new StatusBlock(statusYaml.getBoolean("ENABLED", true));
 
@@ -233,7 +239,19 @@ public final class DiscordConfig {
         return def == null ? "" : def;
     }
 
-    private static Map<String, EmbedTemplate> loadEmbeds(YamlConfig embedsYaml, YamlConfig punishmentsYaml) {
+    private static YamlConfig resolveStaffAuthFlow(YamlConfig discordYaml) {
+        YamlConfig flow = discordYaml.section("STAFF-AUTH").section("FLOW");
+        if (flow.contains("ENABLED") || flow.section("NOTIFY").contains("CHANNEL-ID")) {
+            return flow;
+        }
+        return discordYaml.section("STAFF-AUTH-FLOW");
+    }
+
+    private static Map<String, EmbedTemplate> loadEmbeds(
+        YamlConfig embedsYaml,
+        YamlConfig punishmentsYaml,
+        YamlConfig donationsYaml
+    ) {
         if (embedsYaml == null) return Map.of();
 
         Map<String, EmbedTemplate> out = new LinkedHashMap<>();
@@ -243,7 +261,6 @@ public final class DiscordConfig {
                 "welcome",
                 "goodbye",
                 "boost",
-                "store",
                 "status",
                 "staff-auth-notify",
                 "staff-auth",
@@ -263,8 +280,19 @@ public final class DiscordConfig {
             if (isEmptyTemplate(t) && "punishment".equals(key)) {
                 t = readEmbed(embedsYaml.section("PUNISHMENT"));
             }
+            if (isEmptyTemplate(t) && "security".equals(key)) {
+                t = readEmbed(embedsYaml.section("SECURITY-ALERT"));
+            }
             out.put(key, t);
         }
+        EmbedTemplate store = EmbedTemplate.EMPTY;
+        if (donationsYaml != null) {
+            store = readEmbed(donationsYaml.section("DISCORD").section("EMBED"));
+        }
+        if (isEmptyTemplate(store)) {
+            store = readEmbed(embedsYaml.section("STORE"));
+        }
+        out.put("store", store);
         return Map.copyOf(out);
     }
 

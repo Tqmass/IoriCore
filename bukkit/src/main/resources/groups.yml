@@ -1,0 +1,99 @@
+# *************************************
+# *         IoriCore | Groups         *
+# *************************************
+
+# ────────────────────────────
+# RANK PREFIX AND SUFFIX
+# ────────────────────────────
+# ~ Tab list + nametag (scoreboard team)
+# ~ __DEFAULT__ = everyone without another group
+GROUPS:
+  ENABLED: true
+  UPDATE-SECONDS: 5
+  # ~ VAULT | PERMISSION | AUTO
+  RESOLVE-BY: "AUTO"
+
+  APOLLO:
+    ENABLED: true
+
+  RANKS:
+    owner:
+      PRIORITY: 1
+      PERMISSION: "ioricore.group.owner"
+      TAB-PREFIX: "&4&lOWNER &f"
+      TAB-SUFFIX: ""
+      TAG-PREFIX: "&4&lOWNER &f"
+      TAG-SUFFIX: ""
+      GLOW:
+        ENABLED: true
+        COLOR: "DARK_RED"
+      LUNAR-NAMETAG:
+        ENABLED: true
+        LINES:
+          - "&7&o[Staff Team]"
+          - "&4&lOWNER &c{PLAYER}"
+
+    admin:
+      PRIORITY: 2
+      PERMISSION: "ioricore.group.admin"
+      TAB-PREFIX: "&cADMIN &f"
+      TAB-SUFFIX: ""
+      TAG-PREFIX: "&cADMIN &f"
+      TAG-SUFFIX: ""
+      GLOW:
+        ENABLED: true
+        COLOR: "RED"
+      LUNAR-NAMETAG:
+        ENABLED: true
+        LINES:
+          - "&c&lADMIN"
+          - "&c{PLAYER}"
+          - "&7&o[Staff Team]"
+
+    mod:
+      PRIORITY: 3
+      PERMISSION: "ioricore.group.mod"
+      TAB-PREFIX: "&2MOD &f"
+      TAB-SUFFIX: ""
+      TAG-PREFIX: "&2MOD &f"
+      TAG-SUFFIX: ""
+      GLOW:
+        ENABLED: true
+        COLOR: "DARK_GREEN"
+      LUNAR-NAMETAG:
+        ENABLED: true
+        LINES:
+          - "&2&lMOD"
+          - "&a{PLAYER}"
+          - "&7&o[Staff Team]"
+
+    vip:
+      PRIORITY: 4
+      PERMISSION: "ioricore.group.vip"
+      TAB-PREFIX: "&6VIP &f"
+      TAB-SUFFIX: ""
+      TAG-PREFIX: "&6VIP &f"
+      TAG-SUFFIX: ""
+      GLOW:
+        ENABLED: true
+        COLOR: "GOLD"
+      LUNAR-NAMETAG:
+        ENABLED: true
+        LINES:
+          - "&6&lVIP"
+          - "&e{PLAYER}"
+          - "&7&o[VIP]"
+
+    __DEFAULT__:
+      PRIORITY: 99
+      TAB-PREFIX: "&7"
+      TAB-SUFFIX: ""
+      TAG-PREFIX: "&7"
+      TAG-SUFFIX: ""
+      GLOW:
+        ENABLED: false
+        COLOR: "GRAY"
+      LUNAR-NAMETAG:
+        ENABLED: false
+        LINES:
+          - "&7{PLAYER}"

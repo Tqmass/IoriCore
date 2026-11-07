@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import lombok.Getter;
 import lombok.experimental.Accessors;
 import us.iorilabs.proxy.config.MaintenanceConfig;
+import us.iorilabs.proxy.config.MaintenanceWhitelistStore;
 import us.iorilabs.proxy.language.LanguageManager;
 import us.iorilabs.proxy.logging.ProxyLogger;
 import us.iorilabs.proxy.platform.ProxyPlatform;
@@ -38,6 +39,7 @@ public final class MaintenanceService {
     private final String proxyId;
     private final Map<String, MaintenanceState> states = new ConcurrentHashMap<>();
     private final Set<String> whitelist = ConcurrentHashMap.newKeySet();
+    private final MaintenanceWhitelistStore whitelistStore;
     private final Set<UUID> countdownLeaders = ConcurrentHashMap.newKeySet();
 
     public MaintenanceService(
@@ -54,7 +56,8 @@ public final class MaintenanceService {
         this.language = language;
         this.logger = logger;
         this.proxyId = proxyId;
-        whitelist.addAll(normalizeAll(config.whitelist()));
+        this.whitelistStore = new MaintenanceWhitelistStore(platform, logger, config);
+        whitelist.addAll(normalizeAll(whitelistStore.loadAndMigrate()));
         redis.subscribe(ProxyEventType.MAINTENANCE_UPDATE.id(), this::onRemoteState);
         redis.subscribe(ProxyEventType.MAINTENANCE_WHITELIST.id(), this::onRemoteWhitelist);
         loadFromRedis();
@@ -63,8 +66,6 @@ public final class MaintenanceService {
 
     public void reloadConfig(MaintenanceConfig config) {
         this.config = config;
-        whitelist.clear();
-        whitelist.addAll(normalizeAll(config.whitelist()));
     }
 
     public boolean isGlobalActive() {
@@ -567,7 +568,7 @@ public final class MaintenanceService {
     }
 
     private void saveWhitelist() {
-        config.yaml().saveTopLevelList("WHITELIST", new ArrayList<>(whitelist));
+        whitelistStore.save(whitelist);
         redis.withJedis(jedis -> {
             jedis.set(redis.keyPrefix() + ":maintenance:whitelist", String.join(",", whitelist));
             return true;

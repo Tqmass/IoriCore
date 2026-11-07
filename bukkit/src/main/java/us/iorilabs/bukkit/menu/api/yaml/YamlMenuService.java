@@ -270,6 +270,8 @@ public final class YamlMenuService {
             "punish",
             "submenus/punish-reasons",
             "tags",
+            "glow",
+            "games",
         };
         for (String id : ids) {
             us.iorilabs.bukkit.util.PluginResources.saveDefault(

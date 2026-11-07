@@ -91,6 +91,11 @@ COMMANDS:
     ENABLED: true
     ALIASES: []
 
+  # — /staffchat ———————————————————————
+  STAFFCHAT:
+    ENABLED: true
+    ALIASES: [sc]
+
   # — /staffmode ———————————————————————
   STAFFMODE:
     ENABLED: true
@@ -398,6 +403,18 @@ COMMANDS:
   COINSHOP:
     ENABLED: true
     ALIASES: [shop, tienda]
+
+  # ── LOBBY ──────────────────────────
+
+  # — /glow ————————————————————————————
+  GLOW:
+    ENABLED: true
+    ALIASES: []
+
+  # — /games ———————————————————————————
+  GAMES:
+    ENABLED: true
+    ALIASES: []
 
   # ── COSMETIC ──────────────────────────
 

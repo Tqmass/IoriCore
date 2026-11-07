@@ -34,7 +34,7 @@ public final class StaffRegConfig {
     private final List<String> stepUpPermissions;
 
     public StaffRegConfig(YamlConfig discordYaml) {
-        YamlConfig staffreg = discordYaml.section("STAFFREG");
+        YamlConfig staffreg = resolveStaffAccount(discordYaml);
         YamlConfig auth = discordYaml.section("AUTH");
         YamlConfig fails = discordYaml.section("FAILS");
         YamlConfig stepUp = discordYaml.section("STEP-UP");
@@ -73,6 +73,18 @@ public final class StaffRegConfig {
             normalized.equals(createPermission.toLowerCase(Locale.ROOT)) ||
             normalized.equals("ioricore.staffreg.create")
         );
+    }
+
+    private static YamlConfig resolveStaffAccount(YamlConfig discordYaml) {
+        YamlConfig nested = discordYaml.section("STAFF-AUTH").section("ACCOUNT");
+        if (nested.contains("CREATE.PERMISSION") || nested.contains("REQUIRE-DISCORD-LINK")) {
+            return nested;
+        }
+        YamlConfig legacy = discordYaml.section("STAFF-AUTH-ACCOUNT");
+        if (legacy.contains("CREATE.PERMISSION") || legacy.contains("REQUIRE-DISCORD-LINK")) {
+            return legacy;
+        }
+        return discordYaml.section("STAFFREG");
     }
 
     private static List<TrustField> parseTrustFields(List<String> raw) {

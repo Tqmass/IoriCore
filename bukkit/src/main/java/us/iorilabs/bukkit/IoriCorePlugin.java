@@ -53,6 +53,7 @@ import us.iorilabs.bukkit.modules.core.CoreFeaturesModule;
 import us.iorilabs.bukkit.modules.customjoins.CustomJoinsModule;
 import us.iorilabs.bukkit.modules.economy.EconomyModule;
 import us.iorilabs.bukkit.modules.gender.GenderModule;
+import us.iorilabs.bukkit.modules.lobby.LobbyModule;
 import us.iorilabs.bukkit.modules.nametag.NametagModule;
 import us.iorilabs.bukkit.modules.scoreboard.ScoreboardModule;
 import us.iorilabs.bukkit.modules.settings.PlayerSettingsModule;
@@ -121,7 +122,10 @@ public final class IoriCorePlugin extends JavaPlugin {
             "redis.yml",
             "permissions.yml",
             "sounds.yml",
-            "discord.yml"
+            "discord.yml",
+            "groups.yml",
+            "hotbar.yml",
+            "tab.yml"
         );
         us.iorilabs.bukkit.storage.StoragePaths.migrateLegacyRoots(this);
 
@@ -208,6 +212,7 @@ public final class IoriCorePlugin extends JavaPlugin {
         modules.register(new ChatFormatModule(this));
         modules.register(new CoreFeaturesModule(this));
         modules.register(new RanksModule(this));
+        modules.register(new LobbyModule(this));
         modules.register(new NametagModule(this));
         modules.register(new PunishmentsModule(this));
         modules.register(new StaffAuthEnforceModule(this, settings));

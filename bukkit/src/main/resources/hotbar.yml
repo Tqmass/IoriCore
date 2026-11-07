@@ -1,0 +1,62 @@
+# *************************************
+# *         IoriCore | Hotbar         *
+# *************************************
+
+# ────────────────────────────
+# HOTBAR ITEMS
+# ────────────────────────────
+# ~ Slot 0-8 · COMMAND optional · SKULL-OWNER: '{PLAYER}'
+# ~ COLOR on leather: '#55FFFF' · {R:85,G:255,B:255}
+
+GAMES-MENU:
+  ENABLED: true
+  MATERIAL: WOOL
+  DATA: 9
+  AMOUNT: 1
+  NAME: "&3&l¡A JUGAR! &7&o(Clic derecho)"
+  LORE: []
+  COMMAND: "games"
+  SLOT: 0
+
+GLOW:
+  ENABLED: true
+  MATERIAL: LEATHER_CHESTPLATE
+  COLOR: "#00A090"
+  DATA: 0
+  AMOUNT: 1
+  NAME: "&8[&f&l●&8] &3Brillos &7&o(Clic derecho)"
+  LORE:
+    - "&8&m-----------------------"
+    - "&7&oExclusivo Lunar Client"
+    - "&8&m-----------------------"
+  COMMAND: "glow"
+  SLOT: 3
+
+COSMETICS:
+  ENABLED: true
+  MATERIAL: CHEST
+  DATA: 0
+  AMOUNT: 1
+  NAME: "&8[&f&l●&8] &eCosméticos &c&o(Proximamente)"
+  LORE: []
+  SLOT: 4
+
+STATS:
+  ENABLED: true
+  MATERIAL: SKULL_ITEM
+  SKULL-OWNER: "{PLAYER}"
+  DATA: 3
+  AMOUNT: 1
+  NAME: "&8[&f&l●&8] &cTus estadísticas &7&o(Clic derecho)"
+  LORE: []
+  COMMAND: "stats"
+  SLOT: 7
+
+SERVERS:
+  ENABLED: true
+  MATERIAL: CLOCK
+  DATA: 0
+  AMOUNT: 1
+  NAME: "&8[&f&l●&8] &fModalidades &c&o(Proximamente)"
+  LORE: []
+  SLOT: 8

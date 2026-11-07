@@ -16,7 +16,11 @@ public final class StaffAuthConfig {
     private final boolean webhookEnable;
 
     public StaffAuthConfig(YamlConfig discordYaml) {
-        YamlConfig yaml = discordYaml.section("STAFF-AUTH");
+        YamlConfig root = discordYaml.section("STAFF-AUTH");
+        YamlConfig yaml = root.section("GEO");
+        if (!yaml.contains("MASK-IP") && !yaml.contains("STAFF-PERMISSION")) {
+            yaml = root;
+        }
         this.maskIp = yaml.getBoolean("MASK-IP", true);
         this.geoLookup = yaml.getBoolean("GEO-LOOKUP", true);
         this.geoUrlTemplate = yaml.getString(

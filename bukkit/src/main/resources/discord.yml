@@ -26,12 +26,6 @@ COMMANDS:
   CHANNEL-ID: ""
   ROLE-IDS: []
 
-BOTS:
-  PRIMARY:
-    ENABLED: false
-    TOKEN: ""
-    GUILD-ID: ""
-
 CHANNELS:
   STAFF-AUTH: ""
   SECURITY: ""

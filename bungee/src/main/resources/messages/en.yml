@@ -17,7 +17,6 @@ GENERAL:
   REDIS-TEST-OK: "<prefix>&aPING=&f<ping> &8| &7event (&f<event_id>&7)"
   UNKNOWN-COMMAND: "<prefix>&cUnknown command."
   COMMAND-BLOCKED: "&cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error."
-  HELP-BAR: "&7&m------------------------------------------&r"
   HELP-TITLE: "&b&lProxy &8» &7Commands"
   PAGE-LABEL: "&7Page &f<page>&7/&f<pages>"
   HELP-PAGE-LABEL: "&8[◀] &7Page &f<page>&7/&f<pages> &8[▶]"
@@ -205,15 +204,15 @@ PUNISHMENTS:
 MOTD:
   DEFAULT:
     - |-
-      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
-      &fNUEVO &8▾ &bCAPTURE THE WOOL
+      &b&lRoyalCTW &7Network &bゝ &f[&b1.8 - 1.21&f]
+      &fNEW &8▾ &bCAPTURE THE WOOL
   MAINTENANCE:
     - |-
-      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
-      &4✗ &c¡Estamos en mantenimiento!
+      &b&lRoyalCTW &7Network &bゝ &f[&b1.8 - 1.21&f]
+      &4✗ &cWe are under maintenance!
   LEGACY:
     - |-
-      &b&lIORIPROXY &7NETWORK
+      &b&lRoyalCTW &7Network
       &7Welcome
 
 # — STAFF-AUTH ——————————————————
@@ -529,7 +528,7 @@ DONATIONS:
     - '<yellow>Type <white>"GG"</white> in chat to celebrate</yellow>'
   BROADCAST:
     - "&7&m------------------------------------------&r"
-    - "&b&lIoriLabs &7• &aNew Purchase"
+    - "&b&lRoyalCTW &7• &aNew Purchase"
     - "&7 * &aMode&7: &f<mode>"
     - "&7 * &aBuyer&7: &f<player>"
     - "&7 * &aPackage&7: &f<package>"

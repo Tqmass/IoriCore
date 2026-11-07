@@ -3,6 +3,7 @@ package us.iorilabs.bukkit.modules.tab;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -10,6 +11,7 @@ import org.bukkit.scheduler.BukkitTask;
 import us.iorilabs.abstraction.VersionWrapper;
 import us.iorilabs.api.modules.ModuleId;
 import us.iorilabs.bukkit.IoriCorePlugin;
+import us.iorilabs.bukkit.modules.lobby.TabNpcVisibility;
 import us.iorilabs.bukkit.modules.nametag.NametagModule;
 import us.iorilabs.bukkit.modules.nametag.NametagService;
 import us.iorilabs.bukkit.util.BoardPlaceholders;
@@ -23,18 +25,28 @@ public final class TabService {
     private final IoriCorePlugin plugin;
     private final FileConfiguration layout;
     private final int updateTicks;
+
+    @Getter
+    private final boolean hideNpcs;
+
+    @Getter
+    private final List<String> npcPrefixes;
+
     private BukkitTask task;
 
     public TabService(IoriCorePlugin plugin) {
         this.plugin = plugin;
         this.layout = DisplayYaml.load(plugin, "tab.yml");
         this.updateTicks = Math.max(20, layout.getInt("UPDATE-TICKS", 40));
+        this.hideNpcs = layout.getBoolean("HIDE-NPCS", false);
+        this.npcPrefixes = layout.getStringList("NPC-NAME-PREFIXES");
     }
 
     public void start() {
         stop();
         task = Bukkit.getScheduler().runTaskTimer(plugin, this::tick, 20L, updateTicks);
         refreshSorting();
+        TabNpcVisibility.refresh(plugin, hideNpcs, npcPrefixes);
         for (Player online : Bukkit.getOnlinePlayers()) {
             apply(online);
         }
@@ -79,6 +91,7 @@ public final class TabService {
             plugin,
             () -> {
                 refreshSorting();
+                TabNpcVisibility.refresh(plugin, hideNpcs, npcPrefixes);
                 apply(player);
             },
             5L
@@ -87,6 +100,7 @@ public final class TabService {
     }
 
     private void tick() {
+        TabNpcVisibility.refresh(plugin, hideNpcs, npcPrefixes);
         for (Player online : Bukkit.getOnlinePlayers()) {
             apply(online);
         }

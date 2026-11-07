@@ -31,7 +31,8 @@ public enum ModuleId {
     TAB,
     COINSHOP,
     DISCORD,
-    NAMETAG;
+    NAMETAG,
+    LOBBY;
 
     public ModuleId canonical() {
         return this == ESSENTIALS ? CORE : this;

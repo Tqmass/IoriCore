@@ -21,7 +21,6 @@ public final class ConfigManager {
         "maintenance.yml",
         "donations.yml",
         "discord.yml",
-        "discord-community.yml",
     };
 
     private final ProxyPlatform platform;
@@ -136,6 +135,7 @@ public final class ConfigManager {
         staffAuth = new StaffAuthConfig(discordYaml);
         discord = new DiscordConfig(
             discordYaml,
+            require("donations.yml"),
             settings.moduleEnabled("donations"),
             settings.moduleEnabled("punishments"),
             settings.moduleEnabled("staff-auth")

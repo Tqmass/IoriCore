@@ -16,8 +16,7 @@ GENERAL:
   REDIS-NOT-CONNECTED: "<prefix>&cRedis no está conectado."
   REDIS-TEST-OK: "<prefix>&aPING=&f<ping> &8| &7evento (&f<event_id>&7)"
   UNKNOWN-COMMAND: "<prefix>&cComando desconocido."
-  COMMAND-BLOCKED: "&cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe that this is in error."
-  HELP-BAR: "&7&m------------------------------------------&r"
+  COMMAND-BLOCKED: "&cLo siento, pero no tienes permiso para ejecutar este comando. Contacta con los administradores del servidor si crees que es un error."
   HELP-TITLE: "&b&lProxy &8» &7Comandos"
   PAGE-LABEL: "&7Página &f<page>&7/&f<pages>"
   HELP-PREV-HOVER: "Página anterior"
@@ -169,15 +168,15 @@ PUNISHMENTS:
 MOTD:
   DEFAULT:
     - |-
-      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
+      &b&lRoyalCTW &7Network &bゝ &f[&b1.8 - 1.21&f]
       &fNUEVO &8▾ &bCAPTURE THE WOOL
   MAINTENANCE:
     - |-
-      &b&lIORIPROXY &7NETWORK &bゝ &f[&b1.8 - 1.21&f]
+      &b&lRoyalCTW &7Network &bゝ &f[&b1.8 - 1.21&f]
       &4✗ &c¡Estamos en mantenimiento!
   LEGACY:
     - |-
-      &b&lIORIPROXY &7NETWORK
+      &b&lRoyalCTW &7Network
       &7Bienvenido
 
 STAFF-AUTH:
@@ -318,8 +317,8 @@ REPORT:
     - "&8• &f/reports resolve <id> &7- &eResolver."
     - "&7&m------------------------------------------&r"
   RESOLVE-USAGE: "&8• &f/reports resolve <id>"
-  TITLE-MAIN: "&6&l&nNEW REPORT"
-  TITLE-SUB: "&f<target> has been reported for &d<reason> &fon &d<server>"
+  TITLE-MAIN: "&6&l&nNUEVO REPORTE"
+  TITLE-SUB: "&f<target> &7fue reportado por &d<reason> &fen &d<server>"
   TOGGLE-USAGE: "&8• &f/report toggle title &7- &eActivar/desactivar título de reportes."
 
 HELPOP:

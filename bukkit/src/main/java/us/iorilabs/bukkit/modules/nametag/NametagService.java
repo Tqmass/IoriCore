@@ -10,11 +10,15 @@ import org.bukkit.scoreboard.Team;
 import us.iorilabs.api.modules.ModuleId;
 import us.iorilabs.bukkit.IoriCorePlugin;
 import us.iorilabs.bukkit.modules.CoreModule;
+import us.iorilabs.bukkit.modules.lobby.GroupsService;
+import us.iorilabs.bukkit.modules.lobby.LobbyModule;
+import us.iorilabs.bukkit.modules.lobby.TabNpcNames;
 import us.iorilabs.bukkit.modules.staffmode.StaffModeModule;
 import us.iorilabs.bukkit.modules.staffmode.StaffModeService;
 import us.iorilabs.bukkit.ranks.RankDisplay;
 import us.iorilabs.bukkit.ranks.RankService;
 import us.iorilabs.bukkit.ranks.RanksModule;
+import us.iorilabs.bukkit.util.DisplayYaml;
 import us.iorilabs.bukkit.util.ProtocolProbe;
 import us.iorilabs.proxy.utilities.ProtocolVersions;
 
@@ -27,6 +31,7 @@ public final class NametagService {
 
     public void refresh(Player player) {
         if (player == null || !player.isOnline()) return;
+        if (TabNpcNames.isNpc(player, npcPrefixes())) return;
         if (isStaffTagged(player)) return;
 
         RankDisplay display = displayOf(player);
@@ -53,6 +58,7 @@ public final class NametagService {
     public void syncBoard(Scoreboard board) {
         if (board == null) return;
         for (Player player : Bukkit.getOnlinePlayers()) {
+            if (TabNpcNames.isNpc(player, npcPrefixes())) continue;
             if (isStaffTagged(player)) continue;
             RankDisplay display = displayOf(player);
             String prefix = display == null ? "" : colored(display.prefix());
@@ -75,10 +81,22 @@ public final class NametagService {
 
     private RankDisplay displayOf(Player player) {
         if (plugin.modules() == null) return null;
+        CoreModule lobbyModule = plugin.modules().get(ModuleId.LOBBY);
+        if (lobbyModule instanceof LobbyModule lobby && lobby.enabled()) {
+            GroupsService groups = lobby.groups();
+            if (groups != null && groups.enabled()) {
+                RankDisplay display = groups.display(player);
+                if (display != null) return display;
+            }
+        }
         CoreModule module = plugin.modules().get(ModuleId.RANKS);
         if (!(module instanceof RanksModule) || !module.enabled()) return null;
         RankService ranks = ((RanksModule) module).ranks();
         return ranks == null ? null : ranks.display(player);
+    }
+
+    private java.util.List<String> npcPrefixes() {
+        return DisplayYaml.load(plugin, "tab.yml").getStringList("NPC-NAME-PREFIXES");
     }
 
     private boolean isStaffTagged(Player player) {

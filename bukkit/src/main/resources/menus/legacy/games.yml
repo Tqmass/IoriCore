@@ -1,0 +1,65 @@
+# *************************************
+# *        IoriCore | Menu: Games     *
+# *************************************
+
+TITLE: "&8Salas de CTW &l❒"
+SIZE: 54
+
+FILLER:
+  ENABLED: true
+  SLOTS:
+    - "0-9"
+    - 17
+    - 18
+    - 26
+    - 27
+    - 35
+    - 36
+    - 44
+    - "45-48"
+    - "50-52"
+  MATERIAL: STAINED_GLASS_PANE
+  DATA: 7
+  NAME: " "
+  LORE: []
+
+ITEMS:
+  stats:
+    SLOTS: 53
+    MATERIAL: SKULL_ITEM
+    DATA: 3
+    SKULL-OWNER: "{PLAYER}"
+    NAME: "&e&lTU PERFIL &8[&e&l●&8]"
+    LORE:
+      - "&7&m-----------------------"
+      - "&eNombre&7: &f%player%"
+      - "&7&m-----------------------"
+      - "&ePuntos&7: &f%score% &e✻"
+      - "&7&m-----------------------"
+    ACTION: COMMAND
+    COMMAND: "stats"
+
+  close:
+    SLOTS: 49
+    MATERIAL: BARRIER
+    DATA: 0
+    NAME: "&cCerrar menú &8(&c&l✗&8)"
+    LORE: []
+    ACTION: CLOSE
+
+SERVERS:
+  SLOTS:
+    - "10-15"
+    - "19-25"
+  MATERIAL: WOOL
+  DATA-ONLINE: 13
+  DATA-OFFLINE: 14
+  NAME: "&e&lSala &f#%number% &8[&f&l●&8]"
+  LORE:
+    - "&7&m-----------------------"
+    - "&eEstado&7: &f%status%"
+    - "&eMapa&7: &f%mapName%"
+    - "&eJugadores&7: &f%onlinePlayers%&7/&f%maxPlayers%"
+    - "&7&m-----------------------"
+  STATUS-ONLINE: "&aEncendido &8(&a✓&8)"
+  STATUS-OFFLINE: "&cApagado &8(&c✗&8)"

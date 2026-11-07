@@ -54,3 +54,22 @@ SOUNDS:
   PITCH: 1.0
   LEGACY: random.levelup
   MODERN: entity.player.levelup
+
+# ────────────────────────────
+# DISCORD
+# ────────────────────────────
+# ~ Requiere bot (discord.yml ENABLED) o webhook (webhooks/donations.yml ENABLED).
+DISCORD:
+  ENABLED: true
+  CHANNEL-ID: ""
+  EMBED:
+    COLOR: "#F73939"
+    AUTHOR-NAME: "RoyalCTW · Store"
+    TITLE: "Nueva donación"
+    DESCRIPTION: |
+      👤 **Comprador:** %player%
+      📦 **Paquete:** `%package%`
+      💰 **Precio:** %price%
+    FOOTER: "RoyalCTW"
+    THUMBNAIL-URL: "https://visage.surgeplay.com/bust/152/%player%"
+    TIMESTAMP: true

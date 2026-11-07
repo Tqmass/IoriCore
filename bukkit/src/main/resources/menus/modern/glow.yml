@@ -1,0 +1,78 @@
+# *************************************
+# *         IoriCore | Menu: Glow     *
+# *************************************
+# ~ ACTION: CLOSE | GLOW-OFF | NONE
+
+TITLE: "<#55FFFF>Menú de Glows</#009090> &8❒"
+SIZE: 45
+
+FILLER:
+  ENABLED: true
+  SLOTS:
+    - "0-9"
+    - 17
+    - 18
+    - 26
+    - 27
+    - 35
+    - "36-38"
+    - 40
+    - "42-44"
+  MATERIAL: BLACK_STAINED_GLASS_PANE
+  NAME: " "
+  LORE: []
+
+ITEMS:
+  info:
+    SLOTS: 39
+    MATERIAL: PAPER
+    NAME: "&eInformación &8[&f&l●&8]"
+    LORE:
+      - "&8&m-----------------------"
+      - " &fEste efecto es &eexclusivo"
+      - " &fpara los jugadores que"
+      - " &fusen &bLunar Client&7."
+      - "&8&m-----------------------"
+    ACTION: NONE
+
+  reset:
+    SLOTS: 40
+    MATERIAL: ANVIL
+    NAME: "&eResetear &8[&f&l●&8]"
+    LORE:
+      - "&8&m-----------------------"
+      - "  &e&o( Clic para resetear )"
+      - "&8&m-----------------------"
+    ACTION: GLOW-OFF
+
+  close:
+    SLOTS: 41
+    MATERIAL: RED_BED
+    NAME: "&cCerrar &8[&f&l●&8]"
+    LORE: []
+    ACTION: CLOSE
+
+COLORS:
+  SLOTS:
+    - "10-16"
+    - "19-25"
+    - "28-34"
+  MATERIAL: WHITE_WOOL
+  NAME: "%color% &8(&f&l●&8)"
+  LORE:
+    - "&8&m-------------------------"
+    - "&7&o¡Clic para seleccionar!"
+    - "&8&m-------------------------"
+  SELECTED:
+    NAME: "%color% &8(&a✓&8)"
+    LORE:
+      - "&8&m-------------------------"
+      - "&eEstado&7: &aSeleccionado"
+      - "&8&m-------------------------"
+  LOCKED:
+    NAME: "&8%color% &8(&c✗&8)"
+    LORE:
+      - "&8&m-------------------------"
+      - "&cRequiere rango &eVIP &co superior"
+      - "&8&m-------------------------"
+    MESSAGE: "&cRequiere rango &eVIP &co superior para usar este glow."

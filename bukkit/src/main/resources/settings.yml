@@ -32,6 +32,7 @@ MODULES:
   TAB: true
   CHAT-FORMAT: true
   NAMETAG: true
+  LOBBY: true
   DISCORD: false
   VAULT-HOOK: true
   LUCKPERMS-HOOK: true

@@ -150,7 +150,7 @@ public final class MaintenanceConfig {
         return yaml.getString("countdown.ended", "").stripTrailing();
     }
 
-    public List<String> whitelist() {
+    public List<String> legacyWhitelist() {
         return yaml.getStringList("whitelist");
     }
 
