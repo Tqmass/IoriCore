@@ -49,9 +49,9 @@ public final class RootCommand extends CommandParent {
         register(
             LambdaCommandArgument.of("help", (source, args) -> {
                 int page = 1;
-                if (args.length >= 2) {
+                if (args.length >= 1) {
                     try {
-                        page = Integer.parseInt(args[1]);
+                        page = Integer.parseInt(args[0]);
                     } catch (NumberFormatException ignored) {
                         page = 1;
                     }
