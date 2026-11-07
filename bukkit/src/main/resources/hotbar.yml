@@ -8,16 +8,6 @@
 # ~ Slot 0-8 · COMMAND optional · SKULL-OWNER: '{PLAYER}'
 # ~ COLOR on leather: '#55FFFF' · {R:85,G:255,B:255}
 
-GAMES-MENU:
-  ENABLED: true
-  MATERIAL: WOOL
-  DATA: 9
-  AMOUNT: 1
-  NAME: "&3&l¡A JUGAR! &7&o(Clic derecho)"
-  LORE: []
-  COMMAND: "games"
-  SLOT: 0
-
 GLOW:
   ENABLED: true
   MATERIAL: LEATHER_CHESTPLATE
@@ -33,7 +23,7 @@ GLOW:
   SLOT: 3
 
 COSMETICS:
-  ENABLED: true
+  ENABLED: false
   MATERIAL: CHEST
   DATA: 0
   AMOUNT: 1
@@ -42,7 +32,7 @@ COSMETICS:
   SLOT: 4
 
 STATS:
-  ENABLED: true
+  ENABLED: false
   MATERIAL: SKULL_ITEM
   SKULL-OWNER: "{PLAYER}"
   DATA: 3
@@ -51,12 +41,3 @@ STATS:
   LORE: []
   COMMAND: "settings"
   SLOT: 7
-
-SERVERS:
-  ENABLED: true
-  MATERIAL: CLOCK
-  DATA: 0
-  AMOUNT: 1
-  NAME: "&8[&f&l●&8] &fModalidades &c&o(Proximamente)"
-  LORE: []
-  SLOT: 8

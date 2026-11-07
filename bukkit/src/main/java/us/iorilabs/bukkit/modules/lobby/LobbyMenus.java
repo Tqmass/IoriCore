@@ -22,22 +22,18 @@ import us.iorilabs.bukkit.util.LegacyMaterials;
 import us.iorilabs.bukkit.util.ProtocolProbe;
 import us.iorilabs.proxy.utilities.ProtocolVersions;
 
-public final class LobbyCtwMenus {
+public final class LobbyMenus {
 
     private final IoriCorePlugin plugin;
     private final LobbyGlowService glow;
 
-    public LobbyCtwMenus(IoriCorePlugin plugin, LobbyGlowService glow) {
+    public LobbyMenus(IoriCorePlugin plugin, LobbyGlowService glow) {
         this.plugin = plugin;
         this.glow = glow;
     }
 
     public void openGlow(Player player) {
         new GlowMenu(load(player, "glow")).openMenu(player);
-    }
-
-    public void openGames(Player player) {
-        new GamesMenu(load(player, "games")).openMenu(player);
     }
 
     private YamlConfiguration load(Player player, String id) {
@@ -164,54 +160,6 @@ public final class LobbyCtwMenus {
         }
     }
 
-    private final class GamesMenu extends Menu {
-
-        private final YamlConfiguration yaml;
-
-        private GamesMenu(YamlConfiguration yaml) {
-            this.yaml = yaml;
-        }
-
-        @Override
-        public String getTitle(Player player) {
-            return text(yaml.getString("TITLE", "&8Games"), player);
-        }
-
-        @Override
-        public int getSize() {
-            int size = yaml.getInt("SIZE", 54);
-            size = Math.max(9, Math.min(54, size));
-            return ((size + 8) / 9) * 9;
-        }
-
-        @Override
-        public Map<Integer, Button> getButtons(Player player) {
-            Map<Integer, Button> buttons = new HashMap<>();
-            putFiller(buttons, yaml.getConfigurationSection("FILLER"), player);
-            putItems(buttons, yaml.getConfigurationSection("ITEMS"), player);
-            ConfigurationSection servers = yaml.getConfigurationSection("SERVERS");
-            List<Integer> slots = LobbyMenuSlots.from(servers);
-            String offline = servers == null ? "&cApagado" : servers.getString("STATUS-OFFLINE", "&cApagado");
-            for (int i = 0; i < slots.size(); i++) {
-                int number = i + 1;
-                Map<String, String> ph = Map.of(
-                    "%number%",
-                    String.valueOf(number),
-                    "%status%",
-                    offline,
-                    "%mapName%",
-                    "-",
-                    "%onlinePlayers%",
-                    "0",
-                    "%maxPlayers%",
-                    "0"
-                );
-                buttons.put(slots.get(i), staticButton(servers, ph, player, false));
-            }
-            return buttons;
-        }
-    }
-
     private void putFiller(Map<Integer, Button> buttons, ConfigurationSection filler, Player player) {
         if (filler == null || !filler.getBoolean("ENABLED", true)) return;
         ItemStack stack = stackFrom(filler, player, Map.of());
@@ -232,15 +180,6 @@ public final class LobbyCtwMenus {
                 buttons.put(slot, actionButton(stack, action, command));
             }
         }
-    }
-
-    private Button staticButton(ConfigurationSection section, Map<String, String> ph, Player player, boolean online) {
-        ItemStack stack = stackFrom(section, player, ph);
-        if (section != null && section.contains("DATA-OFFLINE")) {
-            short data = (short) (online ? section.getInt("DATA-ONLINE", 5) : section.getInt("DATA-OFFLINE", 14));
-            stack.setDurability(data);
-        }
-        return simple(stack);
     }
 
     private Button actionButton(ItemStack stack, String action, String command) {

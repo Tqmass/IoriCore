@@ -25,11 +25,13 @@ DYNAMIC:
     MATERIAL: CHEST
     NAME: "&e{kit}"
     LORE:
-      - "&7Permission: &f{permission}"
+      - "&7&m-----------------------"
+      - "&7Permiso: &f{permission}"
       - "&7Cooldown: &f{cooldown}"
-      - "&7Ready: &f{ready}"
+      - "&7Listo: &f{ready}"
       - ""
-      - "&eClick to claim"
+      - "&eClic para reclamar"
+      - "&7&m-----------------------"
     ACTIONS:
       ANY: ["[internal] kits.give {kit}"]
 

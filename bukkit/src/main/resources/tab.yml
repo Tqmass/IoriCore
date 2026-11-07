@@ -1,50 +1,46 @@
 # *************************************
 # *         IoriCore | TAB            *
 # *************************************
+# ~ {player} {online} {max} {server} {mode} {brand} {promo} {ping} {world}
+# ~ {promo} vacío = línea omitida
 
 # ────────────────────────────
-# GENERAL SETTINGS
+# SETTINGS
 # ────────────────────────────
 UPDATE-TICKS: 40
-# ~ HIDE-NPCS: oculta prefijos en tab/nametag (siguen en mundo)
 HIDE-NPCS: true
 NPC-NAME-PREFIXES:
   - "[NPC]"
   - "[ZNPC]"
 
 # ────────────────────────────
-# PLACEHOLDERS
+# MODERN (≥1.13)
 # ────────────────────────────
-# ~ Internal: {player} {online} {max} {server} {mode} {brand} {promo} {ping} {world}
-# ~ Custom: {friends} {coins} {balance} {gems} {credits} {playtime}
-# ~ Rank: {rank_display} {rank_prefix} {rank_suffix} <rank>
-# ~ Time: <time> <time:HH:mm:ss> <time:dd/MM/yyyy>
-# ~ External PAPI: %player_ping% %luckperms_prefix% %vault_rank% …
-# ~ Layouts: MODERN 1.13+ · LEGACY 1.8–1.12 (HEADER/FOOTER abajo)
-
 MODERN:
   HEADER:
     - ""
-    - "&b&l{brand}"
-    - "&7{mode} &8» &f{server}"
-    - "&7Hay &f{online} &7jugadores en la network."
+    - "&8&m      &r  &b&l{brand} &f&lNETWORK  &8&m      &r"
+    - "&7{mode} &8• &f{server} &8• &a{online}&8/&f{max}"
     - ""
   FOOTER:
     - ""
-    - "&7Ping &8» &f{ping}ms &8· &7Max &8» &f{max}"
-    - "&fEstás en &bplay.royalctw.net&f!"
+    - "&7Ping &8» &f{ping}ms &8· &7Estás en &bplay.royalctw.net"
+    - "&9Discord &8» &fdiscord.gg/royalctw &8· &6Store &8» &fstore.royalctw.net"
     - "{promo}"
     - ""
 
+# ────────────────────────────
+# LEGACY (≤1.12 / 1.8.9)
+# ────────────────────────────
 LEGACY:
   HEADER:
     - ""
-    - "&b&l{brand}"
-    - "&7{server} &8· &a{online}&7/&f{max} &8· &7{mode}"
+    - "&8&m      &r  &b&l{brand} &fNETWORK  &8&m      &r"
+    - "&7{mode} &8• &a{online}&7/&f{max}"
     - ""
   FOOTER:
     - ""
-    - "&7Ping &f{ping}ms"
-    - "&bplay.royalctw.net"
+    - "&7Ping &f{ping}ms &8• &7play.royalctw.net"
+    - "&9discord.gg/royalctw"
     - "{promo}"
     - ""

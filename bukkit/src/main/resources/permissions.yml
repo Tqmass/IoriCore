@@ -12,6 +12,7 @@ COMMANDS:
   GRANTS: ioricore.ranks.grants
   SETTINGS: ioricore.settings
   SCOREBOARD: ioricore.scoreboard
+  TAB: ioricore.tab
 
   # ── STAFF ──────────────────────────
   BAN: ioricore.punish.ban

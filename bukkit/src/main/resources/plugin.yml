@@ -286,6 +286,9 @@ commands:
     description: Toggle sidebar scoreboard.
     aliases: [sb, sidebar]
     permission: ioricore.scoreboard
+  tab:
+    description: Tab list controls.
+    permission: ioricore.tab
   balance:
     description: Show balance.
     aliases: [money, bal]
@@ -300,9 +303,6 @@ commands:
   glow:
     description: Open Lunar glow color menu.
     permission: ioricore.glow
-  games:
-    description: Open lobby games menu.
-    permission: ioricore.games
   tag:
     description: List and equip chat tags.
     aliases: [tags]
@@ -481,7 +481,7 @@ permissions:
       ioricore.staffmode.thru: true
       ioricore.staffmode.teleport: true
   ioricore.tags.*:
-    description: Every tag from data/tags.yml.
+    description: Every tag from tags.yml.
     default: op
     children:
       ioricore.tags.heart: true
@@ -612,6 +612,9 @@ permissions:
   ioricore.scoreboard:
     description: Toggle sidebar scoreboard.
     default: true
+  ioricore.tab:
+    description: Use /tab reload (admin).
+    default: op
   ioricore.vanish.see:
     description: See vanished players.
     default: op
@@ -891,7 +894,7 @@ permissions:
   ioricore.essentials.sethome.unlimited:
     description: No home limit.
     default: op
-  # ── Tags (data/tags.yml) ──
+  # ── Tags (tags.yml) ──
   ioricore.tags.heart:
     description: Tag heart.
     default: op

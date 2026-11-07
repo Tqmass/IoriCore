@@ -54,4 +54,9 @@ public final class ScoreboardModule implements CoreModule {
             service = null;
         }
     }
+
+    @Override
+    public void reload() {
+        if (service != null) service.reload();
+    }
 }

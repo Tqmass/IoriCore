@@ -19,7 +19,7 @@ public final class ModuleToggle {
 
     private static boolean defaultEnabled(ModuleId id) {
         return switch (id) {
-            case ECONOMY, CHAT_GAMES, TAGS, COINSHOP, STAFF_AUTH, DISCORD, GENDER -> false;
+            case STAFF_AUTH, DISCORD -> false;
             default -> true;
         };
     }

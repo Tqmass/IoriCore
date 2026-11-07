@@ -32,7 +32,7 @@ ITEMS:
     NAME: "&eWarn"
     LORE:
       - ""
-      - "&7&m-----&r"
+      - "&7&m-----------------------"
       - "&8• &7Reason templates for &f{target}"
       - "&8• &eClick to open"
     ACTIONS:
@@ -44,7 +44,7 @@ ITEMS:
     NAME: "&6Mute"
     LORE:
       - ""
-      - "&7&m-----&r"
+      - "&7&m-----------------------"
       - "&8• &7Permanent mute templates"
       - "&8• &eClick to open"
     ACTIONS:
@@ -57,7 +57,7 @@ ITEMS:
     NAME: "&bTemp mute"
     LORE:
       - ""
-      - "&7&m-----&r"
+      - "&7&m-----------------------"
       - "&8• &7Timed mute templates"
       - "&8• &eClick to open"
     ACTIONS:
@@ -69,7 +69,7 @@ ITEMS:
     NAME: "&cBan"
     LORE:
       - ""
-      - "&7&m-----&r"
+      - "&7&m-----------------------"
       - "&8• &7Permanent ban templates"
       - "&8• &eClick to open"
     ACTIONS:
@@ -81,7 +81,7 @@ ITEMS:
     NAME: "&cTemp ban"
     LORE:
       - ""
-      - "&7&m-----&r"
+      - "&7&m-----------------------"
       - "&8• &7Timed ban templates"
       - "&8• &eClick to open"
     ACTIONS:
@@ -93,7 +93,7 @@ ITEMS:
     NAME: "&7Kick"
     LORE:
       - ""
-      - "&7&m-----&r"
+      - "&7&m-----------------------"
       - "&8• &7Kick templates"
       - "&8• &eClick to open"
     ACTIONS:

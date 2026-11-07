@@ -20,7 +20,7 @@ public final class EconomyModule implements CoreModule {
 
     public EconomyModule(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        this.enabledFlag = plugin.settings().getBoolean("MODULES.ECONOMY", false);
+        this.enabledFlag = plugin.settings().getBoolean("MODULES.ECONOMY", true);
     }
 
     @Override

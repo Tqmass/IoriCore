@@ -10,7 +10,6 @@ import us.iorilabs.api.modules.ModuleId;
 import us.iorilabs.bukkit.IoriCorePlugin;
 import us.iorilabs.bukkit.commands.BukkitCommandBridge;
 import us.iorilabs.bukkit.modules.CoreModule;
-import us.iorilabs.bukkit.modules.lobby.command.GamesCommand;
 import us.iorilabs.bukkit.modules.lobby.command.GlowCommand;
 import us.iorilabs.bukkit.util.DisplayYaml;
 
@@ -23,7 +22,7 @@ public final class LobbyModule implements CoreModule {
     private GroupsService groups;
     private LobbyHotbarService hotbar;
     private LobbyGlowService glow;
-    private LobbyCtwMenus menus;
+    private LobbyMenus menus;
     private LobbyHotbarListener hotbarListener;
 
     public LobbyModule(IoriCorePlugin plugin) {
@@ -49,9 +48,8 @@ public final class LobbyModule implements CoreModule {
         groups.start();
         hotbar = new LobbyHotbarService(plugin);
         glow = new LobbyGlowService(plugin);
-        menus = new LobbyCtwMenus(plugin, glow);
+        menus = new LobbyMenus(plugin, glow);
         BukkitCommandBridge.register(plugin, new GlowCommand(plugin, menus));
-        BukkitCommandBridge.register(plugin, new GamesCommand(plugin, menus));
         hotbarListener = new LobbyHotbarListener(hotbar);
         Bukkit.getPluginManager().registerEvents(hotbarListener, plugin);
     }

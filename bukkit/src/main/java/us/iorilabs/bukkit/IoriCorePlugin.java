@@ -111,8 +111,8 @@ public final class IoriCorePlugin extends JavaPlugin {
         saveDefaults(
             "settings.yml",
             "ranks.yml",
-            "data/tags.yml",
-            "data/chatgames.yml",
+            "tags.yml",
+            "chatgames.yml",
             "punishments.yml",
             "staff-mode.yml",
             "punishment.yml",

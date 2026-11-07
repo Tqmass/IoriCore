@@ -21,7 +21,7 @@ public final class ChatGamesModule implements CoreModule {
 
     public ChatGamesModule(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        this.enabledFlag = plugin.settings().getBoolean("MODULES.CHAT-GAMES", false);
+        this.enabledFlag = plugin.settings().getBoolean("MODULES.CHAT-GAMES", true);
     }
 
     @Override
@@ -36,7 +36,7 @@ public final class ChatGamesModule implements CoreModule {
 
     @Override
     public void enable() {
-        us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/chatgames.yml");
+        us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "chatgames.yml");
         service = new ChatGamesService(plugin);
         service.load();
         service.startScheduler();
@@ -56,5 +56,13 @@ public final class ChatGamesModule implements CoreModule {
             HandlerList.unregisterAll(listener);
             listener = null;
         }
+    }
+
+    @Override
+    public void reload() {
+        if (service == null) return;
+        service.stopScheduler();
+        service.load();
+        service.startScheduler();
     }
 }

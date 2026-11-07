@@ -4,14 +4,14 @@ import java.util.Collections;
 import org.bukkit.entity.Player;
 import us.iorilabs.bukkit.IoriCorePlugin;
 import us.iorilabs.bukkit.modules.core.command.EssentialsCommand;
-import us.iorilabs.bukkit.modules.lobby.LobbyCtwMenus;
+import us.iorilabs.bukkit.modules.lobby.LobbyMenus;
 import us.iorilabs.proxy.commands.CommandSource;
 
 public final class GlowCommand extends EssentialsCommand {
 
-    private final LobbyCtwMenus menus;
+    private final LobbyMenus menus;
 
-    public GlowCommand(IoriCorePlugin plugin, LobbyCtwMenus menus) {
+    public GlowCommand(IoriCorePlugin plugin, LobbyMenus menus) {
         super(plugin, "glow", Collections.emptyList(), "ioricore.glow");
         this.menus = menus;
     }

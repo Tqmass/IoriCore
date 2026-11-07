@@ -72,7 +72,7 @@ public final class CoinshopService {
     }
 
     private void loadOffersFromTagsYaml() {
-        File file = StoragePaths.data(plugin, "tags.yml");
+        File file = StoragePaths.catalog(plugin, "tags.yml");
         if (!file.exists()) return;
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(file);
         ConfigurationSection root = yaml.getConfigurationSection("TAGS");

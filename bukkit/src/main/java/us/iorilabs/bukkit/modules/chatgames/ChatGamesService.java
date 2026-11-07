@@ -61,12 +61,12 @@ public final class ChatGamesService {
     public ChatGamesService(IoriCorePlugin plugin) {
         this.plugin = plugin;
         this.language = plugin.language();
-        this.configFile = StoragePaths.data(plugin, "chatgames.yml");
+        this.configFile = StoragePaths.catalog(plugin, "chatgames.yml");
     }
 
     public void load() {
         if (!configFile.exists()) {
-            us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/chatgames.yml");
+            us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "chatgames.yml");
         }
 
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(configFile);

@@ -1416,12 +1416,21 @@ BOSSBAR-TIPS:
     - "&bStore &8» &fSupport the network · thanks!"
 
 # — SCOREBOARD ——————————————————
+TAB:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/tab reload &7- &eReload tab.yml from disk (admin)."
+    - "&7&m------------------------------------------&r"
+  RELOADED: "<prefix>&aTAB reloaded from disk."
+
 SCOREBOARD:
   USAGE:
     - "&7&m------------------------------------------&r"
     - "&8• &f/scoreboard &7- &eToggle your sidebar."
     - "&8• &f/scoreboard style <id> &7- &eChange layout (lobby, compact)."
+    - "&8• &f/scoreboard reload &7- &eReload scoreboard.yml (admin)."
     - "&7&m------------------------------------------&r"
+  RELOADED: "<prefix>&aScoreboard reloaded from disk."
   TOGGLE-ON: "<prefix>&aScoreboard enabled."
   TOGGLE-OFF: "<prefix>&cScoreboard disabled."
   STYLE-USAGE: "<prefix>&eUse &f/scoreboard style <id>&e. Styles: &f<styles>"

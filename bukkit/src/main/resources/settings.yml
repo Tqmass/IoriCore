@@ -10,11 +10,11 @@ SETTINGS:
   FALLBACK-VERSION: 1.8.9
 
 MODULES:
-  ECONOMY: false
-  CHAT-GAMES: false
+  ECONOMY: true
+  CHAT-GAMES: true
   GENDER: true
-  TAGS: false
-  COINSHOP: false
+  TAGS: true
+  COINSHOP: true
   STAFF-MODE: true
   GEYSER-HOOK: true
   LITEBANS-HOOK: true
@@ -173,7 +173,7 @@ GENDER:
 TAB:
   TEXT:
     BRAND: "RoyalCTW"
-    PROMO: ""
+    PROMO: "&7discord.gg/royalctw"
     MODES:
       DEFAULT: "Lobby"
       LOBBY: "Lobby"

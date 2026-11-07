@@ -22,7 +22,7 @@ public final class TagsModule implements CoreModule {
 
     public TagsModule(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        this.enabledFlag = plugin.settings().getBoolean("MODULES.TAGS", false);
+        this.enabledFlag = plugin.settings().getBoolean("MODULES.TAGS", true);
     }
 
     @Override
@@ -37,7 +37,7 @@ public final class TagsModule implements CoreModule {
 
     @Override
     public void enable() {
-        us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/tags.yml");
+        us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "tags.yml");
         service = new TagService(plugin);
         service.load();
         listener = new TagListener(service);

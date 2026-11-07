@@ -1203,12 +1203,21 @@ ESSENTIALS:
     FAILED: "<prefix>&cNo se pudo crear la cabeza."
 
 # — SCOREBOARD ——————————————————
+TAB:
+  USAGE:
+    - "&7&m------------------------------------------&r"
+    - "&8• &f/tab reload &7- &eRecargar tab.yml (admin)."
+    - "&7&m------------------------------------------&r"
+  RELOADED: "<prefix>&aTAB recargado desde disco."
+
 SCOREBOARD:
   USAGE:
     - "&7&m------------------------------------------&r"
     - "&8• &f/scoreboard &7- &eAlternar tu sidebar."
     - "&8• &f/scoreboard style <id> &7- &eCambiar layout (lobby, compact)."
+    - "&8• &f/scoreboard reload &7- &eRecargar scoreboard.yml (admin)."
     - "&7&m------------------------------------------&r"
+  RELOADED: "<prefix>&aScoreboard recargado desde disco."
   TOGGLE-ON: "<prefix>&aScoreboard activado."
   TOGGLE-OFF: "<prefix>&cScoreboard desactivado."
   STYLE-USAGE: "<prefix>&eUsa &f/scoreboard style <id>&e. Estilos: &f<styles>"

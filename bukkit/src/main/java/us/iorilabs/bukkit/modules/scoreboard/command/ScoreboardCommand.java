@@ -40,6 +40,16 @@ public final class ScoreboardCommand extends CommandParent {
             return;
         }
 
+        if (args.length >= 1 && "reload".equalsIgnoreCase(args[0])) {
+            if (!source.hasPermission("ioricore.admin")) {
+                source.sendMessage(language.raw("GENERAL.NO-PERMISSION"));
+                return;
+            }
+            service.reload();
+            source.sendMessage(language.raw("SCOREBOARD.RELOADED"));
+            return;
+        }
+
         if (args.length >= 1 && "style".equalsIgnoreCase(args[0])) {
             if (args.length < 2) {
                 source.sendMessage(
@@ -71,7 +81,7 @@ public final class ScoreboardCommand extends CommandParent {
 
     @Override
     public List<String> suggest(CommandSource source, String label, String[] args) {
-        if (args.length == 1) return filter(Collections.singletonList("style"), args[0]);
+        if (args.length == 1) return filter(Arrays.asList("style", "reload"), args[0]);
         if (args.length == 2 && "style".equalsIgnoreCase(args[0])) return filter(service.styles(), args[1]);
         return Collections.emptyList();
     }

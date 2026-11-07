@@ -35,13 +35,13 @@ public final class TagService {
     public TagService(IoriCorePlugin plugin) {
         this.plugin = plugin;
         this.persist = plugin.settings().getBoolean("PERSISTENCE.TAGS", true);
-        this.definitionsFile = StoragePaths.data(plugin, "tags.yml");
+        this.definitionsFile = StoragePaths.catalog(plugin, "tags.yml");
     }
 
     public void load() {
         tags.clear();
         if (!definitionsFile.exists()) {
-            us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/tags.yml");
+            us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "tags.yml");
         }
 
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(definitionsFile);

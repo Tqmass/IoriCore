@@ -109,6 +109,7 @@ RANKS:
     TITLE: "&8Rank Editor"
     DISPLAY-NAME: "&c<name> &7(<id>)"
     LORE:
+      - "&7&m-----------------------"
       - "&4|&f Name: &c<name>"
       - "&4|&f setName: &c<display>"
       - "&4|&f Weight: &f<priority>"
@@ -123,6 +124,7 @@ RANKS:
       - "&4|&f Op: <op>"
       - "&4|&f Visible: <visible>"
       - "&4|&f Parents: &f<parents-count>"
+      - "&7&m-----------------------"
     PARENT-LINE: "&7 x &r<display>&7, &f#<priority>"
     PARENT-UNKNOWN: "&7 x &f<name>"
     CLICK-EDIT: "&eClick to edit rank"
@@ -519,6 +521,35 @@ STAFF-MODE:
       LORE:
         - "&7Right-click to leave staff mode"
 
+# — GENDER ——————————————————————
+GENDER:
+  MENU:
+    TITLE: "&8Gender"
+    MALE-NAME: "&bMale"
+    MALE-LORE:
+      - "&7&m-----------------------"
+      - "&8• &7Current: &f{current}"
+      - "&8• &eClick to select"
+      - "&7&m-----------------------"
+    FEMALE-NAME: "&dFemale"
+    FEMALE-LORE:
+      - "&7&m-----------------------"
+      - "&8• &7Current: &f{current}"
+      - "&8• &eClick to select"
+      - "&7&m-----------------------"
+    OTHER-NAME: "&7Other"
+    OTHER-LORE:
+      - "&7&m-----------------------"
+      - "&8• &7Current: &f{current}"
+      - "&8• &eClick to select"
+      - "&7&m-----------------------"
+    CLEAR-NAME: "&cClear"
+    CLEAR-LORE:
+      - "&7&m-----------------------"
+      - "&8• &7Remove gender icon"
+      - "&8• &eClick to clear"
+      - "&7&m-----------------------"
+
 # — SETTINGS ————————————————————
 SETTINGS:
   USAGE:
@@ -539,8 +570,10 @@ SETTINGS:
     TITLE: "&8Settings"
     SOUNDS-NAME: "&bSounds"
     SOUNDS-LORE:
+      - "&7&m-----------------------"
       - "&7Current: <value>"
       - "&eClick to open"
+      - "&7&m-----------------------"
     PARTICLES-NAME: "&bParticles"
     PARTICLES-LORE:
       - "&7Current: <value>"
@@ -1132,8 +1165,10 @@ TAGS:
     TITLE: "&8Tags"
     ITEM-NAME: "&r<display> &8(&f<id>&8)"
     ITEM-LORE:
+      - "&7&m-----------------------"
       - "<status>"
       - "&7Preview: &r<preview>"
+      - "&7&m-----------------------"
     STATUS-EQUIPPED: "&aEquipped"
     STATUS-CLICK: "&eClick to equip"
     BACK-NAME: "&cClose"
@@ -1161,8 +1196,10 @@ COINSHOP:
     TITLE: "&8Coin Shop"
     TAGS-NAME: "&bTags"
     TAGS-LORE:
+      - "&7&m-----------------------"
       - "&7Buy chat tags with coins."
       - "&7Balance: &a<balance>"
+      - "&7&m-----------------------"
     COSMETICS-NAME: "&dCosmetics"
     COSMETICS-LORE:
       - "&7Cosmetic stubs (preview)."

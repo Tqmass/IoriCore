@@ -44,6 +44,11 @@ COMMANDS:
     ENABLED: true
     ALIASES: [sb, sidebar]
 
+  # — /tab —————————————————————————————
+  TAB:
+    ENABLED: true
+    ALIASES: []
+
   # ── STAFF ──────────────────────────
 
   # — /ban —————————————————————————————
@@ -413,7 +418,7 @@ COMMANDS:
 
   # — /games ———————————————————————————
   GAMES:
-    ENABLED: true
+    ENABLED: false
     ALIASES: []
 
   # ── COSMETIC ──────────────────────────

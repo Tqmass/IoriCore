@@ -13,6 +13,10 @@ public final class StoragePaths {
         return plugin.getDataFolder();
     }
 
+    public static File catalog(JavaPlugin plugin, String name) {
+        return new File(root(plugin), name);
+    }
+
     public static File data(JavaPlugin plugin, String... segments) {
         return data(root(plugin), segments);
     }

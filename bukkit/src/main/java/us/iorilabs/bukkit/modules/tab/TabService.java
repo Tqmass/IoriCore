@@ -23,19 +23,29 @@ import us.iorilabs.proxy.utilities.ProtocolVersions;
 public final class TabService {
 
     private final IoriCorePlugin plugin;
-    private final FileConfiguration layout;
-    private final int updateTicks;
+    private FileConfiguration layout;
+    private int updateTicks;
 
     @Getter
-    private final boolean hideNpcs;
+    private boolean hideNpcs;
 
     @Getter
-    private final List<String> npcPrefixes;
+    private List<String> npcPrefixes;
 
     private BukkitTask task;
 
     public TabService(IoriCorePlugin plugin) {
         this.plugin = plugin;
+        readLayout();
+    }
+
+    public void reload() {
+        readLayout();
+        stop();
+        start();
+    }
+
+    private void readLayout() {
         this.layout = DisplayYaml.load(plugin, "tab.yml");
         this.updateTicks = Math.max(20, layout.getInt("UPDATE-TICKS", 40));
         this.hideNpcs = layout.getBoolean("HIDE-NPCS", false);

@@ -24,7 +24,7 @@ public final class CoinshopModule implements CoreModule {
 
     public CoinshopModule(IoriCorePlugin plugin) {
         this.plugin = plugin;
-        this.enabledFlag = plugin.settings().getBoolean("MODULES.COINSHOP", false);
+        this.enabledFlag = plugin.settings().getBoolean("MODULES.COINSHOP", true);
     }
 
     @Override

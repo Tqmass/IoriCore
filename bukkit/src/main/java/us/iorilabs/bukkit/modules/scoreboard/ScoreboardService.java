@@ -41,22 +41,32 @@ public final class ScoreboardService {
     private static final int HEX_LENGTH = 14;
 
     private final IoriCorePlugin plugin;
-    private final FileConfiguration layout;
-    private final int updateTicks;
-    private final boolean disableLunarNumbers;
-    private final String defaultStyle;
-    private final List<String> styleIds;
+    private FileConfiguration layout;
+    private int updateTicks;
+    private boolean disableLunarNumbers;
+    private String defaultStyle;
+    private List<String> styleIds;
     private final Map<UUID, Scoreboard> boards = new HashMap<>();
     private final Map<UUID, List<String>> rendered = new HashMap<>();
     private final Map<UUID, String> titles = new HashMap<>();
     private BukkitTask task;
     private BukkitTask animTask;
     private long animationTicks;
-    private final boolean animated;
-    private final long refreshPeriod;
+    private boolean animated;
+    private long refreshPeriod;
 
     public ScoreboardService(IoriCorePlugin plugin) {
         this.plugin = plugin;
+        readLayout();
+    }
+
+    public void reload() {
+        readLayout();
+        stop();
+        start();
+    }
+
+    private void readLayout() {
         this.layout = DisplayYaml.load(plugin, "scoreboard.yml");
         this.updateTicks = Math.max(20, layout.getInt("UPDATE-TICKS", 40));
         this.disableLunarNumbers = layout.getBoolean("DISABLE-LUNAR-NUMBERS", true);
