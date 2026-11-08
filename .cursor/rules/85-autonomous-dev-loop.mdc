@@ -1,0 +1,43 @@
+---
+description: Loop de desarrollo autónomo IoriCore — analizar, auditar, orquestar, implementar, anti-dup, build, corregir, entregar. No crea sistemas paralelos.
+alwaysApply: true
+---
+
+# Autonomous development loop
+
+El agente principal es **orquestador**. Reutiliza agentes/skills/rules existentes. No inventes un segundo stack.
+
+## Flujo por solicitud
+`ANALIZAR → AUDITAR → PLANIFICAR → COORDINAR → IMPLEMENTAR → ANTI-DUP → BUILD/TEST → CORREGIR (≤5) → VERIFICAR → ENTREGAR`
+
+1. **Analizar** — pedido + ownership (`ioricore-architecture`) + código existente (Grep/Glob). Sin implementar aún.
+2. **Auditar** — leer e invocar `.cursor/agents/repository-auditor.md` (solo lectura). Si hay `REAL-DUP` en el alcance → reutilizar/extender, no crear paralelo.
+3. **Planificar** — archivos a tocar, componentes a reutilizar, conflictos, agentes necesarios. Sin duplicar features.
+4. **Coordinar** — un agente (o el orquestador) **dueño por archivo** en la tarea. Sin ediciones conflictivas al mismo path.
+5. **Implementar** — código real. Preferir modificar existente. Archivo nuevo solo si no cabe. Convenciones Darling + rules vigentes.
+6. **Anti-dup** — re-auditar archivos/módulos tocados con `repository-auditor`. Corregir duplicación introducida antes de seguir.
+7. **Build/test** — `gradlew.bat` real; no afirmar verde sin salida. Sin tests inventados ni “arreglar” tests a la fuerza.
+8. **Corregir** — máx. 5 ciclos; si falla → documentar y no dar por hecho.
+9. **Entregar** — informe corto: qué, agentes/skills, archivos +/- (justificar nuevos), reutilizado, dups, build/tests, pendientes.
+
+## Prohibido
+- Sistema paralelo de agentes/skills que replique lo ya cubierto.
+- Reemplazar agentes que funcionan; ampliar solo con huecos reales (ej. `repository-auditor`).
+- Managers/factories/servicios nuevos si ya hay equivalente.
+- Mezclar ownership IoriCore-Bukkit / IoriVelo / IoriBungee.
+- Deploy, borrados masivos o cambios destructivos sin OK explícito.
+- Declarar “hecho” sin compile cuando hubo Java/YAML de plugin.
+
+## Agentes (reutilizar, no clonar)
+| Momento | Agente |
+|---------|--------|
+| Anti-dup / mapa repo | `repository-auditor` |
+| Ownership / deps | `architecture-reviewer` |
+| Estilo + build diff | `java-code-reviewer` o `code-reviewer` |
+| Cierre workstream | `qa-reviewer` |
+| Seguridad | `security-auditor` |
+| Config YAML | `config-architect` / `config-curator` |
+| Discord JDA | `discord-bot-engineer` |
+| StaffReg | `staffreg-*` según fase |
+
+Skills: las de `.cursor/skills/` según dominio; no crear skill nueva si basta leer una existente.

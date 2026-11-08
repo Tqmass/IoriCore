@@ -61,7 +61,7 @@ public final class DiscordConfig {
     }
 
     public boolean useBridgeOnly() {
-        return bridgeEnabled;
+        return true;
     }
 
     public boolean hasToken() {

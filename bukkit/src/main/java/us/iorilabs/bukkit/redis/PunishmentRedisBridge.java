@@ -54,6 +54,12 @@ public final class PunishmentRedisBridge {
         PunishmentService service = service();
         if (service == null) return;
 
+        if (event.data() != null &&
+            event.data().has(NetworkEventKeys.PERSIST) &&
+            event.data().get(NetworkEventKeys.PERSIST).getAsBoolean()) {
+            persistFromProxy(service, event);
+        }
+
         service.invalidateBanCache(target);
         service.invalidateMuteCache(target);
         UUID refresh = target;
@@ -61,6 +67,30 @@ public final class PunishmentRedisBridge {
             if (Bukkit.getPlayer(refresh) == null) return;
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> service.refreshMute(refresh));
         });
+    }
+
+    private void persistFromProxy(PunishmentService service, CoreRedisEvent event) {
+        JsonObject data = event.data();
+        if (data == null || !data.has(NetworkEventKeys.TYPE)) return;
+
+        PunishmentType type;
+        try {
+            type = PunishmentType.valueOf(data.get(NetworkEventKeys.TYPE).getAsString().trim().toUpperCase());
+        } catch (Exception ex) {
+            return;
+        }
+
+        UUID target = event.uuid(NetworkEventKeys.TARGET_UUID);
+        if (target == null) return;
+
+        String targetName = data.has(NetworkEventKeys.TARGET_NAME)
+            ? data.get(NetworkEventKeys.TARGET_NAME).getAsString()
+            : "";
+        String actor = data.has(NetworkEventKeys.ACTOR) ? data.get(NetworkEventKeys.ACTOR).getAsString() : "Discord";
+        String reason = data.has(NetworkEventKeys.REASON) ? data.get(NetworkEventKeys.REASON).getAsString() : "";
+        long expiresAt = data.has(NetworkEventKeys.EXPIRES_AT) ? data.get(NetworkEventKeys.EXPIRES_AT).getAsLong() : 0L;
+
+        service.punishFromNetwork(type, target, targetName, actor, reason, expiresAt);
     }
 
     private PunishmentService service() {

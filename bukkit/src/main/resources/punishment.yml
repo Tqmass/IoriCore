@@ -1,9 +1,12 @@
 # *************************************
 # *   IoriCore | Punishments (Core)   *
 # *************************************
+# ~ Menú ids + STAFF-INSPECT. Motivos: punishments.yml
 
 MENUS:
   MAIN: punish
   REASONS: punish-reasons
 
 REASONS-PACK: punishments.yml
+
+STAFF-INSPECT: {}

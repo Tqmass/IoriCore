@@ -25,7 +25,7 @@ public final class DiscordModule implements CoreModule {
     private DiscordBotService bot;
     private DiscordConfig config;
     private DiscordLinkService links;
-    private StaffAuthDiscordBridge staffAuth;
+    private StaffRegRedisPublisher staffRegPublisher;
 
     public DiscordModule(IoriCorePlugin plugin) {
         this.plugin = plugin;
@@ -45,7 +45,8 @@ public final class DiscordModule implements CoreModule {
     @Override
     public void enable() {
         us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, FILE);
-        config = new DiscordConfig(loadYaml());
+        FileConfiguration yaml = loadYaml();
+        config = new DiscordConfig(yaml);
         DiscordLinkSql sql = new DiscordLinkSql(plugin.storage(), plugin.coreLogger());
         links = new DiscordLinkService(
             plugin,
@@ -55,8 +56,8 @@ public final class DiscordModule implements CoreModule {
             config.redeemCooldownSeconds()
         );
         bot = new DiscordBotService(plugin, config);
-        staffAuth = new StaffAuthDiscordBridge(plugin, bot, links);
-        bot.bind(links, staffAuth);
+        bot.bind(links);
+        staffRegPublisher = new StaffRegRedisPublisher(plugin, yaml);
         bot.start();
 
         BukkitCommandBridge.register(plugin, new SyncCommand(plugin, links));
@@ -69,7 +70,7 @@ public final class DiscordModule implements CoreModule {
             bot.stop();
             bot = null;
         }
-        staffAuth = null;
+        staffRegPublisher = null;
         links = null;
         config = null;
     }
@@ -79,16 +80,15 @@ public final class DiscordModule implements CoreModule {
         if (!enabledFlag) return;
 
         us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, FILE);
-        config = new DiscordConfig(loadYaml());
+        FileConfiguration yaml = loadYaml();
+        config = new DiscordConfig(yaml);
+        staffRegPublisher = new StaffRegRedisPublisher(plugin, yaml);
         if (links != null) {
             links.reload(config.codeTtlSeconds(), config.cooldownSeconds(), config.redeemCooldownSeconds());
         }
         if (bot == null) {
             bot = new DiscordBotService(plugin, config);
-            if (links != null) {
-                staffAuth = new StaffAuthDiscordBridge(plugin, bot, links);
-                bot.bind(links, staffAuth);
-            }
+            if (links != null) bot.bind(links);
             bot.start();
             return;
         }

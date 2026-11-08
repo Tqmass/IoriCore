@@ -91,11 +91,14 @@ public final class BungeePluginMessageListener implements Listener {
     }
 
     private void pushStaffAuthSession(ProxiedPlayer player, Server server) {
-        if (core.staffAuth() == null || server == null) return;
+        if (server == null || core.staffReg() == null) return;
 
         BungeeProxyPlayer wrapped = new BungeeProxyPlayer(proxy, player, audiences);
-        if (!core.staffAuth().isStaff(wrapped)) return;
+        boolean staff = core.staffGroups() != null && core.staffGroups().isStaff(wrapped);
+        if (!staff) return;
 
-        server.sendData(PluginChannels.MAIN, core.staffAuth().encodeSessionPayload(player.getUniqueId()));
+        byte ok = (byte) (core.staffReg().isRestricted(player.getUniqueId()) ? 0 : 1);
+        server.sendData(PluginChannels.MAIN, new byte[] { PluginMessageType.STAFF_AUTH_SESSION.id(), ok });
     }
 }
+

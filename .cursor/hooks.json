@@ -4,7 +4,7 @@
     "stop": [
       {
         "type": "prompt",
-        "prompt": "Antes de terminar: 1) aplicar checklist de .cursor/agents/code-reviewer.md y .cursor/skills/post-task-hygiene/SKILL.md 2) estilo Darling (impl/, argument/, enum-file) 3) YAML solo settings+messages salvo webhooks 4) sync velocity↔bungee si hubo duplicación 5) Prettier en YAMLs tocados si Node disponible 6) gradlew.bat build --no-daemon si cambió Java/resources. Resume en ≤10 líneas."
+        "prompt": "Antes de terminar: 1) si hubo implementación, pasar .cursor/agents/repository-auditor.md sobre archivos/módulos tocados (solo lectura; corregir REAL-DUP introducidos) 2) checklist .cursor/agents/code-reviewer.md + .cursor/skills/post-task-hygiene/SKILL.md 3) estilo Darling (impl/, argument/, enum-file) 4) YAML sin fuentes de verdad duplicadas 5) sync velocity↔bungee si hubo lógica proxy compartida 6) Prettier en Java/YAML tocados si Node disponible 7) gradlew.bat build --no-daemon si cambió Java/resources; no afirmar verde sin salida. Resume en ≤10 líneas."
       }
     ]
   }

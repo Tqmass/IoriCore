@@ -80,8 +80,9 @@ public final class DiscordPunishmentHandler {
               : "—";
 
         if (type != DiscordPunishmentType.KICK) {
-            boolean stored = insertPunishment(type, resolved, actor, sanitizedReason, now, expiresAt);
-            if (!stored) return Result.fail("Could not store punishment (SQL unavailable).");
+            if (redis == null || !redis.isConnected()) {
+                return Result.fail("Could not store punishment (Redis unavailable for Core write).");
+            }
         }
 
         if (type.disconnect() || type == DiscordPunishmentType.KICK) {
@@ -95,7 +96,7 @@ public final class DiscordPunishmentHandler {
             banCheck.invalidate(resolved.uuid());
         }
 
-        publishRedis(type, resolved, actor, sanitizedReason, expiresAt);
+        publishRedis(type, resolved, actor, sanitizedReason, expiresAt, type != DiscordPunishmentType.KICK);
         logger.module("Discord", "punishment &f" + type.name() + " &7→ &f" + resolved.name() + " &7by &f" + actor);
 
         return Result.ok(
@@ -113,7 +114,8 @@ public final class DiscordPunishmentHandler {
         ResolvedPlayer target,
         String actor,
         String reason,
-        long expiresAt
+        long expiresAt,
+        boolean persist
     ) {
         if (redis == null) return;
 
@@ -124,51 +126,10 @@ public final class DiscordPunishmentHandler {
         data.addProperty("actor", actor == null ? "Discord" : actor);
         data.addProperty("reason", reason);
         data.addProperty("expires_at", expiresAt);
+        data.addProperty("persist", persist);
         redis.publish(new RedisEvent(ProxyEventType.PUNISHMENT_APPLIED.id(), proxyId, data));
     }
 
-    private boolean insertPunishment(
-        DiscordPunishmentType type,
-        ResolvedPlayer target,
-        String actor,
-        String reason,
-        long createdAt,
-        long expiresAt
-    ) {
-        Optional<MySqlStorageService> mysql = storage == null ? Optional.empty() : storage.mysql();
-        if (mysql.isEmpty() || !storage.isConnected()) return false;
-
-        try {
-            mysql.get().call(connection -> {
-                try (
-                    PreparedStatement ps = connection.prepareStatement(
-                        "INSERT INTO ic_punishments " +
-                            "(type, status, target_uuid, target_name, actor_uuid, actor_name, reason, created_at, expires_at, silent) " +
-                            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 0)"
-                    )
-                ) {
-                    ps.setString(1, type.sqlType());
-                    ps.setString(2, "ACTIVE");
-                    ps.setString(3, target.uuid().toString());
-                    ps.setString(4, target.name());
-                    ps.setString(5, null);
-                    ps.setString(6, actor == null || actor.isBlank() ? "Discord" : truncate(actor, 16));
-                    ps.setString(7, truncate(reason, 512));
-                    ps.setLong(8, createdAt);
-                    if (expiresAt > 0L) ps.setLong(9, expiresAt);
-                    else ps.setObject(9, null);
-                    ps.executeUpdate();
-                    return true;
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
-            });
-            return true;
-        } catch (Exception ex) {
-            logger.warn("Discord punishment SQL failed: " + ex.getMessage());
-            return false;
-        }
-    }
 
     private Optional<ResolvedPlayer> resolvePlayer(String name) {
         Optional<ProxyPlayer> online = platform.findPlayerByName(name);

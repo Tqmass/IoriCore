@@ -83,9 +83,6 @@ public final class ConfigManager {
     private AnalyticsConfig analytics;
 
     @Getter
-    private StaffAuthConfig staffAuth;
-
-    @Getter
     private DiscordConfig discord;
 
     @Getter
@@ -133,7 +130,6 @@ public final class ConfigManager {
         donations = new DonationsConfig(require("donations.yml"));
         friends = new FriendsConfig(require("settings.yml"), settings);
         analytics = new AnalyticsConfig(require("settings.yml").section("analytics"));
-        staffAuth = new StaffAuthConfig(discordYaml);
         discord = new DiscordConfig(
             discordYaml,
             settings.moduleEnabled("donations"),

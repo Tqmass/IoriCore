@@ -1,62 +1,5 @@
 # DECISIONS
 
-## 2026-11-04 — Bukkit config wave (partial)
-- **`/skin` y `/ip`**: solo Discord (JDA); Core los deja off (`MODULES.SKIN/IP`, `commands.yml`). No duplicar en lobby.
-- **Join brand `[S]`**: prefijo aqua **staff-only** (`JOIN.STATUS-LINE` + permiso staff); no broadcast global a jugadores.
-- **Vanish**: debe ocultar al vanished en tab, nametag, `/near`, joins y visibilidad Bukkit (Essentials + StaffMode).
-- **Freeze**: persiste tras reconnect (Redis/sync + snapshot staffmode); no liberar solo por quit sin regla config.
-- **YAML split**: defs pesadas en `data/*.yml`; `database.yml` / `redis.yml` scaffolds Bukkit; toggles en `settings.yml` `MODULES` + `PERSISTENCE`.
-
-## 2026-11-03 — Cierre gaps estructurales (OK usuario)
-- **No** extraer `proxy-common`: la lógica compartida vive en `common/`; duplicar velocity↔bungee **está bien**.
-- **No** renombrar permisos/canal `ioriproxy.*` → es legado aceptado; no migrar.
-- NMS **26.x**: módulo único `nms/v26_R1` (Mojang mappings, CraftBukkit unversioned) para 26.1/26.2/26.3; compile JDK 25 + jars en `Spigot Versions`. Embebido en `META-INF/ioricore-nms/v26_R1.jar` (Shadow/ASM no soporta classfile 69; `VersionMatcher` lo carga con `URLClassLoader`).
-
-## 2026-11-04 — Staffreg + Discord JDA (Core)
-- `/staffreg` exige `MODULES.DISCORD` + bot ready; genera OTC via `DiscordLinkService` → Discord `/staffreg` o `/sync`.
-- Login Approve/Deny por MD solo si JDA Core escucha Redis `STAFF_AUTH_REQUEST` (proxy publica; proxy JDA gated off).
-- `presets.yml` = easter eggs; `join-effects.yml` = join effects (no mezclar).
-- Nametag `[Staff Mode]` solo con Apollo disponible.
-
-## 2026-11-03 — Deploy diferido
-- **No desplegar jars** (Proxy/Lobby/Desktop) hasta cerrar fases R4–R9 + integraciones. Solo compile/shadowJar local para verificar. Deploy = paso final único. *(Superado: deploy oleada final hecho la misma noche.)*
-
-## 2026-11-03 — OVERRIDE usuario (post Claude R1–R2)
-Corrige decisiones previas del mismo día y del agente Claude. Fuente de verdad = este bloque.
-
-### Ownership Proxy vs Core
-- **Proxy (`velocity/` + `bungee/`)**: se queda como IoriProxy — friends, network, Redis, MySQL/H2/**Mongo soft**, staffchat proxy, MOTD proxy, webhooks Discord, presencia, report/helpop de red. **No** meter features de juego (staffmode hotbar, ranks, menús lobby, JoinEffects, chat format Alonso).
-- **Core (`bukkit/`)**: StaffModeX `/staff`, Helium ranks/tags/coinshop, punishments, JoinMOTD/PictureLogin, Darling scoreboard/TAB/nametag, menús YAML modern+legacy, chat formats Alonso-style, sounds, soft-hooks LP/LiteBans/Apollo, JoinEffects, disguise si Helium/Darling lo tienen, **Discord JDA** (bots/canales multi).
-- Comparar siempre refs en `.cursor/_refs` (Helium, Darling, IoriCTW, StaffModeX, EssentialsLite, CoreDub, ChatGames, PictureLogin, JoinEffects, IoriLib) y llevar lo mejor.
-
-### Storage
-- **MongoDB VUELVE** como opción soft/alternativa (Claude la retiró sin OK). Proxy: `DATABASE: H2|MYSQL|MONGODB|NONE`. Core: `STORAGE.BACKEND: h2|mysql|mongo` + `STORAGE.MONGO.*` soft (compileOnly / jar externo). SQL (MySQL/H2) sigue siendo el camino principal para esquema `ic_*` compartido.
-- MySQL/MariaDB principal de producción; H2 fallback local.
-
-### Discord
-- **JDA vive en Core Bukkit** (varios bots / canales por backend). Proxy: webhooks + bridge Redis; staff-auth DM se migrará a Core cuando el bot Bukkit esté listo. Snowfall / refs GitHub = integración JDA.
-- Config YAML estilo IoriCTW (UPPERCASE, separadores `# ***` / `# ────`).
-
-### Legacy / NMS / i18n visual
-- Corte **LEGACY = 1.12.2 (protocol 340) HARDCODED** — no configurable en YAML. Quitar `LEGACY-MAX-VERSION` como knob (dejar comentario histórico OK).
-- NMS / abstracción Core: objetivo compat **1.8.9 → 26.3** (antes 1.21.11); mapear wrappers faltantes progresivamente.
-- Menús: ficheros independientes `menus/modern/<id>.yml` + `menus/legacy/<id>.yml`; textos i18n; diseño editable estilo IoriCTW + ejemplos HonlyCraft (chatcolor, gamemode, smallcaps fsymbols).
-- Chat formats: modern (hex/RGB/MiniMessage) y legacy (`&` codes) en `chat/formats/` separados, sin transformaciones raras.
-- JoinMOTD 1.8.9 + PictureLogin modern; diseños HonlyCraft en `docs/refs`.
-- Monedas UI: Royales / Créditos / Gemas. Brand network: **RoyalCTW**.
-
-### Extras backlog confirmados
-- JoinEffects (wool volcano, rocket, fireworks…) módulo Core — ref `.cursor/_refs/JoinEffects`.
-- Permisos editables (`permissions.yml` / `commands.yml`).
-- Sonidos personalizables (`sounds.yml`).
-
-## 2026-11-03 — Usuario (prompt auditoría funcional) — PARCIALMENTE SUPERSEDIDO
-- **Java 17 bytecode en todo**, incluidos servidores 1.8.9. Java 8 se estudiará más adelante (cierra A4).
-- **Menús: dos implementaciones independientes** Modern (1.16+) y Legacy (1.8.9).
-- **No crear `proxy-common` automáticamente**; preferir `common/` si no mete deps incorrectas (A3 abierta).
-- ~~MongoDB retirada~~ → **ANULADO** por OVERRIDE arriba (Mongo soft restaurado).
-- Referencias: Helium ranks · StaffModeX staffmode · IoriCTW menús · ChatGames · CoreDub staffreg · PictureLogin MOTD · Darling scoreboard/TAB · JoinEffects.
-
 ## 2026-11-01 — Layout YAML Bukkit (i18n-first)
 - **Menus:** `messages/menus/{en,es}.yml` (no `menus.yml` raíz).
 - **Formats:** `messages/formats/{en,es}.yml` + `messages/legacy/formats/{en,es}.yml` (protocol ≤340).
@@ -118,6 +61,27 @@ Corrige decisiones previas del mismo día y del agente Claude. Fuente de verdad 
 
 ## 2026-11-01 — H0 unificación
 - NMS solo Core; JDA un proceso (proxy); Redis=bus; BD esquema único.
+
+## 2026-11-07 — Autonomous development loop
+- Orquestador = agente principal vía regla always-apply `85-autonomous-dev-loop`.
+- Anti-duplicación: agente **solo lectura** `repository-auditor` (antes/después de implementar + hook `stop`).
+- No sistema paralelo: se reutilizan architecture/qa/java/security/config/staffreg existentes.
+- Higiene: `post-task-hygiene` exige pase anti-dup; jar deploy canónico `IoriVelo-*` / `IoriCore-Bukkit-*`.
+- Sustituye: flujo ad-hoc “implementar y listo” sin auditoría de dups.
+
+## 2026-11-07 — Anti-dup ownership (P0/P1)
+- Staff join: **StaffReg** canónico; StaffAuth legacy solo si StaffReg ausente.
+- Core `/staffreg create` → proxy-only; JDA Core siempre BRIDGE-only.
+- Discord punish: Redis `persist` → Core escribe `ic_punishments`; proxy no INSERT.
+- DDL `ic_discord_links` / sync codes → `SchemaCatalog.shared()`; proxy/core mig 3–4 noop.
+- StaffChat Core: local + subscribe; no publish network.
+- Bungee: `BungeeStaffRegListener` (parity Velocity).
+
+## 2026-11-07 — StaffAuth legacy OUT + JDA solo proxy
+- Eliminado paquete `proxy/staffauth`, `/staffauth`, `StaffAuthConfig`, botones legacy StaffAuth en Discord proxy.
+- Auth staff = **solo StaffReg** (módulo `staff-auth` en settings sigue como toggle del feature).
+- Bukkit: sin dep JDA; `DiscordBotService` BRIDGE-only; DM/embeds vía Redis → proxy.
+- Conservado: `StaffAuthEnforce*` (Core), canal Redis `STAFF_AUTH_SESSION`, plantillas `staff-auth`.
 
 ## Abiertas
 - Branding plugin id Velocity `ioriproxy` → `iorivelo` (H3).

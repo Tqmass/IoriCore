@@ -388,6 +388,7 @@ STAFF-AUTH:
 STAFFREG:
   USAGE: "<prefix>&7/staffreg create|link|status"
   CREATE-USAGE: "<prefix>&7Uso: &f/staffreg create <nick> <password>"
+  PROXY-ONLY: "<prefix>&cEl alta staff vive en el &fproxy&c. Usa &f/staffreg &cen IoriVelo."
   STATUS-USAGE: "<prefix>&7Uso: &f/staffreg status <nick>"
   CREATED: "<prefix>&aStaff &f{player} &acreado &8· &f{uuid}"
   INVALID-NICK: "<prefix>&cNick inválido."

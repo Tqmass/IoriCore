@@ -120,10 +120,6 @@ public final class VelocityPresenceListener {
                 core.alts().onJoin(player.getUniqueId(), player.getUsername(), ip);
             }
 
-            if (core.staffAuth() != null) {
-                core.staffAuth().onStaffJoin(new VelocityProxyPlayer(proxy, player), ip);
-            }
-
             if (core.staffReg() != null) {
                 core.staffReg().onStaffJoin(new VelocityProxyPlayer(proxy, player), ip);
             }
@@ -167,10 +163,6 @@ public final class VelocityPresenceListener {
     public void onDisconnect(DisconnectEvent event) {
         if (core.playtime() != null) {
             core.playtime().onQuit(event.getPlayer().getUniqueId());
-        }
-
-        if (core.staffAuth() != null) {
-            core.staffAuth().onQuit(event.getPlayer().getUniqueId());
         }
 
         if (core.friendService() != null) {

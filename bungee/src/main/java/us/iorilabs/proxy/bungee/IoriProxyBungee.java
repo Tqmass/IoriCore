@@ -9,6 +9,7 @@ import us.iorilabs.proxy.bungee.impl.listener.BungeeDonationChatListener;
 import us.iorilabs.proxy.bungee.impl.listener.BungeePluginMessageListener;
 import us.iorilabs.proxy.bungee.impl.listener.BungeePresenceListener;
 import us.iorilabs.proxy.bungee.impl.listener.BungeeStaffChatListener;
+import us.iorilabs.proxy.bungee.impl.listener.BungeeStaffRegListener;
 import us.iorilabs.proxy.bungee.impl.listener.BungeeTabCompleteListener;
 
 @Accessors(fluent = true)
@@ -29,6 +30,11 @@ public final class IoriProxyBungee extends Plugin {
             .getPluginManager()
             .registerListener(this, new BungeePresenceListener(this, core, getProxy(), platform.audiences()));
         getProxy().getPluginManager().registerListener(this, new BungeeCommandBlockerListener(core, platform));
+        if (core.staffReg() != null) {
+            getProxy()
+                .getPluginManager()
+                .registerListener(this, new BungeeStaffRegListener(core, getProxy(), platform.audiences()));
+        }
         getProxy().getPluginManager().registerListener(this, new BungeeStaffChatListener(core));
         getProxy().getPluginManager().registerListener(this, new BungeeTabCompleteListener(core, platform));
         getProxy().getPluginManager().registerListener(this, new BungeeDonationChatListener(core));

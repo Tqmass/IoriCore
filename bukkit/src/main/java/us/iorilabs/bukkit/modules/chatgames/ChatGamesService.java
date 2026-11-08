@@ -68,7 +68,11 @@ public final class ChatGamesService {
 
     public void load() {
         if (!configFile.exists()) {
-            us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/chatgames.yml");
+            if (plugin.getResource("chatgames.yml") != null) {
+                us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "chatgames.yml");
+            } else {
+                us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/chatgames.yml");
+            }
         }
 
         FileConfiguration yaml = YamlConfiguration.loadConfiguration(configFile);

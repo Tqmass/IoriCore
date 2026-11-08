@@ -54,7 +54,11 @@ public final class TagService {
     public void load() {
         tags.clear();
         if (!definitionsFile.exists()) {
-            us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/tags.yml");
+            if (plugin.getResource("tags.yml") != null) {
+                us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "tags.yml");
+            } else {
+                us.iorilabs.bukkit.util.PluginResources.saveDefault(plugin, "data/tags.yml");
+            }
         }
 
         migrateCoinshopIntoTags(definitionsFile);

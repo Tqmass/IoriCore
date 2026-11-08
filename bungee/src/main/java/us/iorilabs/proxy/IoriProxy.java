@@ -36,7 +36,6 @@ import us.iorilabs.proxy.commands.RootCommand;
 import us.iorilabs.proxy.commands.SeenCommand;
 import us.iorilabs.proxy.commands.SendCommand;
 import us.iorilabs.proxy.commands.ServersCommand;
-import us.iorilabs.proxy.commands.StaffAuthCommand;
 import us.iorilabs.proxy.commands.StaffChatCommand;
 import us.iorilabs.proxy.commands.StaffRegCommand;
 import us.iorilabs.proxy.commands.StreamCommand;
@@ -75,7 +74,6 @@ import us.iorilabs.proxy.server.PresenceService;
 import us.iorilabs.proxy.server.ServerRouter;
 import us.iorilabs.proxy.staff.StaffAlertService;
 import us.iorilabs.proxy.staff.StaffGroups;
-import us.iorilabs.proxy.staffauth.StaffAuthService;
 import us.iorilabs.proxy.staffchat.StaffChatService;
 import us.iorilabs.proxy.staffreg.DiscordBridgeConsumer;
 import us.iorilabs.proxy.staffreg.StaffRegService;
@@ -130,7 +128,6 @@ public final class IoriProxy {
     private PlayerDataService playerData;
     private AltService alts;
     private AccountTransferService accountTransfer;
-    private StaffAuthService staffAuth;
     private StaffRegService staffReg;
     private DiscordBridgeConsumer staffRegBridge;
     private BanCheckService banCheck;
@@ -410,17 +407,6 @@ public final class IoriProxy {
         }
 
         if (configs.settings().moduleEnabled("staff-auth")) {
-            staffAuth = new StaffAuthService(
-                platform,
-                logger,
-                language,
-                webhooks,
-                staffGroups,
-                configs.staffAuth(),
-                storage,
-                redis,
-                configs.settings().proxyId()
-            );
             staffReg = new StaffRegService(
                 platform,
                 logger,
@@ -434,8 +420,6 @@ public final class IoriProxy {
             staffReg.bindBanCheck(banCheck);
             String bridgeSecret = bridgeSecret(configs.discord());
             if (discordBot != null) {
-                discordBot.bindStaffAuth(staffAuth);
-                staffAuth.discordSink(discordBot::emitStaffAuth);
                 staffReg.bindDiscord(discordBot, discordLinks, bridgeSecret);
                 staffRegBridge = new DiscordBridgeConsumer(
                     platform,
@@ -453,8 +437,6 @@ public final class IoriProxy {
 
         if (discordBot != null) {
             discordBot.start();
-        } else if (staffAuth != null) {
-            staffAuth.discordSink(null);
         }
 
         registerCommands();
@@ -593,10 +575,6 @@ public final class IoriProxy {
                 discordBot.bindStaffChat(staffChat);
                 staffChat.discordSink(discordBot::onStaffChatFromMinecraft);
             }
-            if (staffAuth != null) {
-                discordBot.bindStaffAuth(staffAuth);
-                staffAuth.discordSink(discordBot::emitStaffAuth);
-            }
         } else {
             if (discordBot != null) {
                 discordBot.stop();
@@ -605,17 +583,10 @@ public final class IoriProxy {
             if (staffChat != null) {
                 staffChat.discordSink(null);
             }
-            if (staffAuth != null) {
-                staffAuth.discordSink(null);
-            }
         }
 
         if (friendService != null) {
             friendService.reloadConfig(configs.friends());
-        }
-
-        if (staffAuth != null) {
-            staffAuth.reload(configs.staffAuth());
         }
 
         if (staffReg != null) {
@@ -760,10 +731,6 @@ public final class IoriProxy {
 
         if (configs.settings().moduleEnabled("friends") && friendService != null) {
             registerConfigured(new FriendsCommand(this, friendService));
-        }
-
-        if (configs.settings().moduleEnabled("staff-auth") && staffAuth != null) {
-            registerConfigured(new StaffAuthCommand(this));
         }
 
         if (configs.settings().moduleEnabled("staff-auth") && staffReg != null) {

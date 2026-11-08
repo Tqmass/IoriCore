@@ -32,10 +32,6 @@ public final class UnsyncCommand implements ProxyCommand {
             source.sendMessage(proxy.language().raw("general.player_only"));
             return;
         }
-        if (proxy.staffAuth() != null && proxy.staffAuth().isPending(player.uuid())) {
-            player.sendMessage(proxy.language().rawFor(player, "sync.blocked_pending"));
-            return;
-        }
         if (!links.available()) {
             player.sendMessage(proxy.language().rawFor(player, "sync.unavailable"));
             return;

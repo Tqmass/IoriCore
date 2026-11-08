@@ -14,7 +14,11 @@ tasks.withType<JavaCompile>().configureEach {
 
 dependencies {
     implementation(project(":nms-api"))
-    compileOnly(files("C:/Users/TqmassPC/Documents/BuildTools/Spigot Versions/spigot-1.8.8.jar"))
+    compileOnly(
+        files(
+            "${(findProperty("iori.spigotVersions") as String?) ?: "D:/Minecraft/BuildTools/Spigot Versions"}/spigot-1.8.8.jar"
+        )
+    )
 }
 
 tasks.jar {

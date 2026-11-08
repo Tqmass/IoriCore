@@ -17,8 +17,10 @@ import us.iorilabs.api.modules.ModuleId;
 import us.iorilabs.bukkit.IoriCorePlugin;
 import us.iorilabs.bukkit.discord.DiscordBotService;
 import us.iorilabs.bukkit.discord.DiscordModule;
-import us.iorilabs.bukkit.discord.StaffAuthDiscordBridge;
+import us.iorilabs.bukkit.discord.StaffRegRedisPublisher;
 import us.iorilabs.bukkit.discord.link.DiscordLinkService;
+import us.iorilabs.staffreg.DiscordEmbedDto;
+import us.iorilabs.staffreg.DiscordMessageRequest;
 import us.iorilabs.bukkit.language.CoreLanguage;
 import us.iorilabs.bukkit.modules.ModuleToggle;
 import us.iorilabs.bukkit.security.PasswordHasher;
@@ -259,16 +261,22 @@ public final class StaffRegService {
         }
 
         DiscordModule discord = discord();
-        if (discord != null && discord.bot() != null && discord.bot().ready()) {
+        if (discord != null && discord.staffRegPublisher() != null) {
             notifyLinkedDm(discord, online, discordId);
         }
     }
 
     private void notifyLinkedDm(DiscordModule discord, Player player, String discordId) {
-        StaffAuthDiscordBridge bridge = discord.staffAuth();
-        if (bridge == null) return;
+        StaffRegRedisPublisher publisher = discord.staffRegPublisher();
+        if (publisher == null) return;
         String playerName = player == null ? "?" : player.getName();
-        bridge.sendRegistrationAck(discordId, playerName);
+        Map<String, String> ph = Map.of("player", playerName, "discord", discordId);
+        publisher.publish(
+            new DiscordMessageRequest()
+                .discordUserId(discordId)
+                .embed(new DiscordEmbedDto().templateKey("staff-reg").placeholders(ph)),
+            true
+        );
     }
 
     private void sendCode(Player player, String code) {
@@ -292,9 +300,9 @@ public final class StaffRegService {
 
     private boolean discordReady(DiscordModule discord) {
         if (discord == null || !plugin.settings().getBoolean("MODULES.DISCORD", false)) return false;
-        DiscordBotService bot = discord.bot();
         DiscordLinkService links = discord.links();
-        return bot != null && bot.ready() && links != null && links.available();
+        DiscordBotService bot = discord.bot();
+        return links != null && links.available() && bot != null && bot.ready();
     }
 
     private DiscordModule discord() {

@@ -144,12 +144,6 @@ COMMANDS:
       - a
       - f
 
-  # — /staffauth ———————————————
-  STAFFAUTH:
-    ALIASES:
-      - staff-auth
-      - sauth
-
   # — /profile —————————————————
   PROFILE:
     ALIASES:

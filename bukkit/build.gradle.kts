@@ -19,7 +19,11 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 dependencies {
-    compileOnly(files("C:/Users/TqmassPC/Documents/BuildTools/Spigot Versions/spigot-1.8.8.jar"))
+    compileOnly(
+        files(
+            "${(findProperty("iori.spigotVersions") as String?) ?: "D:/Minecraft/BuildTools/Spigot Versions"}/spigot-1.8.8.jar"
+        )
+    )
     implementation(project(":common"))
     implementation(project(":api"))
     implementation(project(":nms-api"))
@@ -32,9 +36,6 @@ dependencies {
     implementation("com.zaxxer:HikariCP:5.1.0")
     implementation("com.mysql:mysql-connector-j:9.1.0")
     implementation("redis.clients:jedis:5.2.0")
-    implementation("net.dv8tion:JDA:5.6.1") {
-        exclude(module = "opus-java")
-    }
     implementation("org.mindrot:jbcrypt:0.4")
     compileOnly("org.mongodb:mongodb-driver-sync:5.2.1")
 }
@@ -62,12 +63,6 @@ tasks.shadowJar {
     relocate("com.google.gson", "us.iorilabs.libs.gson")
     relocate("org.mindrot", "us.iorilabs.libs.jbcrypt")
     relocate("net.kyori", "us.iorilabs.libs.kyori")
-    relocate("net.dv8tion.jda", "us.iorilabs.libs.jda")
-    relocate("gnu.trove", "us.iorilabs.libs.trove")
-    relocate("com.neovisionaries", "us.iorilabs.libs.nv")
-    relocate("okhttp3", "us.iorilabs.libs.okhttp3")
-    relocate("okio", "us.iorilabs.libs.okio")
-    relocate("org.apache.commons.collections4", "us.iorilabs.libs.commons.collections4")
     mergeServiceFiles()
 
     // No merge ASM: bytecode 69 (Java 25). Inyectar jar anidado post-shadow.

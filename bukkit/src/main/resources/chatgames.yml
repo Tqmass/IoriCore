@@ -1,0 +1,120 @@
+# *************************************
+# *       IoriCore | ChatGames        *
+# *************************************
+# ~ Ronda automática cada INTERVAL-SECONDS · la pregunta caduca en TIMEOUT-SECONDS
+# ~ TYPES: TRIVIA | REACTION | UNSCRAMBLE | MATH | ALGEBRA (jugables reales)
+# ~ WORDS: pool para REACTION / UNSCRAMBLE
+# ~ MATH / ALGEBRA: rangos de generación
+# ~ Recompensa: MONEY vía EconomyService + COMMANDS de consola opcionales
+# ~ Placeholders en COMMANDS: %player%
+# ~ ANSWERS (trivia): cualquiera de la lista gana (sin distinguir mayúsculas)
+
+# ────────────────────────────
+# AJUSTES
+# ────────────────────────────
+INTERVAL-SECONDS: 300
+TIMEOUT-SECONDS: 45
+MIN-PLAYERS: 1
+WINNER-COOLDOWN-SECONDS: 60
+
+TYPES:
+  - TRIVIA
+  - REACTION
+  - UNSCRAMBLE
+  - MATH
+  - ALGEBRA
+
+# ────────────────────────────
+# RECOMPENSA
+# ────────────────────────────
+REWARD:
+  MONEY: 50
+  COMMANDS: []
+
+# ────────────────────────────
+# MATH / ALGEBRA
+# ────────────────────────────
+MATH:
+  MIN: 1
+  MAX: 20
+  HARD: false
+
+ALGEBRA:
+  MIN: 1
+  MAX: 15
+
+# ────────────────────────────
+# WORDS (reaction / unscramble)
+# ────────────────────────────
+WORDS:
+  - royal
+  - ctw
+  - lobby
+  - diamante
+  - esmeralda
+  - creeper
+  - enderman
+  - nether
+  - portal
+  - dragon
+  - redstone
+  - pikachu
+  - victoria
+  - velocidad
+  - network
+  - survival
+  - bedwars
+  - skywars
+  - kitpvp
+  - amigos
+
+# ────────────────────────────
+# PREGUNTAS (TRIVIA)
+# ────────────────────────────
+QUESTIONS:
+  # ── MINECRAFT ────────────────────────
+  - QUESTION: "&e¿Quién creó Minecraft?"
+    ANSWERS:
+      - Notch
+      - Markus Persson
+  - QUESTION: "&e¿En qué año salió la versión oficial 1.0 de Minecraft?"
+    ANSWERS:
+      - "2011"
+  - QUESTION: "&e¿En qué lenguaje de programación está escrito Minecraft Java Edition?"
+    ANSWERS:
+      - Java
+  - QUESTION: "&e¿Qué mob explota al acercarse a un jugador?"
+    ANSWERS:
+      - Creeper
+  - QUESTION: "&e¿Cómo se llama la dimensión de fuego de Minecraft?"
+    ANSWERS:
+      - Nether
+  - QUESTION: "&e¿Cómo se llama el jefe final que vive en The End?"
+    ANSWERS:
+      - Ender Dragon
+      - Dragón del End
+      - Dragon del End
+      - Enderdragon
+  - QUESTION: "&e¿Qué mineral se necesita para fabricar una pala, pico y espada de diamante?"
+    ANSWERS:
+      - Diamante
+      - Diamantes
+  - QUESTION: "&e¿Cuántos bloques de obsidiana mínimo hacen falta para un portal al Nether sin esquinas?"
+    ANSWERS:
+      - "10"
+      - diez
+  - QUESTION: "&e¿Qué mob suelta perlas de ender?"
+    ANSWERS:
+      - Enderman
+  - QUESTION: "&e¿Qué herramienta se usa para picar piedra más rápido?"
+    ANSWERS:
+      - Pico
+      - Pickaxe
+
+  # ── CULTURA / NETWORK ────────────────
+  - QUESTION: "&e¿Cuál es la capital de España?"
+    ANSWERS:
+      - Madrid
+  - QUESTION: "&eRoyalCTW — ¡escribe el nombre de la network!"
+    ANSWERS:
+      - RoyalCTW

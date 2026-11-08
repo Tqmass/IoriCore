@@ -15,13 +15,6 @@
 - Paper messaging: https://docs.papermc.io/paper/dev/plugin-messaging/
 - Riesgo: cliente puede spoofear canales custom si el proxy reenvía.
 
-## Spigot 26.x NMS (2026-11-03)
-- BuildTools: `--rev 26.1` / `26.2` / `26.3` → jars en `Documents\BuildTools\Spigot Versions`.
-- CraftBukkit **sin** paquete `v26_Rx`: `org.bukkit.craftbukkit.*` + Mojang (`AnvilMenu`, `ServerPlayer`).
-- AnvilMenu API idéntica 26.1.2 / 26.2 / 26.3 → un módulo `nms/v26_R1` compilado vs 26.3 (+ `libs-26.3`).
-- Classfile major **69** (Java 25). Compile con toolchain 25; Lombok AP off.
-- VersionMatcher: `26.*` → `v26_R1`.
-
 ## No verificado aquí
-- Smoke in-game anvil en 26.1/26.2/26.3.
+- Mapeos NMS exactos Paper 1.21+ para features futuras (no hay backend aún).
 - LICENSE formal de Helium/CoreDub en raíz (no encontrada en audit rápido → tratar como no redistribuible).

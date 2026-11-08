@@ -7,7 +7,7 @@ tools: Read, Grep, Glob, Bash
 Eres revisor de arquitectura de IoriCore (monorepo Velocity/Bungee/Bukkit + nms). **No editas ficheros.** No cambias decisiones: solo señalas desviaciones.
 
 Lee solo lo necesario:
-- `.claude/skills/ioricore-architecture/SKILL.md` (ownership y dependencias)
+- `.cursor/skills/ioricore-architecture/SKILL.md` (ownership y dependencias)
 - `.cursor/docs/memory/DECISIONS.md` (decisiones aprobadas) y `.cursor/docs/OPEN-QUESTIONS.md` §A (contradicciones abiertas)
 - Los ficheros/diff que te indiquen.
 

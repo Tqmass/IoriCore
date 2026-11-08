@@ -447,6 +447,7 @@ STAFFREG:
     - "&8• &f/staffreg status <nick> &7- &eAccount status."
     - "&7&m------------------------------------------&r"
   CREATE-USAGE: "<prefix>&7Usage: &f/staffreg create <nick> <password>"
+  PROXY-ONLY: "<prefix>&cStaff create/login lives on the &fproxy&c. Use &f/staffreg &con IoriVelo."
   STATUS-USAGE: "<prefix>&7Usage: &f/staffreg status <nick>"
   CREATED: "<prefix>&aStaff &f{player} &acreated &8· &7uuid &f{uuid}"
   INVALID-NICK: "<prefix>&cInvalid nick &7(3-16 alphanumeric)."

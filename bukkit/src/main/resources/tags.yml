@@ -1,0 +1,217 @@
+# *************************************
+# *         IoriCore | Tags           *
+# *************************************
+# ~ Definiciones de tags (equipados en tags/players/{uuid}.yml)
+# ~ DISPLAY = nombre en menús · EMOJI = símbolo suelto · CHAT = fragmento en el chat
+# ~ PERMISSION = ioricore.tags.<id>
+# ~ PRICE + MATERIAL + DATA = tienda /coinshop (TAG) — 0 = no en tienda
+# ~ CONFIG-VERSION: migración desde data/coinshop.yml
+
+CONFIG-VERSION: 1
+
+TAGS:
+  # ── CLÁSICOS ─────────────────────────
+  heart:
+    DISPLAY: "&cCorazón"
+    PERMISSION: ioricore.tags.heart
+    EMOJI: "&c❤"
+    CHAT: "&8(&c❤&8) "
+    HOVER:
+      - "&cCorazón"
+      - "&7Tag exclusivo RoyalCTW"
+    PRICE: 500
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  star:
+    DISPLAY: "&eEstrella"
+    PERMISSION: ioricore.tags.star
+    EMOJI: "&e✦"
+    CHAT: "&8(&e✦&8) "
+    PRICE: 750
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  crown:
+    DISPLAY: "&6Corona"
+    PERMISSION: ioricore.tags.crown
+    EMOJI: "&6♛"
+    CHAT: "&8(&6♛&8) "
+    PRICE: 1000
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  verified:
+    DISPLAY: "&aVerificado"
+    PERMISSION: ioricore.tags.verified
+    EMOJI: "&a✔"
+    CHAT: "&8(&a✔&8) "
+    PRICE: 1500
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  dollar:
+    DISPLAY: "&2Dólar"
+    PERMISSION: ioricore.tags.dollar
+    EMOJI: "&2$"
+    CHAT: "&8(&2$&8) "
+    PRICE: 1250
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  # ── ELEMENTOS ────────────────────────
+  fire:
+    DISPLAY: "&6Fuego"
+    PERMISSION: ioricore.tags.fire
+    EMOJI: "&6♨"
+    CHAT: "&8(&6♨&8) "
+    PRICE: 800
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  ice:
+    DISPLAY: "&bHielo"
+    PERMISSION: ioricore.tags.ice
+    EMOJI: "&b❄"
+    CHAT: "&8(&b❄&8) "
+    PRICE: 800
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  lightning:
+    DISPLAY: "&eRayo"
+    PERMISSION: ioricore.tags.lightning
+    EMOJI: "&e⚡"
+    CHAT: "&8(&e⚡&8) "
+    PRICE: 900
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  flower:
+    DISPLAY: "&dFlor"
+    PERMISSION: ioricore.tags.flower
+    EMOJI: "&d✿"
+    CHAT: "&8(&d✿&8) "
+    PRICE: 600
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  moon:
+    DISPLAY: "&9Luna"
+    PERMISSION: ioricore.tags.moon
+    EMOJI: "&9☽"
+    CHAT: "&8(&9☽&8) "
+    PRICE: 700
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  sun:
+    DISPLAY: "&eSol"
+    PERMISSION: ioricore.tags.sun
+    EMOJI: "&e☀"
+    CHAT: "&8(&e☀&8) "
+    PRICE: 700
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  # ── COMBATE ──────────────────────────
+  skull:
+    DISPLAY: "&7Calavera"
+    PERMISSION: ioricore.tags.skull
+    EMOJI: "&7☠"
+    CHAT: "&8(&7☠&8) "
+    PRICE: 950
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  sword:
+    DISPLAY: "&cEspada"
+    PERMISSION: ioricore.tags.sword
+    EMOJI: "&c⚔"
+    CHAT: "&8(&c⚔&8) "
+    PRICE: 950
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  bow:
+    DISPLAY: "&6Arco"
+    PERMISSION: ioricore.tags.bow
+    EMOJI: "&6➶"
+    CHAT: "&8(&6➶&8) "
+    PRICE: 850
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  music:
+    DISPLAY: "&9Música"
+    PERMISSION: ioricore.tags.music
+    EMOJI: "&9♫"
+    CHAT: "&8(&9♫&8) "
+    PRICE: 650
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  # ── REALEZA / RANGO ──────────────────
+  king:
+    DISPLAY: "&6Rey"
+    PERMISSION: ioricore.tags.king
+    EMOJI: "&6♚"
+    CHAT: "&8(&6♚&8) "
+    PRICE: 2000
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  queen:
+    DISPLAY: "&dReina"
+    PERMISSION: ioricore.tags.queen
+    EMOJI: "&d♕"
+    CHAT: "&8(&d♕&8) "
+    PRICE: 2000
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  vip:
+    DISPLAY: "&aVIP"
+    PERMISSION: ioricore.tags.vip
+    EMOJI: "&a✪"
+    CHAT: "&8(&a✪&8) "
+    PRICE: 1750
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  elite:
+    DISPLAY: "&bÉlite"
+    PERMISSION: ioricore.tags.elite
+    EMOJI: "&b♦"
+    CHAT: "&8(&b♦&8) "
+    PRICE: 2500
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  ultra:
+    DISPLAY: "&5Ultra"
+    PERMISSION: ioricore.tags.ultra
+    EMOJI: "&5✯"
+    CHAT: "&8(&5✯&8) "
+    PRICE: 3000
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  # ── EVENTOS ──────────────────────────
+  christmas:
+    DISPLAY: "&cNavidad"
+    PERMISSION: ioricore.tags.christmas
+    EMOJI: "&f☃"
+    CHAT: "&8(&c✿&f☃&c✿&8) "
+    PRICE: 1500
+    MATERIAL: NAME_TAG
+    DATA: 0
+
+  halloween:
+    DISPLAY: "&6Halloween"
+    PERMISSION: ioricore.tags.halloween
+    EMOJI: "&6☻"
+    CHAT: "&8(&6☻&8) "
+    PRICE: 1500
+    MATERIAL: NAME_TAG
+    DATA: 0

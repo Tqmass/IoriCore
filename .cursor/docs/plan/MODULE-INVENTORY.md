@@ -3,7 +3,7 @@
 **Brand:** RoyalCTW · **Paquetes:** `us.iorilabs.{bukkit,proxy,common,api,abstraction}`  
 **i18n:** `messages/{en,es}.yml` + `messages/legacy/{en,es}.yml` · layouts `messages/menus|formats/` (+ legacy formats)  
 **Toggles:** `settings.yml` → `MODULES.*` · textos NUNCA hardcode  
-**FINAL en curso:** Coinshop · ChatGames · Bossbar · Discord JDA · kits/Mongo · hygiene legacy i18n+Lombok
+**Fuera de esta oleada (FINAL):** Coinshop completo · comandos Discord de sanciones/JDA embeds avanzados
 
 ---
 
