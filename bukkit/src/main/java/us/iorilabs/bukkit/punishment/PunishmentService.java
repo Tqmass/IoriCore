@@ -141,6 +141,31 @@ public final class PunishmentService {
         long expiresAt,
         boolean silent
     ) {
+        return punish(type, targetId, targetName, actorId, actorName, reason, expiresAt, silent, true);
+    }
+
+    public Punishment punishFromNetwork(
+        PunishmentType type,
+        UUID targetId,
+        String targetName,
+        String actorName,
+        String reason,
+        long expiresAt
+    ) {
+        return punish(type, targetId, targetName, null, actorName, reason, expiresAt, false, false);
+    }
+
+    private Punishment punish(
+        PunishmentType type,
+        UUID targetId,
+        String targetName,
+        UUID actorId,
+        String actorName,
+        String reason,
+        long expiresAt,
+        boolean silent,
+        boolean syncNetwork
+    ) {
         PunishmentType resolved = type == null ? PunishmentType.WARN : type;
         Punishment punishment = new Punishment();
         punishment
@@ -163,7 +188,7 @@ public final class PunishmentService {
         }
 
         persistNow(punishment);
-        if (plugin.punishmentSync() != null) plugin.punishmentSync().applied(punishment);
+        if (syncNetwork && plugin.punishmentSync() != null) plugin.punishmentSync().applied(punishment);
         return punishment;
     }
 

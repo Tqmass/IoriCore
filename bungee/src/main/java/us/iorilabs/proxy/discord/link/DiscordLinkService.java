@@ -2,6 +2,7 @@ package us.iorilabs.proxy.discord.link;
 
 import com.google.gson.JsonObject;
 import java.security.SecureRandom;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,6 +26,8 @@ import us.iorilabs.proxy.redis.RedisService;
 public final class DiscordLinkService {
 
     private static final SecureRandom RANDOM = new SecureRandom();
+    private static final String CODE_ALPHABET = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    private static final int CODE_LENGTH = 10;
     private static final String NOT_LINKED = "";
     private static final String STATE_LINKED = "LINKED";
     private static final String STATE_UNLINKED = "UNLINKED";
@@ -37,9 +40,11 @@ public final class DiscordLinkService {
     private final String proxyId;
     private volatile int codeTtlSeconds;
     private volatile int cooldownSeconds;
+    private volatile int redeemCooldownSeconds;
 
     private final Map<UUID, String> linkCache = new ConcurrentHashMap<>();
     private final Map<UUID, Long> lastRequest = new ConcurrentHashMap<>();
+    private final Map<String, Long> lastRedeemByDiscord = new ConcurrentHashMap<>();
 
     public DiscordLinkService(
         ProxyPlatform platform,
@@ -51,6 +56,20 @@ public final class DiscordLinkService {
         int codeTtlSeconds,
         int cooldownSeconds
     ) {
+        this(platform, redis, language, logger, storage, proxyId, codeTtlSeconds, cooldownSeconds, 5);
+    }
+
+    public DiscordLinkService(
+        ProxyPlatform platform,
+        RedisService redis,
+        LanguageManager language,
+        ProxyLogger logger,
+        StorageService storage,
+        String proxyId,
+        int codeTtlSeconds,
+        int cooldownSeconds,
+        int redeemCooldownSeconds
+    ) {
         this.platform = platform;
         this.redis = redis;
         this.language = language;
@@ -59,12 +78,18 @@ public final class DiscordLinkService {
         this.proxyId = proxyId;
         this.codeTtlSeconds = codeTtlSeconds;
         this.cooldownSeconds = cooldownSeconds;
+        this.redeemCooldownSeconds = Math.max(1, redeemCooldownSeconds);
         redis.subscribe(ProxyEventType.DISCORD_LINK_UPDATE.id(), this::onRemote);
     }
 
     public void reload(int codeTtlSeconds, int cooldownSeconds) {
+        reload(codeTtlSeconds, cooldownSeconds, redeemCooldownSeconds);
+    }
+
+    public void reload(int codeTtlSeconds, int cooldownSeconds, int redeemCooldownSeconds) {
         this.codeTtlSeconds = codeTtlSeconds;
         this.cooldownSeconds = cooldownSeconds;
+        this.redeemCooldownSeconds = Math.max(1, redeemCooldownSeconds);
     }
 
     public boolean available() {
@@ -81,7 +106,7 @@ public final class DiscordLinkService {
     public void requestCode(ProxyPlayer player, Consumer<Optional<String>> callback) {
         lastRequest.put(player.uuid(), System.currentTimeMillis());
         platform.asyncExecutor().execute(() -> {
-            String code = String.format("%06d", RANDOM.nextInt(1_000_000));
+            String code = generateCode();
             long expiresAt = System.currentTimeMillis() + codeTtlSeconds * 1000L;
             boolean saved = sql.saveCode(code, player.uuid(), player.name(), expiresAt);
             callback.accept(saved ? Optional.of(code) : Optional.empty());
@@ -89,9 +114,13 @@ public final class DiscordLinkService {
     }
 
     public Redeem redeem(String rawCode, String discordId) {
-        String code = rawCode == null ? "" : rawCode.trim();
-        if (!code.matches("\\d{6}")) return new Redeem(SyncResult.INVALID_CODE, null, null);
+        String code = rawCode == null ? "" : rawCode.trim().toUpperCase(Locale.ROOT);
+        if (!isValidCode(code)) return new Redeem(SyncResult.INVALID_CODE, null, null);
+        if (discordId == null || discordId.isBlank()) return new Redeem(SyncResult.UNAVAILABLE, null, null);
+        if (isRedeemRateLimited(discordId)) return new Redeem(SyncResult.RATE_LIMITED, null, null);
         if (!sql.available()) return new Redeem(SyncResult.UNAVAILABLE, null, null);
+
+        lastRedeemByDiscord.put(discordId, System.currentTimeMillis());
 
         Optional<DiscordLinkSql.PendingCode> pending = sql.consumeCode(code);
         if (pending.isEmpty()) return new Redeem(SyncResult.INVALID_CODE, null, null);
@@ -137,6 +166,24 @@ public final class DiscordLinkService {
 
     public void evict(UUID uuid) {
         if (uuid != null) linkCache.remove(uuid);
+    }
+
+    private boolean isRedeemRateLimited(String discordId) {
+        Long last = lastRedeemByDiscord.get(discordId);
+        if (last == null) return false;
+        return System.currentTimeMillis() - last < redeemCooldownSeconds * 1000L;
+    }
+
+    private static boolean isValidCode(String code) {
+        return code != null && code.matches("[A-Z0-9]{" + CODE_LENGTH + ",32}");
+    }
+
+    private static String generateCode() {
+        char[] chars = new char[CODE_LENGTH];
+        for (int i = 0; i < CODE_LENGTH; i++) {
+            chars[i] = CODE_ALPHABET.charAt(RANDOM.nextInt(CODE_ALPHABET.length()));
+        }
+        return new String(chars);
     }
 
     private void applyUpdate(UUID uuid, String discordId, boolean notify) {

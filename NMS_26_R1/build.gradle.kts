@@ -14,7 +14,8 @@ tasks.withType<JavaCompile>().configureEach {
     options.compilerArgs.add("-proc:none")
 }
 
-val spigotVersions = "C:/Users/TqmassPC/Documents/BuildTools/Spigot Versions"
+val spigotVersions =
+    (findProperty("iori.spigotVersions") as String?) ?: "D:/Minecraft/BuildTools/Spigot Versions"
 
 dependencies {
     implementation(project(":nms-api"))

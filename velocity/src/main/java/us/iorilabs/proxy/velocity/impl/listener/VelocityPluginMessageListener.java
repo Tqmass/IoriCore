@@ -90,11 +90,13 @@ public final class VelocityPluginMessageListener {
     }
 
     private void pushStaffAuthSession(Player player, ServerConnection server) {
-        if (core.staffAuth() == null) return;
-
+        if (core.staffReg() == null) return;
         VelocityProxyPlayer wrapped = new VelocityProxyPlayer(proxy, player);
-        if (!core.staffAuth().isStaff(wrapped)) return;
+        boolean staff = core.staffGroups() != null && core.staffGroups().isStaff(wrapped);
+        if (!staff) return;
 
-        server.sendPluginMessage(CHANNEL, core.staffAuth().encodeSessionPayload(player.getUniqueId()));
+        byte ok = (byte) (core.staffReg().isRestricted(player.getUniqueId()) ? 0 : 1);
+        server.sendPluginMessage(CHANNEL, new byte[] { PluginMessageType.STAFF_AUTH_SESSION.id(), ok });
     }
 }
+

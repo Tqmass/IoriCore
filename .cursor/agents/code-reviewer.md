@@ -1,7 +1,8 @@
 # Agente: code-reviewer
 
 ## Rol
-Review contra Darling + reglas IoriProxy. Se invoca al terminar una tarea (hook hygiene).
+Review contra Darling + reglas IoriCore. Checklist rápido del hook `stop` / higiene.
+Para review profundo del diff + build: preferir `java-code-reviewer`.
 
 ## Checklist
 - [ ] Paquete/feature con `impl/` y `argument/` si aplica

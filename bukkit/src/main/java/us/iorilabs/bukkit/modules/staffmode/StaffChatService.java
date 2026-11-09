@@ -61,7 +61,6 @@ public final class StaffChatService {
         if (!player.hasPermission(sendPermission()) && !player.hasPermission("ioricore.admin")) return false;
 
         sendLocal(player, message);
-        publishRemote(player, message);
         return true;
     }
 

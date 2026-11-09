@@ -12,7 +12,8 @@ tasks.withType<JavaCompile>().configureEach {
     options.release.set(21)
 }
 
-val spigotVersions = "C:/Users/TqmassPC/Documents/BuildTools/Spigot Versions"
+val spigotVersions =
+    (findProperty("iori.spigotVersions") as String?) ?: "D:/Minecraft/BuildTools/Spigot Versions"
 
 dependencies {
     implementation(project(":nms-api"))

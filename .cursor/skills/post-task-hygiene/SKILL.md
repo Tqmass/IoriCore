@@ -1,24 +1,23 @@
 ---
 name: post-task-hygiene
-description: Checklist after IoriProxy Java/YAML work before marking a task done.
+description: Checklist after IoriCore Java/YAML work before marking a task done. Includes anti-dup via repository-auditor.
 ---
 
 # post-task-hygiene
 
 Run this checklist when Java or resources changed:
 
-1. **Packages** — Feature code duplicated under `velocity/` and `bungee/`; adapters only in `velocity/` or `bungee/` subpackages; command framework in `common/`.
-2. **Sync** — After editing velocity feature files, copy the same paths to bungee (exclude adapter packages).
-3. **Enums** — One enum per file; no nested enums in services.
-4. **Lombok** — Fluent accessors on holders; no hand-written getters; `@RequiredArgsConstructor` on thin services.
-5. **Comments** — No narrative Javadoc; decisions in `.cursor/docs/memory/DECISIONS.md`.
-6. **Prettier** — `npx prettier --write` on touched Java/YAML; then Darling blank-between-methods.
-7. **Messages** — Player strings in `messages/en.yml` and `messages/es.yml`.
-8. **Config** — `ConfigManager.FILES` matches shipped resources.
-9. **Imports / dead code** — Remove unused imports, empty methods, stale classes.
-10. **Build** — `gradlew.bat :velocity:shadowJar :bungee:shadowJar --no-daemon` (JDK 17).
-11. **Deploy** — Copy `IoriProxy-Velocity-*.jar` to
-    `C:\Users\TqmassPC\Desktop\Minecraft Project\Servidores\1. Proxy\plugins`
-    (delete old `IoriProxy-*.jar` first).
+1. **Anti-dup** — Leer/invocar `.cursor/agents/repository-auditor.md` sobre módulos/archivos tocados. Si hay `REAL-DUP` introducido → corregir antes de seguir.
+2. **Packages** — Feature proxy duplicada bajo `velocity/` y `bungee/`; adapters solo en subpaquetes de plataforma; command framework en `common/`.
+3. **Sync** — Tras editar features en velocity, copiar los mismos paths a bungee (excluir paquetes adapter).
+4. **Enums** — Un enum por archivo; sin enums anidados en services.
+5. **Lombok** — Fluent accessors en holders; sin getters a mano; `@RequiredArgsConstructor` en servicios finos.
+6. **Comments** — Sin Javadoc narrativo; decisiones en `.cursor/docs/memory/DECISIONS.md`.
+7. **Prettier** — `npx prettier --write` en Java/YAML tocados; luego blank entre métodos estilo Darling.
+8. **Messages** — Strings de jugador en `messages/en.yml` y `messages/es.yml` (+ legacy si aplica).
+9. **Config** — `ConfigManager.FILES` / resources shippeados alineados; una fuente de verdad por dato.
+10. **Imports / dead code** — Quitar imports sin uso, métodos vacíos, clases stale.
+11. **Build** — `gradlew.bat :velocity:shadowJar :bungee:shadowJar :bukkit:shadowJar --no-daemon` (JDK 17) si tocó esos módulos.
+12. **Deploy** (solo si el usuario lo pidió) — `IoriVelo-*.jar` → plugins del proxy; `IoriCore-Bukkit-*.jar` → backends; borrar jars viejos del mismo artifact.
 
-If any step fails, fix before reporting completion.
+Si algún paso falla, corregir antes de dar la tarea por hecha.

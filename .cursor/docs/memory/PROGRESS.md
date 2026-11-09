@@ -1,16 +1,27 @@
 # PROGRESS
 
-## Cerrado (H0–W3 + FINAL)
-- Essentials (+kits) · FX · chat formats · hooks · staffmode · settings · skin/ip · MOTD
-- Ranks editor Helium-deep · economy/tags · scoreboard · vanish/invsee…
-- Coinshop + ChatGames + BossbarTips
-- Discord JDA proxy (sanciones, embeds, staffchat, staff-auth Approve)
-- SoftMongo · Redis punish invalidate · BanCheck ↔ `ic_punishments`
-- Hygiene: legacy messages Core · Lombok · protocol picker
-- Join brand staff-only `[S] … [Cuenta]` (sin nLogin → Desconocido, no Cracked falso)
-- Jar validado ZIP + Lobby/Desktop · IoriVelo Proxy/Desktop
+## Hecho
+- H0–H5 skeleton · anvil 1.8+1.21 · YAML menus/formats · ranks SQL · deploy 1.1.0
+- Refs: EssentialsLite decompiled → `_refs/EssentialsLite/` · LiteBans RED · imgs 19–21
+- Inventario E2E: `.cursor/docs/plan/MODULE-INVENTORY.md`
 
-## Ops
-- Reiniciar Lobby + Proxy tras deploy
-- Discord: token en `DISCORD.BOT` + intent MESSAGE_CONTENT
-- Coinshop: `MODULES.ECONOMY`+`TAGS`+`COINSHOP`
+## W1/W2 ✓
+- FX sounds/title/actionbar
+- Essentials pack (32 cmds) + spawn/world + PERSISTENCE flags
+- Chat format + Vault/Apollo/nLogin + punish RED
+- StaffMode + /settings + /skin + /ip + JoinMOTD
+
+## W3 ✓
+- Rank editor Helium-deep (anvil + toggles + parents stub)
+- Economy Vault/YAML/SQL + Tags base (sin coinshop) + `{TAG}` en chat
+- Essentials extras: vanish/invsee/clear/bc/healall/give/getpos/disposal
+- ScoreboardModule toggle + Apollo lunar numbers soft
+
+## FINAL (no tocar aún)
+- Coinshop + tags shop
+- Discord JDA bot cmds/embeds/sanciones
+
+## Ownership clave
+- Core = mayoría essentials/visual/staffmode
+- Proxy = network (/ac, friends, alts, JDA único, ban-check)
+- HelpOp/Request = por modalidad

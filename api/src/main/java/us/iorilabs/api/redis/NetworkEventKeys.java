@@ -21,6 +21,7 @@ public final class NetworkEventKeys {
     public static final String IP = "ip";
     public static final String COUNTRY = "country";
     public static final String PLAYER = "player";
+    public static final String PERSIST = "persist";
 
     private NetworkEventKeys() {}
 }

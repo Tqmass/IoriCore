@@ -6,7 +6,8 @@ description: Mantener el conocimiento persistente de IoriCore (MEMORY.md, PHASE-
 # ioricore-project-memory
 
 ## Recuperar contexto (inicio de sesión)
-`.claude/MEMORY.md` (auto-cargado) → doc concreto de su tabla → código. No releer todo `.cursor`.
+`.cursor/docs/memory/MEMORY.md` → doc concreto de su tabla → código. No releer todo `.cursor`.
+Orquestación: regla `85-autonomous-dev-loop` · anti-dup: agente `repository-auditor`.
 
 ## Qué actualizar (solo si cambió)
 | Cambio | Documento |
@@ -19,6 +20,7 @@ description: Mantener el conocimiento persistente de IoriCore (MEMORY.md, PHASE-
 | API verificada / fuente externa | `.cursor/docs/memory/RESEARCH_LOG.md` |
 | Imagen nueva | `.cursor/docs/IMAGE-INDEX.md` |
 | Log histórico de hitos (opcional) | `.cursor/docs/memory/PROGRESS.md` |
+| Agentes / rules / loop de orquestación | `.cursor/INDEX.md` + `.cursor/agents/README.md` (+ DECISIONS si es decisión de proceso) |
 
 ## Reglas
 - Separar siempre: **confirmado** / **propuesto** / **pendiente**; **terminado** / **parcial** / **pendiente**. Una clase o esqueleto ≠ feature terminada.

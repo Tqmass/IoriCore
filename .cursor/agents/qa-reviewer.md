@@ -8,6 +8,7 @@ readonly: true
 Eres el revisor final. No editas archivos: encuentras problemas y los reportas con evidencia.
 
 ## Qué revisas (en este orden)
+0. **Anti-dup (si hubo implementación):** confirmar que el orquestador pasó `repository-auditor` sobre el alcance; si no, invocarlo. No rehacer su informe completo: solo exigir `OK-PARA-SEGUIR` o listar `REAL-DUP` abiertos.
 1. **Build:** compila cada módulo; lista errores y warnings nuevos.
 2. **Referencias huérfanas:** grep de lo eliminado (`queue`, `NETWORK-MSG`, `NETWORK-MESSAGES`, `REASONS-PACK`, `coinshop.yml`, `MATERIAL-FALLBACK`, `NICK-FORMAT`, `STATUS-START`, `STATUS-STOP`). Distingue usos legítimos (`java.util.Queue`).
 3. **Configs:** arranque con yml nuevo y con yml viejo migrado; sin claves desconocidas ni NPE; sin datos duplicados entre ymls; ningún yml que solo apunte a otros.

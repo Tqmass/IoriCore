@@ -11,7 +11,6 @@ import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.guild.member.update.GuildMemberUpdateBoostTimeEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -20,9 +19,6 @@ import us.iorilabs.proxy.discord.enums.DiscordChannelKey;
 import us.iorilabs.proxy.discord.enums.DiscordPunishmentType;
 
 public final class DiscordGatewayListener extends ListenerAdapter {
-
-    @Deprecated
-    public static final String STAFF_AUTH_BUTTON_PREFIX = "staffauth:approve:";
 
     private final DiscordBotService bot;
 
@@ -145,60 +141,6 @@ public final class DiscordGatewayListener extends ListenerAdapter {
         if (config == null || !config.enabled() || !config.status().enabled()) return;
 
         event.replyChoiceStrings(bot.statusChoices(event.getFocusedOption().getValue())).queue();
-    }
-
-    @Override
-    public void onButtonInteraction(ButtonInteractionEvent event) {
-        String id = event.getComponentId();
-        if (id == null) return;
-
-        StaffAuthButtonCodec.Parsed parsed = StaffAuthButtonCodec.parse(id);
-        if (parsed != null) {
-            DiscordConfig config = bot.config();
-            if (config == null || !config.enabled()) {
-                event.reply("Discord bot disabled.").setEphemeral(true).queue();
-                return;
-            }
-
-            boolean ok = bot.handleStaffAuthDmButton(parsed, event);
-            if (ok) {
-                String msg = "a".equals(parsed.action()) ? "✅ Approved." : "⛔ Denied.";
-                event.reply(msg).setEphemeral(true).queue();
-                event.editButton(event.getButton().asDisabled()).queue(null, ignored -> {});
-            } else {
-                event.reply("❌ Invalid, expired, or not authorized.").setEphemeral(true).queue();
-            }
-            return;
-        }
-
-        if (DiscordBotService.isLegacyStaffAuthButton(id)) {
-            String token = DiscordBotService.legacyStaffAuthToken(id);
-            DiscordConfig config = bot.config();
-            if (config == null || !config.enabled()) {
-                event.reply("Discord bot disabled.").setEphemeral(true).queue();
-                return;
-            }
-
-            if (
-                !mayUseCommands(
-                    event.getMember(),
-                    event.getChannel() == null ? "" : event.getChannel().getId(),
-                    config
-                ) &&
-                !hasStaffishPermission(event.getMember())
-            ) {
-                event.reply("❌ Missing Discord role.").setEphemeral(true).queue();
-                return;
-            }
-
-            boolean ok = bot.approveStaffAuth(token, event.getUser().getName(), event.getUser().getId());
-            if (ok) {
-                event.reply("✅ Staff auth approved by **" + event.getUser().getName() + "**.").queue();
-                event.editButton(event.getButton().asDisabled()).queue(null, ignored -> {});
-            } else {
-                event.reply("❌ Token invalid, already used, or self-approve blocked.").setEphemeral(true).queue();
-            }
-        }
     }
 
     @Override

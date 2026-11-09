@@ -4,4 +4,5 @@ public enum SyncResult {
     LINKED,
     INVALID_CODE,
     UNAVAILABLE,
+    RATE_LIMITED,
 }

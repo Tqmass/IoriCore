@@ -6,7 +6,7 @@ tools: Read, Grep, Glob, Bash
 
 Eres revisor de código de IoriCore. **No editas ficheros.**
 
-Contexto mínimo: `.claude/skills/ioricore-java/SKILL.md` + `.claude/skills/ioricore-i18n/SKILL.md`. Revisa solo los ficheros indicados (o el diff que te pasen).
+Contexto mínimo: `.cursor/skills/ioricore-java/SKILL.md` + `.cursor/skills/ioricore-i18n/SKILL.md`. Revisa solo los ficheros indicados (o el diff que te pasen).
 
 Checklist:
 - [ ] Paquete por feature (`command/argument/`, `impl/`, `enums/` un enum por fichero); sin clases Dios.

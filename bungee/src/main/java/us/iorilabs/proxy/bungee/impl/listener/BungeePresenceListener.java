@@ -147,10 +147,6 @@ public final class BungeePresenceListener implements Listener {
                 core.alts().onJoin(player.getUniqueId(), player.getName(), ip);
             }
 
-            if (core.staffAuth() != null) {
-                core.staffAuth().onStaffJoin(wrapped, ip);
-            }
-
             if (core.staffReg() != null) {
                 core.staffReg().onStaffJoin(wrapped, ip);
             }
@@ -198,10 +194,6 @@ public final class BungeePresenceListener implements Listener {
     public void onDisconnect(PlayerDisconnectEvent event) {
         if (core.playtime() != null) {
             core.playtime().onQuit(event.getPlayer().getUniqueId());
-        }
-
-        if (core.staffAuth() != null) {
-            core.staffAuth().onQuit(event.getPlayer().getUniqueId());
         }
 
         if (core.friendService() != null) {

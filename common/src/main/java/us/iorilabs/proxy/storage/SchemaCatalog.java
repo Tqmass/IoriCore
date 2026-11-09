@@ -39,7 +39,34 @@ public final class SchemaCatalog {
                     """
                 ),
                 index("ic_punishments", "idx_ic_punishments_target", "target_uuid, status, type")
-            )
+            ),
+            Migration.of(
+                SHARED,
+                2,
+                "discord links, discord sync codes",
+                sql(
+                    """
+                    CREATE TABLE IF NOT EXISTS ic_discord_links (
+                      uuid CHAR(36) NOT NULL PRIMARY KEY,
+                      discord_id VARCHAR(32) NOT NULL,
+                      linked_at BIGINT NOT NULL
+                    )
+                    """
+                ),
+                index("ic_discord_links", "idx_ic_discord_links_discord", "discord_id"),
+                sql(
+                    """
+                    CREATE TABLE IF NOT EXISTS ic_discord_sync_codes (
+                      code VARCHAR(32) NOT NULL PRIMARY KEY,
+                      uuid CHAR(36) NOT NULL,
+                      name VARCHAR(16) NOT NULL,
+                      expires_at BIGINT NOT NULL
+                    )
+                    """
+                ),
+                index("ic_discord_sync_codes", "idx_ic_discord_sync_codes_uuid", "uuid")
+            ),
+            Migration.of(SHARED, 3, "discord sync codes wider OTC", widenVarchar("ic_discord_sync_codes", "code", 32))
         );
     }
 
@@ -173,33 +200,8 @@ public final class SchemaCatalog {
                     """
                 )
             ),
-            Migration.of(
-                PROXY,
-                3,
-                "discord links, discord sync codes",
-                sql(
-                    """
-                    CREATE TABLE IF NOT EXISTS ic_discord_links (
-                      uuid CHAR(36) NOT NULL PRIMARY KEY,
-                      discord_id VARCHAR(32) NOT NULL,
-                      linked_at BIGINT NOT NULL
-                    )
-                    """
-                ),
-                index("ic_discord_links", "idx_ic_discord_links_discord", "discord_id"),
-                sql(
-                    """
-                    CREATE TABLE IF NOT EXISTS ic_discord_sync_codes (
-                      code VARCHAR(32) NOT NULL PRIMARY KEY,
-                      uuid CHAR(36) NOT NULL,
-                      name VARCHAR(16) NOT NULL,
-                      expires_at BIGINT NOT NULL
-                    )
-                    """
-                ),
-                index("ic_discord_sync_codes", "idx_ic_discord_sync_codes_uuid", "uuid")
-            ),
-            Migration.of(PROXY, 4, "discord sync codes wider OTC", widenVarchar("ic_discord_sync_codes", "code", 32)),
+            Migration.of(PROXY, 3, "discord links owned by shared (noop)"),
+            Migration.of(PROXY, 4, "discord sync codes owned by shared (noop)"),
             Migration.of(
                 PROXY,
                 5,
@@ -386,33 +388,8 @@ public final class SchemaCatalog {
                 index("ic_grants", "idx_ic_grants_player", "player_uuid, removed_at"),
                 index("ic_grants", "idx_ic_grants_rank", "rank_id")
             ),
-            Migration.of(
-                CORE,
-                3,
-                "discord links, discord sync codes",
-                sql(
-                    """
-                    CREATE TABLE IF NOT EXISTS ic_discord_links (
-                      uuid CHAR(36) NOT NULL PRIMARY KEY,
-                      discord_id VARCHAR(32) NOT NULL,
-                      linked_at BIGINT NOT NULL
-                    )
-                    """
-                ),
-                index("ic_discord_links", "idx_ic_discord_links_discord", "discord_id"),
-                sql(
-                    """
-                    CREATE TABLE IF NOT EXISTS ic_discord_sync_codes (
-                      code VARCHAR(32) NOT NULL PRIMARY KEY,
-                      uuid CHAR(36) NOT NULL,
-                      name VARCHAR(16) NOT NULL,
-                      expires_at BIGINT NOT NULL
-                    )
-                    """
-                ),
-                index("ic_discord_sync_codes", "idx_ic_discord_sync_codes_uuid", "uuid")
-            ),
-            Migration.of(CORE, 4, "discord sync codes wider OTC", widenVarchar("ic_discord_sync_codes", "code", 32))
+            Migration.of(CORE, 3, "discord links owned by shared (noop)"),
+            Migration.of(CORE, 4, "discord sync codes owned by shared (noop)")
         );
     }
 }
